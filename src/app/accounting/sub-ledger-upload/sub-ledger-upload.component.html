@@ -1,0 +1,47 @@
+<form #subLedgerUploadForm="ngForm">
+
+  <div class="form-group">
+    <label class="ni-sup">{{fieldTitle['subledgertype']}}</label>
+    <p-select appendTo="body" [options]="modelSvc.subLedgerTypeList" name="subLedgerTypeID"
+      [(ngModel)]="modelSvc.subLedgerDTO.subLedgerTypeID" (onChange)="onSelectSubLedgerType()"
+      placeholder="{{fieldTitle['selectsubledgertype']}}" optionLabel="value" optionValue="id" inputValidator
+      [style]="{ width: '100%' }">
+    </p-select>
+  </div>
+
+  <div class="form-group">
+    <div class="form-row d-flex justify-content-start">
+      <button type="button" class="btn btn-sm btn-primary" [disabled]="!modelSvc.subLedgerDTO.subLedgerTypeID"
+        (click)="exportToExcel()">
+        <img src="../../../assets/images/icons/download.svg" alt="icon">
+        {{fieldTitle['downloadsamplefile']}}
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-group d-flex align-items-center justify-content-between">
+
+      <div class="align-items-center justify-content-end col position-relative">
+        <app-ni-file-single-upload [uploadOption]="modelSvc.fileUpload" (change)="fileUploadModal()"
+          (removeEvent)="onRemoveImage()" [targetObject]="modelSvc.subLedgerDTO.subLedgerFile"
+          class="file-parent">{{fileName}}</app-ni-file-single-upload>
+
+      </div>
+    </div>
+    <div class="form-group mt-3 mb-0">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-danger" (click)="closeModal()">
+          <img src="../../../assets/images/icons/x-circle.svg" alt="icon">
+          {{fieldTitle['close']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" alt="icon"
+          [disabled]="(this.modelSvc.subLedgerDTO.subLedgerTypeID ==null|| this.modelSvc.subLedgerDTO.subLedgerFile.fileName ==null)"
+          (click)="saveProjectUpload(subLedgerUploadForm)">
+          <img src="../../../assets/images/icons/upload.svg" alt="icon">
+          {{fieldTitle['upload']}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

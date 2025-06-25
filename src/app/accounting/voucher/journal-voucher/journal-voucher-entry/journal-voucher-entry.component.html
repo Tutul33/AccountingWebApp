@@ -1,0 +1,612 @@
+<div class="row justify-content-center">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card-head mb-2">
+      <h1 class="section-title">{{isEdit?'Journal Voucher Edit':'Journal Voucher Entry'}}</h1>
+    </div>
+    <div class="card-section">
+      <div class="card-box p-2 mb-4">
+        <div class="nav nav-tabs horizontal-tabs">
+          <button [ngClass]="!this.modelSvc.journalVoucherModel.isMultiEntry ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isSingleEditMode && this.modelSvc.journalVoucherModel.isMultiEntry) ? 'lightgray' : '',
+            'important': true
+          }" 
+            data-bs-toggle="tab" data-bs-target="#navSingle"
+            (click)="tabChange()" [disabled]="this.modelSvc.isSingleEditMode">{{fieldTitle['singleentry']}}</button>
+          <button [ngClass]="this.modelSvc.journalVoucherModel.isMultiEntry ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isMultipleEditMode && !this.modelSvc.journalVoucherModel.isMultiEntry) ? 'lightgray' : '',
+            'important': true
+          }" 
+            data-bs-toggle="tab" data-bs-target="#navMultiple"
+            (click)="tabChange()" [disabled]="this.modelSvc.isMultipleEditMode">{{fieldTitle['multipleentry']}}</button>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div [ngClass]="!this.modelSvc.journalVoucherModel.isMultiEntry ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navSingle">
+          <form #singleJournalVoucherForm="ngForm" [addValidators]="singleValidationMsgObj"
+            validationMessage="voucherValidationModel">
+            <div class="card-box p-3 pb-1 mb-4">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['company']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <!-- <input type="text" name="company" placeholder="Type Company" [(ngModel)]="modelSvc.journalVoucherModel.company" class="form-control" disabled> -->
+                        <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID"
+                        [(ngModel)]="modelSvc.journalVoucherModel.companyID" [disabled]="modelSvc.journalVoucherModel.id>0"
+                        placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator
+                        [style]="{ width: '100%' }"
+                        (onChange)="onChangeCompany()"
+                        ></p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID" [(ngModel)]="modelSvc.journalVoucherModel.orgID" optionLabel="name"
+                          [options]="modelSvc.orgList" optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true" 
+                          [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%',  'border-radius':'7px'} : {'width': '100%' }" 
+                          [disabled]="modelSvc.journalVoucherModel.id>0" 
+                          (onChange)="onSelectOrg(modelSvc.journalVoucherModel)">
+                          <ng-template let-group pTemplate="group">
+                            <div class="flex align-items-center">
+                              <span>{{ group.label }}</span>
+                            </div>
+                          </ng-template>
+                        </p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label>{{fieldTitle['project']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-select appendTo="body" [filter]="true" [showClear]="true" [options]="modelSvc.projectList"
+                          name="projectID" [(ngModel)]="modelSvc.journalVoucherModel.projectID"
+                          (onChange)="onSelectProject(modelSvc.journalVoucherModel)" placeholder="Project"
+                          optionLabel="name" optionValue="id" [style]="{ width: '100%' }" [disabled]="modelSvc.journalVoucherModel.id>0">
+                        </p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['vouchernumber']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" name="voucherNo" placeholder="Type Voucher Number" [(ngModel)]="modelSvc.journalVoucherModel.voucherNo" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['date']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12"
+                          [showIcon]="true" name="voucherDate" [(ngModel)]="modelSvc.journalVoucherModel.voucherDate"
+                          [style]="{ width: '100%' }" inputValidator>
+                        </p-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                <div class="card-box p-3">
+                  <div class="row g-1">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="ni-sup">{{fieldTitle['fromaccountname']}}</label>
+                       <p-select
+                        appendTo="body"
+                        [filter]="true"
+                        [showClear]="true"
+                        filterBy="ledger"
+                        [options]="modelSvc.journalVoucherModel.fromCoaStructureList"
+                        name="fromCOAStructID"
+                        [(ngModel)]="modelSvc.journalVoucherModel.fromCOAStructID"
+                        (onChange)="onSelectFromAccount(modelSvc.journalVoucherModel)"
+                        placeholder="{{fieldTitle['fromaccountname']}}"
+                        filterBy="ledger"
+                        optionLabel="ledger"
+                        optionValue="id"
+                        inputValidator
+                        [style]="{ width: '100%' }"
+                        ></p-select>   
+                                            
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{fieldTitle['balance']}}</label>
+                        <input type="text" name="fromCoaStructBalance" placeholder="Balance"
+                          [(ngModel)]="modelSvc.journalVoucherModel.fromCoaStructBalance" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row g-1">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{fieldTitle['subledger']}}</label>
+                        <p-select
+                        appendTo="body"
+                        [filter]="true"
+                        [showClear]="true"
+                        [options]="modelSvc.journalVoucherModel.fromSubLedgerDetailList"
+                        name="fromSubLedgerDetailID"
+                        [(ngModel)]="modelSvc.journalVoucherModel.fromSubLedgerDetailID"
+                        (onChange)="onSelectFromAccountSubLedger(modelSvc.journalVoucherModel)"
+                        placeholder="Sub Ledger"
+                        optionLabel="name"
+                        optionValue="id"                      
+                        [style]="{ width: '100%' , border:!modelSvc.journalVoucherModel.fromSubLedgerDetailID && modelSvc.journalVoucherModel.fromCOAStructID && modelSvc.journalVoucherModel.fromSubLedgerDetailList.length?'1px solid red !important':'' }"
+                      >
+                      </p-select>                         
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{fieldTitle['balance']}}</label>
+                        <input type="text" name="fromSubLedgerBalance" placeholder="Balance"
+                          [(ngModel)]="modelSvc.journalVoucherModel.fromSubLedgerBalance" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card-box p-3">
+                  <div class="box-head mb-2 d-flex align-items-center">
+                    <h1 class="box-title">{{fieldTitle['amount']}}</h1>
+                  </div>
+                  <div class="row g-1">
+                    <div class="col-md-6">
+                      <div class="form-group mb-0">
+                        <label class="ni-sup">{{fieldTitle['debit']}}</label>
+                        <input niSelect type="text" id="debitVal" name="debitVal" class="form-control" 
+                          (keyup)="onDebitFieldChange(modelSvc.journalVoucherModel,$event)" [niDecimal]="decimalPlace" placeholder="{{fieldTitle['amount']}}"
+                          [(ngModel)]="modelSvc.journalVoucherModel.debitVal" inputValidator>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group mb-0">
+                        <label class="ni-sup">{{fieldTitle['credit']}}</label>
+                        <input niSelect type="text" id="creditVal" name="creditVal" class="form-control"
+                          (keyup)="onCreditFieldChange(modelSvc.journalVoucherModel,$event)" [niDecimal]="decimalPlace" placeholder="{{fieldTitle['amount']}}"
+                          [(ngModel)]="modelSvc.journalVoucherModel.creditVal" inputValidator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card-box p-3">
+                  <div class="row g-1">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="ni-sup">{{fieldTitle['toaccountname']}}</label>
+                        <p-select
+                        appendTo="body"
+                        [filter]="true"
+                        [showClear]="true"
+                        [options]="modelSvc.journalVoucherModel.toCoaStructureList"
+                        name="toCOAStructID"
+                        [(ngModel)]="modelSvc.journalVoucherModel.toCOAStructID"       
+                        (onChange)="onSelectToAccount(modelSvc.journalVoucherModel)"               
+                        placeholder="{{fieldTitle['toaccountname']}}"
+                        optionLabel="ledger"
+                        optionValue="id"
+                        inputValidator
+                        [style]="{ width: '100%' }"
+                      >
+                      </p-select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{fieldTitle['balance']}}</label>
+                        <input type="text" name="toAccountBalance" placeholder="Balance"
+                          [(ngModel)]="modelSvc.journalVoucherModel.toAccountBalance" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row g-1">
+                    <div class="col-md-6">
+                      <div class="form-group mb-0">
+                        <label>{{fieldTitle['subledger']}}</label>
+                      <p-select
+                        appendTo="body"
+                        [filter]="true"
+                        [showClear]="true"
+                        [options]="modelSvc.journalVoucherModel.toSubLedgerDetailList "
+                        name="toSubLedgerDetailID"
+                        [(ngModel)]="modelSvc.journalVoucherModel.toSubLedgerDetailID"  
+                        (onChange)="onSelectToAccountSubLedger(modelSvc.journalVoucherModel)"                   
+                        placeholder="Sub Ledger"
+                        #fromSubLedgerDetailID="ngModel"
+                        optionLabel="name"
+                        optionValue="id"                      
+                        [style]="{ width: '100%',border:!modelSvc.journalVoucherModel.toSubLedgerDetailID && modelSvc.journalVoucherModel.toCOAStructID && modelSvc.journalVoucherModel.toSubLedgerDetailList?.length?'1px solid red !important':'' }"
+                      >
+                      </p-select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group mb-0">
+                        <label>{{fieldTitle['balance']}}</label>
+                        <input type="text" name="toSubledgerBalance" placeholder="Balance"
+                          [(ngModel)]="modelSvc.journalVoucherModel.toSubledgerBalance" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card-box p-3">
+                  <div class="form-group mb-0">
+                    <label>{{fieldTitle['description']}}</label>
+                    <textarea class="form-control" name="description" inputValidator  placeholder="{{fieldTitle['description']}}"
+                      [(ngModel)]="modelSvc.journalVoucherModel.description"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card-box p-3">
+                  <div class="form-group mb-2">
+                    <label>{{fieldTitle['referencedocument']}}</label>
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-warning ms-0" niDbclickPrevent
+                      (click)="fileUploadSingleEntryModal()"><img src="../../../assets/images/icons/upload.svg"
+                        alt="icon" />
+                      {{fieldTitle['upload']}}
+                    </button>
+                  </div> 
+                </div>
+              </div>
+            </div>
+            <div class="card-box p-3">
+              <div class="form-group mb-0">
+                <div class="form-row d-flex justify-content-end align-items-center">
+                  <div class="form-check my-2" *ngIf="isEdit?modelSvc.journalVoucherModel.createdByID==loginUserID:true">
+                    <input class="form-check-input" id="draft" [(ngModel)]="modelSvc.journalVoucherModel.isDraft"
+                      name="draft" type="checkbox" />
+                    <label class="form-check-label" for="draft">{{fieldTitle['draft']}}</label>
+                  </div>
+                  <!-- <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+                  <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download" title="Download"
+                    [disabled]="!isSubmitted" (click)="printVoucher(modelSvc.journalVoucherModel)"></button>
+                  <button type="button" class="btn btn-sm btn-primary" [disabled]="this.modelSvc.isSingleEditMode?true:!isSubmitted" (click)="addNew()">
+                    <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}}
+                  </button> -->
+                  <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+                  [disabled]="modelSvc.journalVoucherModel.id==0" (click)="printVoucher(modelSvc.journalVoucherModel)"></button>
+                  <button type="button" class="btn btn-sm btn-primary" (click)="addNew()">
+                    <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}}
+                  </button>
+                  <button type="button" class="btn btn-sm btn-warning" (click)="onFormResetFormSingle()"
+                    >
+                    <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success"
+                    [disabled]="!singleJournalVoucherForm.dirty"
+                    (click)="singleSave(singleJournalVoucherForm)">
+                    <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div [ngClass]="this.modelSvc.journalVoucherModel.isMultiEntry ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navMultiple">
+          <form #multiJournalVoucherForm="ngForm" [addValidators]="validationMsgObj"
+            validationMessage="voucherValidationModel">
+            <div class="top-card-box p-3 pb-1 mb-3">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <div class="col-md-4">
+                            <label class="ni-sup">{{fieldTitle['company']}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <!-- <input type="text" class="form-control" placeholder="{{fieldTitle['company']}}"
+                              name="companyName" [(ngModel)]="modelSvc.journalVoucherModel.company" disabled /> -->
+                              <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID"
+                              [(ngModel)]="modelSvc.journalVoucherModel.companyID" [disabled]="modelSvc.journalVoucherModel.id>0"
+                              placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator  (onChange)="onChangeCompany()"
+                              [style]="{ width: '100%' }"></p-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="modelSvc.isBranchModuleActive">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <div class="col-md-4">
+                            <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID"
+                              [(ngModel)]="modelSvc.journalVoucherModel.orgID" optionLabel="name"
+                              [options]="modelSvc.orgList" optionValue="id"
+                              placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true"
+                              [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%', 'border-radius':'7px'} : {'width': '100%' }" 
+                              [disabled]="modelSvc.journalVoucherModel.id>0" 
+                              (onChange)="onSelectOrg(modelSvc.journalVoucherModel)">
+                              <ng-template let-group pTemplate="group">
+                                <div class="flex align-items-center">
+                                  <span>{{ group.label }}</span>
+                                </div>
+                              </ng-template>
+                            </p-select>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <div class="col-md-4">
+                            <label class="ni-sup">{{fieldTitle['vouchernumber']}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="VoucherNo" name="voucherNo" disabled
+                              [(ngModel)]="modelSvc.journalVoucherModel.voucherNo" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <div class="col-md-4">
+                            <label class="ni-sup">{{fieldTitle['date']}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12"
+                              [showIcon]="true" name="voucherDate" [(ngModel)]="modelSvc.journalVoucherModel.voucherDate"
+                              [style]="{ width: '100%' }" inputValidator>
+                            </p-datepicker>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6"  *ngIf="modelSvc.isProjectModuleActive">
+                      <div class="form-group">
+                        <div class="row align-items-center">
+                          <div class="col-md-4">
+                            <label>{{fieldTitle['project']}}</label>
+                          </div>
+                          <div class="col-md-8">
+                            <p-select
+                            appendTo="body"
+                            [filter]="true"
+                            [showClear]="true"
+                            [options]="modelSvc.projectList"
+                            name="projectID"
+                            [(ngModel)]="modelSvc.journalVoucherModel.projectID"
+                            (onChange)="onSelectToProjectMulti(modelSvc.journalVoucherModel)"
+                            placeholder="Project"
+                            optionLabel="name"
+                            optionValue="id"     
+                            [disabled]="modelSvc.journalVoucherModel.id>0"                 
+                            [style]="{ width: '100%' }">
+                          </p-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>{{fieldTitle['remarks']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <textarea class="form-control" name="remarks" [(ngModel)]="modelSvc.journalVoucherModel.remarks" placeholder="{{fieldTitle['remarks']}}"
+                          inputValidator></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <app-ni-table  [gridOption]="gridOption"
+            [valueList]="modelSvc.journalVoucherModel.voucherItemList" class="scrollable-table">
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+              <tr
+                [ngModelGroup]="item.id"
+                [objWatcher]="item"
+                [addValidators]="validationMsgObj"
+                validationMessage="voucherValidationItemModel"
+                *ngIf="item.tag !== 2"
+                >                      
+                <td>   
+                   <p-select
+                    appendTo="body"
+                    [filter]="true"
+                    [showClear]="true"
+                    [options]="item.fromCoaStructureList"
+                    name="fromCOAStructID"
+                    [(ngModel)]="item.fromCOAStructID"
+                    (onChange)="onSelectFromAccountMulti(item)" 
+                    placeholder="From Account Name"
+                    optionLabel="ledger"
+                    optionValue="id"
+                    inputValidator
+                    [style]="{ width: '100%' }">
+                  </p-select>
+                </td>                
+                <td class="text-end">{{item.fromCoaStructBalance}}</td>
+                <td>
+                  <p-select
+                    appendTo="body"
+                    [filter]="true"
+                    [showClear]="true"
+                    [options]="item.fromSubLedgerDetailList"
+                    name="fromSubLedgerDetailID"
+                    [(ngModel)]="item.fromSubLedgerDetailID"
+                    (onChange)="onSelectFromAccountSubLedgerMulti(item)"
+                    placeholder="Sub Ledger"
+                    optionLabel="name"
+                    optionValue="id"              
+                    [style]="{ width: '100%',border:!item.fromSubLedgerDetailID && item.fromCOAStructID && item.fromSubLedgerDetailList?.length?'1px solid red !important':'' }"
+                    >
+                  </p-select>
+                </td>
+                <td class="text-end">{{item.fromSubLedgerBalance}}</td>
+                <td>
+                    <textarea class="form-control" name="description" [(ngModel)]="item.description" inputValidator  placeholder="{{fieldTitle['description']}}"></textarea>
+                </td>
+                <td class="text-end">
+                  {{item.budget}}
+                </td>
+                <td>                    
+                  <input id="debitVal_{{rowIndex}}" placeholder="{{fieldTitle['amount']}}" niSelect type="text" name="debitVal" class="form-control" (keyup)="onDebitFieldChange(item,$event,rowIndex)" [niDecimal]="decimalPlace" [(ngModel)]="item.debitVal" inputValidator [ngStyle]="{'border-color':item.isInvalidDebitValue?'red':'gray'}">
+                </td>
+                <td>
+                  <input id="creditVal_{{rowIndex}}" placeholder="{{fieldTitle['amount']}}" niSelect type="text" name="creditVal" class="form-control" (keyup)="onCreditFieldChange(item,$event,rowIndex)" [niDecimal]="decimalPlace" [(ngModel)]="item.creditVal" inputValidator [ngStyle]="{'border-color':item.isInvalidCreditValue?'red':'gray'}">
+                </td>
+                <td>
+                   <p-select
+                    appendTo="body"
+                    [filter]="true"
+                    [showClear]="true"
+                    [options]="item.toCoaStructureList"
+                    name="toCOAStructID"
+                    [(ngModel)]="item.toCOAStructID"
+                    (onChange)="onSelectToAccountMulti(item)" 
+                    placeholder="To Account Name"
+                    optionLabel="ledger"
+                    optionValue="id"
+                    inputValidator
+                    [style]="{ width: '100%' }">
+                  </p-select>
+                </td>
+                <td>
+                   <p-select
+                    appendTo="body"
+                    [filter]="true"
+                    [showClear]="true"
+                    [options]="item.toSubLedgerDetailList"
+                    name="toSubLedgerDetailID"
+                    [(ngModel)]="item.toSubLedgerDetailID"
+                    (onChange)="onSelectToAccountSubLedgerMulti(item)"
+                    placeholder="Sub Ledger"
+                    optionLabel="name"
+                    optionValue="id" 
+                    [style]="{ width: '100%',border:!item.toSubLedgerDetailID && item.toCOAStructID && item.toSubLedgerDetailList?.length?'1px solid red !important':'' }"
+                    >
+                  </p-select>
+                </td>
+                           
+                <td>
+                  <div class="d-flex justify-content-center">
+                    <button pRipple pButton class="btn p-button-warning me-0" title="{{fieldTitle['ref.doc']}}" type="button" niDbclickPrevent (click)="fileUploadMultiEntryModal(item)" icon="pi pi-upload"></button>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-center">
+                    <button pRipple pButton class="btn p-button-danger m-0" title="{{fieldTitle['delete']}}" type="button" (click)="removeVoucherItem(item)" icon="pi pi-trash"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>  
+            <ng-template pTemplate="footer">
+              <tr>
+                <td colspan="12"> 
+                  <button type="button" class="btn btn-sm btn-primary"  (click)="addNewJournalItem()">
+                  <img src="../../../assets/images/icons/plus-circle.svg" alt="icon"> {{fieldTitle['addmore']}}
+                </button>
+              </td>
+              </tr>
+              <tr>
+                <td colspan="6">
+                  <span class="pull-right">{{fieldTitle['totalamount']}}</span>
+                </td>
+                <td class="text-end">{{modelSvc.totalDebit.toFixed(decimalPlace)}}</td>
+                <td class="text-end">{{modelSvc.totalCredit.toFixed(decimalPlace)}}</td>
+                <td>
+                  <!-- <span class="pull-right">{{fieldTitle['diffamount']}}</span> -->
+                </td>
+                <td class="text-end">
+                  <!-- {{getTotalDifference()}} -->
+                </td>
+                <td colspan="2"></td>
+              </tr>
+              <!-- <tr>
+                <td colspan="6"> <span class="pull-right">{{fieldTitle['diffamount']}}</span></td>
+                <td >{{modelSvc.totalDebit-modelSvc.totalCredit}}</td>
+                <td colspan="5"></td>
+              </tr> -->
+            </ng-template>          
+            </app-ni-table>
+            <div class="form-group mt-2 mb-0">
+              <div class="form-row d-flex justify-content-end">
+                <div class="form-row d-flex align-items-center">
+                  <div class="form-check my-2" *ngIf="isEdit?modelSvc.journalVoucherModel.createdByID==loginUserID:true">
+                    <input class="form-check-input" id="draft" [(ngModel)]="modelSvc.journalVoucherModel.isDraft"
+                      name="draft" type="checkbox" />
+                    <label class="form-check-label" for="draft">Draft</label>
+                  </div>
+                  <!-- <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+                  <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download" title="{{fieldTitle['download']}}"
+                    [disabled]="!isSubmitted" (click)="printVoucher(modelSvc.journalVoucherModel)"></button>
+                  <button type="button" class="btn btn-sm btn-primary" (click)="addNew()"
+                  [disabled]="this.modelSvc.isMultipleEditMode?true:(!isSubmitted && !isEdit)" >
+                    <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}}
+                  </button> -->
+                  <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+                  [disabled]="modelSvc.journalVoucherModel.id==0" (click)="printVoucher(modelSvc.journalVoucherModel)"></button>
+                  <button type="button" class="btn btn-sm btn-primary" (click)="addNew()">
+                  <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}}
+                  </button>
+                 
+                  <button type="button" class="btn btn-sm btn-warning" (click)="onFormResetFormMultiple()"
+                    >
+                    <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success"
+                    [disabled]="!multiJournalVoucherForm.dirty"
+                    (click)="multiSave(multiJournalVoucherForm)">
+                    <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

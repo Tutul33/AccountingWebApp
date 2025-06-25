@@ -1,0 +1,70 @@
+
+<div class="card-body">
+  <button type="button" class="btn btn-sm btn-success ms-0 mb-2" niDbclickPrevent (click)="selectUsers()">
+    {{ fieldTitle["selectuser"] }}
+  </button>
+  <div class="row">
+    <div class="col-lg-8">
+      <app-ni-table [gridOption]="gridOptionUserGroup" [valueList]="modelSvc.userList"
+        class=" smaller-elements">
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <td>
+              {{ item.userID }}
+            </td>
+            <td>
+              {{ item.hR_EmployeeID }}
+            </td>
+            <td>
+              {{ item.employeeName }}
+            </td>
+            <td>
+              {{ item.organization }}
+            </td>
+            <td>
+              {{ item.designation }}
+            </td>
+            <td class="not-last-child text-center">
+              <div class="d-flex align-items-center justify-content-center">
+                <button type="button" niDbclickPrevent class="p-button-danger" pButton pRipple icon="pi pi-trash"
+                  (click)="remove(item)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </app-ni-table>
+    </div>
+    <div class="col-lg-4">
+      <app-ni-table [gridOption]="gridOptionRole" [valueList]="modelSvc.roleList"
+        class=" smaller-elements">
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <td>
+              {{ item.name }}
+            </td>
+            <td class="not-last-child text-center">
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="form-check">
+                  <input type="checkbox" [(ngModel)]="item.isSelected" id="isSelected_{{rowIndex+1}}"
+                  name="isSelected_{{rowIndex+1}}" class="form-check-input" />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </app-ni-table>
+      <div class="d-flex align-items-center justify-content-end mt-2">
+        <button type="button" class="btn btn-sm btn-success" (click)="save()">
+          <img src="../../../assets/images/icons/save.svg" alt="save" />{{
+            fieldTitle["save"]
+          }}
+        </button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+          <img src="../../../assets/images/icons/repeat.svg" alt="reset" />{{
+            fieldTitle["reset"]
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

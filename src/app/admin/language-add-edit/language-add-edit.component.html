@@ -1,0 +1,44 @@
+
+<form #languageForm="ngForm" class="divided"  [addValidators]="validationMsgObj" validationMessage="languageValidationModel">
+    <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["name"]}}</label>
+        <input class="form-control" type="text" inputValidator  [(ngModel)]="modelSvc.languageModel.languageName" name="language" placeholder="Language"/>
+    </div>
+    <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["language"]+" "+fieldTitle["code"]}}</label>
+        <input class="form-control" type="text" inputValidator [(ngModel)]="modelSvc.languageModel.code" name="code" placeholder="Type Language Code"/>
+    </div>
+    <div class="form-group">
+        <label title="">{{fieldTitle["language"]+" "+fieldTitle["name"]}}</label>
+        <input class="form-control" type="text" [(ngModel)]="modelSvc.languageModel.native" name="native" placeholder="Type Native Name"/>
+    </div>
+    <div class="form-group">
+        <label title="{{fieldTitle['image']}}">{{fieldTitle['image']}}</label>
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="align-items-center justify-content-start">
+                <app-ni-file-single-view [uploadOption]="modelSvc.imageFileUploadOption" [targetObject]="modelSvc.languageModel.laguageImage" [objectId]="modelSvc.languageModel.laguageImage.id"></app-ni-file-single-view>
+            </div>
+            <div class="align-items-center justify-content-end col position-relative">
+                <app-ni-file-single-upload (change)="onImageChange()" (removeEvent)="onRemoveImage()" [uploadOption]="modelSvc.imageFileUploadOption" [targetObject]="modelSvc.languageModel.laguageImage"  class="file-parent"></app-ni-file-single-upload>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">                    
+        <div class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" id="activeLanguage" name="activeLanguage"
+                [(ngModel)]="modelSvc.languageModel.isActive">
+            <label for="activeLanguage" class="form-check-label ml-5">{{fieldTitle["isactive"]}}</label>
+        </div>                    
+    </div>       
+    <div class="form-group">
+        <div class="d-flex align-items-center justify-content-end">
+            <button type="button" class="btn btn-sm btn-success mr-d-10" (click)="save(languageForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="reset">Save 
+            </button>
+            <button type="button" class="btn btn-sm btn-danger mr-d-10" (click)="closeModal()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="reset">Close 
+            </button>
+        </div>
+    </div>
+</form>
+

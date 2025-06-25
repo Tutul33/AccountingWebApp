@@ -1,0 +1,681 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['voucherapprovallist']}}</h1>
+</div>
+<div class="card-section">
+  <div class="top-card-box p-3 pb-1 mb-3">
+    <form #filterForm="ngForm" class="divided" [addValidators]="validationMsgObj"
+    validationMessage="filterValidationObj">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['company']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Company" [(ngModel)]="modelSvc.searchParam.companyID"
+                  [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                  optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.searchParam" textProperty="company"
+                  inputValidator [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['unit/branch']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-multiSelect appendTo="body" placeholder="Select {{fieldTitle['unit/branch']}}"
+                  [(ngModel)]="modelSvc.searchParam.orgID" 
+                  [filter]="true" 
+                  [group]="true"
+                  (onChange)="modelSvc.prepareLedgerList()"
+                  [options]="modelSvc.officeBranchList" filterBy="name"
+                   name="orgID" optionLabel="name" optionValue="id"
+                  [group]="true" [style]="{ width: '100%' }">
+                  <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                      <span>{{ group.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-multiSelect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['project']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-multiSelect appendTo="body" placeholder="Select Project" 
+                  [(ngModel)]="modelSvc.searchParam.projectID"
+                  [filter]="true" filterBy="name" 
+                  (onChange)="modelSvc.prepareLedgerList()"
+                  [options]="modelSvc.projectList" name="projectID" optionLabel="name"
+                  optionValue="id" [style]="{ width: '100%' }">
+                </p-multiSelect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['invoicebillrefno']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" name="invoiceBillRefNo" [(ngModel)]="modelSvc.searchParam.invoiceBillRefNo"
+                  placeholder="Type Inv/Bill Ref. No" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['ledger']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Ledger" 
+                  [(ngModel)]="modelSvc.searchParam.toCOAStructID"
+                  [filter]="true"
+                  [showClear]="true"
+                  [options]="modelSvc.ledgerList"
+                  name="toCOAStructID" optionLabel="ledger" optionValue="id" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['subledgertype']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-multiSelect appendTo="body" placeholder="Select Sub Ledger Type"
+                  [(ngModel)]="modelSvc.searchParam.toSubLedgerTypeID" [filter]="true"
+                  [options]="modelSvc.subLedgerTypeList" name="toSubLedgerTypeID" optionLabel="name" optionValue="id"
+                  [style]="{ width: '100%' }" (onChange)="onChangeSubLedgerType()">
+                </p-multiSelect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['subledger']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-multiSelect appendTo="body" placeholder="Select Sub Ledger"
+                  [(ngModel)]="modelSvc.searchParam.toSubLedgerDetailID" [filter]="true"
+                  [options]="modelSvc.subLedgerList"
+                  name="toSubLedgerDetailID" optionLabel="name" optionValue="id" [style]="{ width: '100%' }">
+                </p-multiSelect>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['vouchernumber']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" name="voucherNo" [(ngModel)]="modelSvc.searchParam.voucherNo"
+                  placeholder="Type Voucher No" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <!-- <label class="ni-sup">{{fieldTitle['voucherdatefrom-to']}}</label> -->
+                <label>{{fieldTitle['voucherdatefrom-to']}}</label>
+              </div>
+              <div class="col-md-8">
+                <div class="row g-1">
+                  <div class="col-md-6">
+                    <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.fromDate" name="fromDate"
+                      [readonlyInput]="true" 
+                      [showIcon]="true" 
+                      (onSelect)="modelSvc.onChangeFromDate()" 
+                      [maxDate]="modelSvc.searchParam.toDate"
+                      [style]="{ width: '100%' }" 
+                      inputValidator>
+                    </p-datepicker>
+                  </div>
+                  <div class="col-md-6">
+                    <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.toDate" name="toDate"
+                      [readonlyInput]="true" 
+                      [showIcon]="true"  
+                      [minDate]="modelSvc.searchParam.fromDate"
+                      (onSelect)="modelSvc.isRefresh = true" 
+                      [maxDate]="modelSvc.maxDate"
+                      [style]="{ width: '100%' }" 
+                      inputValidator>
+                    </p-datepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['transactionmode']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Transaction Mode"
+                  [(ngModel)]="modelSvc.searchParam.tranModeCd" [filter]="true" [showClear]="true" [options]="modelSvc.transactionModeList"
+                  name="tranModeCd" optionLabel="value" optionValue="code" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['vouchertype']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Voucher Type" [(ngModel)]="modelSvc.searchParam.voucherTitleCd"
+                  [filter]="true"
+                  [showClear]="true"
+                  [options]="modelSvc.voucherTitleList"
+                  name="voucherTypeCd" optionLabel="voucherTitle" optionValue="id" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <div class="d-flex align-items-center justify-content-end">
+              <button type="button" class="btn btn-sm btn-warning" (click)="reset(filterForm)">
+                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-primary" (click)="search(filterForm)">
+                <img src="../../../assets/images/icons/search.svg" alt="icon"> {{fieldTitle['search']}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button type="button" niDbclickPrevent class="p-button-success" pRipple pButton (click)="approve()">
+      <img src="../../../assets/images/icons/check-circle.svg" alt="icon">
+      {{fieldTitle['approve']}}
+    </button>
+    <button type="button" niDbclickPrevent class="p-button-danger" pRipple pButton (click)="nonApprove()">
+      <img src="../../../assets/images/icons/x-circle.svg" alt="icon">
+      {{fieldTitle['cancelapproval']}}
+    </button>
+  </div>
+  <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.voucherList" class="scrollable-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th  style="min-width:150px" pFrozenColumn>{{fieldTitle['company']}}</th>
+        <th *ngIf="this.modelSvc.isBranchModuleActive" style="min-width:150px" pFrozenColumn [frozen]="this.modelSvc.isBranchModuleActive">{{fieldTitle['unit/branch']}}</th>
+        <th *ngIf="this.modelSvc.isProjectModuleActive" style="min-width:150px" pFrozenColumn [frozen]="this.modelSvc.isProjectModuleActive">{{fieldTitle['project']}}</th>
+        <th style="min-width:150px" pFrozenColumn>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['vouchernumber']}}
+            <ni-columnFilter field="voucherNo" matchMode="in" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridVoucherNoList" optionLabel="VoucherNo"
+                    [filter]="true" optionValue="VoucherNo" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="VoucherNo">
+                      <span>{{ option["VoucherNo"] }}</span>
+                    </ng-template>
+                  </p-select>
+                </ng-template>
+              </ni-columnFilter>
+          </div>
+        </th>
+        <th style="min-width:100px" pFrozenColumn>{{fieldTitle['voucherdate']}}</th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['fromaccountname']}}
+            <ni-columnFilter field="fromLedger" matchMode="equals" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridFromLedgerList" optionLabel="FromLedger"
+                    [filter]="true" optionValue="FromLedger" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="FromLedger">
+                      <span>{{ option["FromLedger"] }}</span>
+                    </ng-template>
+                  </p-select>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['subledgertype']}}
+            <ni-columnFilter field="fromSubLedgerType" matchMode="equals" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridFromSubLedgerTypeList" optionLabel="FromSubLedgerType"
+                    [filter]="true" optionValue="FromSubLedgerType" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="FromSubLedgerType">
+                      <span>{{ option["FromSubLedgerType"] }}</span>
+                    </ng-template>
+                  </p-select>
+                </ng-template>
+              </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['subledgername']}}
+            <ni-columnFilter field="fromSubLedgerDetail" matchMode="in" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="modelSvc.gridFromSubledgerDetailList" optionLabel="FromSubLedgerDetail"
+                    [filter]="true" optionValue="FromSubLedgerDetail" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="FromSubLedgerDetail">
+                      <span>{{ option["FromSubLedgerDetail"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+          {{fieldTitle['toaccountname']}}
+          <ni-columnFilter field="toLedger" matchMode="equals" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridLedgerList" optionLabel="ToLedger"
+                  [filter]="true" optionValue="ToLedger" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="ToLedger">
+                    <span>{{ option["ToLedger"] }}</span>
+                  </ng-template>
+                </p-select>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['subledgertype']}}
+            <ni-columnFilter field="toSubLedgerType" matchMode="equals" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridSubLedgerTypeList" optionLabel="ToSubLedgerType"
+                    [filter]="true" optionValue="ToSubLedgerType" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="ToSubLedgerType">
+                      <span>{{ option["ToSubLedgerType"] }}</span>
+                    </ng-template>
+                  </p-select>
+                </ng-template>
+              </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['subledgername']}}
+            <ni-columnFilter field="toSubLedgerDetail" matchMode="in" display="menu" [hideOnClear]="true"
+              [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="modelSvc.gridSubledgerDetailList" optionLabel="ToSubLedgerDetail"
+                    [filter]="true" optionValue="ToSubLedgerDetail" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="ToSubLedgerDetail">
+                      <span>{{ option["ToSubLedgerDetail"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+          </div>
+        </th>
+        <th>{{fieldTitle['transactionmode']}}</th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['chequeno']}}
+            <ni-columnFilter field="chequeNo" matchMode="equals" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridChecqueNoList" optionLabel="ChequeNo"
+                  [filter]="true" optionValue="ChequeNo" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="ChequeNo">
+                    <span>{{ option["ChequeNo"] }}</span>
+                  </ng-template>
+                </p-select>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['chequeissuedate']}}
+            <ni-columnFilter type="date" field="chequeDate" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['clearedondate']}}
+            <ni-columnFilter type="date" field="clearedOnDate" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>{{fieldTitle['description']}}</th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['debitamount']}}
+            <ni-columnFilter type="numeric" field="debitVal" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['creditamount']}}
+            <ni-columnFilter type="numeric" field="creditVal" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['invoicebillrefno']}}
+            <ni-columnFilter field="invoiceBillRefNo" matchMode="equals" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridInvBillList" optionLabel="InvoiceBillRefNo"
+                  [filter]="true" optionValue="InvoiceBillRefNo" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="InvoiceBillRefNo">
+                    <span>{{ option["InvoiceBillRefNo"] }}</span>
+                  </ng-template>
+                </p-select>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>{{fieldTitle['createddate&time']}}</th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['createdby']}}
+            <ni-columnFilter field="createdBy" matchMode="in" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-multiSelect appendTo="body" [ngModel]="value" [options]="modelSvc.gridCreatedByList" optionLabel="CreatedBy"
+                  [filter]="true" optionValue="CreatedBy" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="CreatedBy">
+                    <span>{{ option["CreatedBy"] }}</span>
+                  </ng-template>
+                </p-multiSelect>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['lastmodified']}}
+            <ni-columnFilter field="lastUpdate" matchMode="in" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-multiSelect appendTo="body" [ngModel]="value" [options]="modelSvc.gridLastModifiedList" optionLabel="LastUpdate"
+                  [filter]="true" optionValue="LastUpdate" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="LastUpdate">
+                    <span>{{ option["LastUpdate"] }}</span>
+                  </ng-template>
+                </p-multiSelect>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['modifiedby']}}
+            <ni-columnFilter field="editedBy" matchMode="in" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-multiSelect appendTo="body" [ngModel]="value" [options]="modelSvc.gridModifiedByList" optionLabel="EditedBy"
+                  [filter]="true" optionValue="EditedBy" (onChange)="filter($event.value)"
+                  placeholder="{{fieldTitle['selectany']}}">
+                  <ng-template let-option pTemplate="EditedBy">
+                    <span>{{ option["EditedBy"] }}</span>
+                  </ng-template>
+                </p-multiSelect>
+              </ng-template>
+            </ni-columnFilter>
+          </div>
+        </th>
+        <th>{{fieldTitle['ref.doc']}}</th>
+        <th>{{fieldTitle['email']}}</th>
+        <th>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            {{fieldTitle['status']}}
+            <ni-columnFilter field="voucherStatus" matchMode="equals" display="menu" [hideOnClear]="true"
+            [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-select appendTo="body" [ngModel]="value" [options]="modelSvc.gridVoucherStatusList" optionLabel="VoucherStatus"
+                [filter]="true" optionValue="VoucherStatus" (onChange)="filter($event.value)"
+                placeholder="{{fieldTitle['selectany']}}">
+                <ng-template let-option pTemplate="VoucherStatus">
+                  <span>{{ option["VoucherStatus"] }}</span>
+                </ng-template>
+              </p-select>
+            </ng-template>
+          </ni-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="d-flex align-items-center justify-content-center gap-2">
+            {{fieldTitle['action']}}
+            <div class="form-check me-0">
+              <input type="checkbox" name="isSelectAll" class="form-check-input" [(ngModel)]="modelSvc.isSelectAll"
+                (ngModelChange)="onSelectAllIsApproved()">
+            </div>
+          </div>
+        </th>
+        <!-- <th>
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="form-check me-0">
+              <input type="checkbox" name="isSelectAll" class="form-check-input" [(ngModel)]="modelSvc.isSelectAll"
+                (ngModelChange)="onSelectAllIsApproved()">
+            </div>
+          </div>
+        </th> -->
+        <th>{{fieldTitle['auditorscomments']}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+      <tr>
+        <td  style="min-width:150px" pFrozenColumn>{{ entity.company }}</td>
+        <td *ngIf="modelSvc.isBranchModuleActive" style="min-width:150px" pFrozenColumn [frozen]="this.modelSvc.isBranchModuleActive">{{ entity.officeBranch }}</td>
+        <td *ngIf="modelSvc.isProjectModuleActive" style="min-width:150px" pFrozenColumn [frozen]="this.modelSvc.isProjectModuleActive">{{ entity.projectName }}</td>
+        <td style="min-width:150px" pFrozenColumn>{{ entity.voucherNo }}</td>
+        <td style="min-width:100px" pFrozenColumn>{{ entity.voucherDate }}</td>
+        <td>{{ entity.fromLedger }}</td>
+        <td>{{ entity.fromSubLedgerType }}</td>
+        <td>{{ entity.fromSubLedgerDetail }}</td>
+        <td> {{ entity.toLedger }}</td>
+        <td>{{ entity.toSubLedgerType}}</td>
+        <td>{{ entity.toSubLedgerDetail }}</td>
+        <td>{{ entity.transactionMode }}</td>
+        <td>{{ entity.chequeNo }}</td>
+        <td>{{ entity.chequeDate }}</td>
+        <td>{{ entity.clearedOnDate }}</td>
+        <td>{{ entity.description }}</td>
+        <td class="text-end">{{ entity.debitVal }}</td>
+        <td class="text-end">{{ entity.creditVal }}</td>
+        <td>{{ entity.invoiceBillRefNo }}</td>
+        <td>{{ entity.createdDate }}</td>
+        <td>{{ entity.createdBy }}</td>
+        <td>{{ entity.lastUpdate }}</td>
+        <td>{{ entity.editedBy }}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-primary" [disabled]="!entity.voucherItemAttachmentIDs"
+            (click)="viewDoc(entity)">
+            <i class="pi pi-eye"></i>
+            {{fieldTitle['view']}}
+          </button>
+        </td>
+        <td>
+          <button *ngIf="entity.isShowActionBtn" type="button" class="btn btn-sm btn-success"
+            (click)="sendEmail(entity)">
+            <i class="pi pi-send"></i>
+            {{fieldTitle['sendemail']}}
+          </button>
+        </td>
+        <td>
+          <div *ngIf="entity.isShowActionBtn">
+            {{ entity.voucherStatus }}
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center justify-content-center">
+            <button *ngIf="entity.isShowActionBtn" type="button" pButton pRipple icon="pi pi-eye"
+              class="p-button-primary" (click)="viewRemarks(entity)"></button>
+            <button *ngIf="entity.isShowActionBtn" type="button" pButton pRipple icon="pi pi-download"
+              class="p-button-warning" (click)="printVoucher(entity)"></button>
+            <div class="form-check ms-2 me-0" *ngIf="entity.isShowActionBtn">
+              <input type="checkbox" id="{{'isApproved' + rowIndex}}" name="{{'isApproved' + rowIndex}}"
+                class="form-check-input" [(ngModel)]="entity.isApproved" (change)="onSelectIsApproved(entity, rowIndex)">
+            </div>
+            
+                  <button *ngIf="entity.chequeNo || entity.chequeDate" type="button" pButton pRipple icon="pi pi-print"
+              class="p-button-warning" (click)="printCheque(entity)"></button>
+          </div>
+        </td>
+        <!-- <td>
+          <div class="d-flex align-items-center justify-content-center" *ngIf="entity.isShowActionBtn">
+            <div class="form-check me-0">
+              <input type="checkbox" id="{{'isApproved' + rowIndex}}" name="{{'isApproved' + rowIndex}}"
+                class="form-check-input" [(ngModel)]="entity.isApproved" (change)="onSelectIsApproved(entity, rowIndex)">
+            </div>
+          </div>
+        </td> -->
+        <td>
+          <div class="d-flex align-items-center justify-content-center">
+            <button
+              *ngIf="entity.isShowActionBtn &&  entity.approvalStatus == approvalStatus.Approved && entity.comments"
+              type="button" pButton pRipple icon="pi pi-eye" class="p-button-primary"
+              (click)="showAuditorCommentsModal(entity, false)"></button>
+            <button
+              *ngIf="entity.isShowActionBtn &&  entity.approvalStatus == approvalStatus.Approved && !entity.comments"
+              type="button" pButton pRipple icon="pi pi-plus" class="p-button-success"
+              (click)="showAuditorCommentsModal(entity, true)"></button>
+            <button
+              *ngIf="entity.isShowActionBtn &&  entity.approvalStatus == approvalStatus.Approved && entity.comments"
+              type="button" pButton pRipple icon="pi pi-refresh" class="p-button-warning"
+              (click)="saveApprovalComments(entity.id, null)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </app-ni-table>
+</div>
+
+<p-dialog header="{{fieldTitle['auditorcomments']}}" [(visible)]="isShowAuditorcommentsEntry" [modal]="true" [style]
+  [baseZIndex]="1000" [draggable]="false" [resizable]="false" [closable]="true" selection="single">
+  <form #commentsEntryForm="ngForm">
+    <div class="form-group">
+      <label>{{fieldTitle['vouchernumber']}}</label>
+      <input type="text" class="form-control" name="voucherNo" [(ngModel)]="voucherNo" disabled />
+    </div>
+    <div class="form-group">
+      <label>{{fieldTitle['comments']}}</label>
+      <textarea class="form-control" maxlength="250" name="comments" [(ngModel)]="comments"></textarea>
+    </div>
+    <div class="form-group mt-2 mb-0">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-warning" [disabled]="!commentsEntryForm.dirty"
+          (click)="resetCommentsEntry()">
+          <img src="../../../assets/images/icons/repeat.png" alt="icon">{{fieldTitle['reset']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" [disabled]="!commentsEntryForm.dirty"
+          (click)="okCommentsEntry()">
+          <img src="../../../assets/images/icons/check-circle.svg" alt="icon">{{fieldTitle['ok']}}
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog header="{{fieldTitle['auditorcommentspreview']}}" [(visible)]="isShowAuditorcommentsView" [modal]="true"
+  [style] [baseZIndex]="1000" [draggable]="false" [resizable]="false" [closable]="true" selection="single">
+  <div class="form-group">
+    <label>{{fieldTitle['vouchernumber']}}</label>
+    <input type="text" class="form-control" name="voucherNo" [(ngModel)]="voucherNo" disabled />
+  </div>
+  <div class="form-group">
+    <div class="box-head">
+      <h1 class="box-title">{{fieldTitle['comments']}}</h1>
+    </div>
+    <div class="indication-box mb-2">
+      <p class="indication primary">{{comments}}</p>
+    </div>
+  </div>
+  <div class="form-group mt-2 mb-0">
+    <div class="form-row d-flex justify-content-end">
+      <button type="button" class="btn btn-sm btn-success" alt="icon"
+        (click)="isShowAuditorcommentsView = false">
+        <img src="../../../assets/images/icons/check-circle.svg" alt="icon">{{fieldTitle['ok']}}
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="{{fieldTitle['remarks']}}" [(visible)]="isShowRemarks" [modal]="true" [style] [baseZIndex]="1000"
+  [draggable]="false" [resizable]="false" [closable]="true" selection="single">
+  <div class="form-group">
+    <label>{{fieldTitle['vouchernumber']}}</label>
+    <input type="text" class="form-control" name="voucherNo" [(ngModel)]="voucherNo" disabled/>
+  </div>
+  <div class="form-group">
+    <div class="box-head">
+      <h1 class="box-title">{{fieldTitle['remarks']}}</h1>
+    </div>
+    <div class="indication-box mb-2">
+      <p class="indication primary">{{remarks}}</p>
+    </div>
+  </div>
+  <div class="form-group mt-2 mb-0">
+    <div class="form-row d-flex justify-content-end">
+      <button type="button" class="btn btn-sm btn-success" alt="icon" (click)="isShowRemarks = false">
+        <img src="../../../assets/images/icons/check-circle.svg" alt="icon">{{fieldTitle['ok']}}
+      </button>
+    </div>
+  </div>
+</p-dialog>

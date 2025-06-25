@@ -1,0 +1,90 @@
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['branchandprojectconfig']}}</h1>
+</div>
+
+<div class="card-box p-3 pb-1">
+  <!-- <p class="title">{{fieldTitle['branches']}}</p> -->
+  <form #projectBranchForm="ngForm" [addValidators]="validationMsgObj">
+  
+    <div class="form-check my-1">
+      <input class="form-check-input" 
+        id="isBranchModuleActive" 
+        name="isBranchModuleActive" 
+        type="checkbox" 
+        [(ngModel)]="modelSvc.projectBranchDTO.isBranchModuleActive" [disabled]="isBranchModuleDisable"/>
+        <label class="form-check-label" for="isBranchModuleActive">{{fieldTitle['isbranchesmoduleactive']}}</label>
+    </div>
+
+    <div class="form-check my-1">
+      <input class="form-check-input" 
+      id="isProjectModuleActive" 
+      name="isProjectModuleActive" 
+      type="checkbox" 
+      [(ngModel)]="modelSvc.projectBranchDTO.isProjectModuleActive" [disabled]="isProjectModuleDisable"/>
+      <label class="form-check-label" for="isProjectModuleActive">{{fieldTitle['isprojectmoduleactive']}}</label>
+    </div>
+
+    <!-- <div class="panel-box">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="nav flex-column nav-pills card-in-box" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" data-bs-target="#branch" data-bs-toggle="pill" (click)="changeBranchorProject('IBMA')">{{fieldTitle['branchesmodule']}}</button>
+            <button class="nav-link" data-bs-target="#project" data-bs-toggle="pill" (click)="changeBranchorProject('IPMA')">{{fieldTitle['projectmodule']}}</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="tab-content" id="v-pills-tabContent">
+      
+            <div class="tab-pane fade show active" id="branch">
+              <div class="card-box">
+                <div class="form-group d-inline-block align-items-center">
+                  <div class="form-check my-2">
+                      <input class="form-check-input" 
+                      id="isBranchModuleActive" 
+                      name="isBranchModuleActive" 
+                      type="checkbox" 
+                      [(ngModel)]="modelSvc.projectBranchDTO.isBranchModuleActive" [disabled]="isBranchModuleDisable"/>
+                      <label class="form-check-label" for="isBranchModuleActive">{{fieldTitle['isbranchesmoduleactive']}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tab-pane fade" id="project">
+              <div class="card-box">
+                <div class="form-group d-inline-block align-items-center">
+                  <div class="form-check my-2">
+                      <input class="form-check-input" 
+                      id="isProjectModuleActive" 
+                      name="isProjectModuleActive" 
+                      type="checkbox" 
+                      [(ngModel)]="modelSvc.projectBranchDTO.isProjectModuleActive" [disabled]="isProjectModuleDisable"/>
+                    
+                      <label class="form-check-label" for="isProjectModuleActive">{{fieldTitle['isprojectmoduleactive']}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-end">
+        <div class="form-row d-flex justify-content-end">
+          <button type="button" disabled="" class="btn btn-sm btn-success"
+            [disabled]="!projectBranchForm.dirty"
+            (click)="saveProjectBranch(projectBranchForm)">
+            <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+          </button>
+          <button type="button" disabled="" class="btn btn-sm btn-warning"
+            [disabled]="!projectBranchForm.dirty"
+            (click)="reset()">
+            <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+          </button>
+        </div>
+      </div> 
+    </div>
+  </form>
+</div>
+  

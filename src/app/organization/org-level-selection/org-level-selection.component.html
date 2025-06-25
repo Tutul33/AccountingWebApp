@@ -1,0 +1,26 @@
+
+<form #levelSelectionForm="ngForm">
+  <div class="row">
+    <div class="col-6">
+      <label>{{fieldTitle['parentlevel']}}</label>
+      <p-select appendTo="body" [disabled]="true" name="parentLevel" [options]="parentLevelList" optionLabel="value" optionValue="code"
+        [(ngModel)]="parentLevel" inputValidator [style]="{ width: '100%' }">
+        </p-select>
+    </div>
+    <div class="col-6">
+      <label>{{fieldTitle['childlevel']}}</label>
+      <p-select appendTo="body" name="childLevel" [options]="childLevelList" optionLabel="value" optionValue="code"
+        [(ngModel)]="childLevel" inputValidator [style]="{ width: '100%' }">
+        </p-select>
+    </div>
+  </div>
+  <div class="mt-3 d-flex align-items-center justify-content-end">
+    <button type="button" (click)="cancel()" class="btn btn-sm btn-danger">
+      <img src="../../../../assets/images/icons/x-circle.svg" alt="check"/>Cancel
+    </button>
+    <button type="button" (click)="ok()" class="btn btn-sm btn-success">
+      <img src="../../../../assets/images/icons/check-circle.svg" alt="check"/>{{fieldTitle['ok']}} 
+    </button>
+  </div>
+</form>
+  

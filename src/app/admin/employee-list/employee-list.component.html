@@ -1,0 +1,18 @@
+<div class="row">
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.employeeList" class="smaller-elements">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+                <td>{{ entity.hR_EmployeeID }}</td>
+                <td>{{ entity.employeeName }}</td>
+                <td>{{ entity.designation }}</td>
+                <td>{{ entity.organization }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.contactNo }}</td>
+                <td>{{ entity.isActive | niBoolean }}</td>
+                <td>
+                    <button type="button" pButton pRipple icon="pi pi-external-link" class="p-button-primary p-mr-2" (click)="selectEmployee(entity)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </app-ni-table>
+</div>

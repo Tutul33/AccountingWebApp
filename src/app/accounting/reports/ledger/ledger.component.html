@@ -1,0 +1,225 @@
+
+<div class="card-head mb-2 d-flex align-items-center justify-content-between">
+    <h1 class="section-title">{{fieldTitle['ledger']}}</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1 mb-3">
+        <form #ledgerReportForm="ngForm" [addValidators]="validationMsgObj" validationMessage="ledgerModelValidation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['company']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <!-- <p-select appendTo="body" placeholder="Select Company"
+                                    [(ngModel)]="modelSvc.searchParam.companyID" 
+                                    [filter]="true" 
+                                    [options]="modelSvc.companyList" 
+                                    name="companyID" 
+                                    (onChange)="onChangeCompany()" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="companyName"
+                                    inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select> -->
+
+                              <p-select *ngIf="!isPlaceholderDisableCompany" appendTo="body" placeholder="Select Company" [(ngModel)]="modelSvc.searchParam.companyID"
+                                [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                                optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.searchParam" textProperty="companyName"
+                                inputValidator [style]="{ width: '100%' }">
+                              </p-select>
+              
+                              <p-select *ngIf="isPlaceholderDisableCompany" appendTo="body" [(ngModel)]="modelSvc.searchParam.companyID"
+                                [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                                optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.searchParam" textProperty="companyName"
+                                inputValidator [style]="{ width: '100%' }">
+                              </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['office/branch/unit']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                                    [(ngModel)]="modelSvc.searchParam.orgID" 
+                                    [filter]="true" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="unitBranch"
+                                    [group]="true" 
+                                    (onChange)="getLedgerList()" 
+                                    [showClear]="true"
+                                    [options]="modelSvc.officeBranchUnitList" 
+                                    filterBy="name"
+                                    name="orgID"
+                                    optionLabel="name" optionValue="id" [group]="true"
+                                    [style]="{ width: '100%' }">
+                                    <ng-template let-group pTemplate="group">
+                                        <div class="flex align-items-center">
+                                            <span>{{ group.label }}</span>
+                                        </div>
+                                    </ng-template>
+                                </p-select> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['project']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Project"
+                                    [(ngModel)]="modelSvc.searchParam.projectID" 
+                                    (onChange)="getLedgerList()" 
+                                    [filter]="true"
+                                    filterBy="name" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="project"
+                                    [showClear]="true"
+                                    [options]="modelSvc.projectList" 
+                                    name="orgID" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['ledgername']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" *ngIf="!isPlaceholderDisableLedger" placeholder="Select Ledger"
+                                    [(ngModel)]="modelSvc.searchParam.ledgerID" 
+                                    (onChange)="onChangeGroupLedger()" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="ledgerName"
+                                    [filter]="true"
+                                    filterBy="ledger" 
+                                    [showClear]="false"
+                                    [options]="modelSvc.ledgerNameList" 
+                                    name="ledgerID" 
+                                    optionLabel="ledger"
+                                    optionValue="id" inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+
+                                <p-select appendTo="body" *ngIf="isPlaceholderDisableLedger"
+                                    [(ngModel)]="modelSvc.searchParam.ledgerID" 
+                                    (onChange)="onChangeGroupLedger()" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="ledgerName"
+                                    [filter]="true"
+                                    filterBy="ledger" 
+                                    [showClear]="false"
+                                    [options]="modelSvc.ledgerNameList" 
+                                    name="ledgerID" 
+                                    optionLabel="ledger"
+                                    optionValue="id" inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['daterange']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row g-1">
+                                    <div class="col-md-6">
+                                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.fromDate" name="fromDate"
+                                        [readonlyInput]="true" 
+                                        [showIcon]="true" 
+                                        (onSelect)="onChangeFromDate()" 
+                                        [maxDate]="modelSvc.searchParam.toDate"
+                                        [style]="{ width: '100%' }" 
+                                        inputValidator>
+                                        </p-datepicker>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.toDate" name="toDate"
+                                        [readonlyInput]="true" 
+                                        [showIcon]="true"  
+                                        [minDate]="modelSvc.searchParam.fromDate"
+                                        (onSelect)="onChangeToDate()" 
+                                        [maxDate]="modelSvc.maxDate"
+                                        [style]="{ width: '100%' }" 
+                                        inputValidator>
+                                        </p-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-row d-flex align-items-center justify-content-end">
+                        <button type="button" class="btn btn-sm btn-warning" 
+                        (click)="reset()" >
+                            <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" 
+                        (click)="search(ledgerReportForm)">
+                            <img src="../../../assets/images/icons/search.svg" alt="icon"> Search
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" 
+                         (click)="onExport(ledgerReportForm, true)">
+                            <img src="../../../assets/images/icons/download.svg" alt="icon">
+                            {{fieldTitle['export']}}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-success"  (click)="onExport(ledgerReportForm, false)"
+                        >
+                            <img src="../../../assets/images/icons/send.svg" alt="icon">
+                            {{fieldTitle['sendemail']}}
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.ledgerList">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+                <td>{{ entity.date }}</td>
+                <td>{{ entity.particulars }}</td>
+                <td>{{ entity.voucherNo }}</td>
+                <td class="text-end">{{ entity.debitVal | number : "1.2-2" }}</td>
+                <td class="text-end">{{ entity.creditVal | number : "1.2-2"}}</td>
+                <td class="text-end">{{ entity.balance | number : "1.2-2"}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td colspan="3" class="text-start">{{fieldTitle['transactionalbalance']}}</td>
+                <td class="text-end">{{modelSvc.totalDebit | number : "1.2-2"}}</td>
+                <td class="text-end">{{modelSvc.totalCredit | number : "1.2-2"}}</td>
+                <td class="text-end"></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="text-start">{{fieldTitle['closingbalance']}}: ({{modelSvc.fromLedger}} : {{modelSvc.showDate}})</td>
+                <td class="text-end">{{modelSvc.closeingBalance | number : "1.2-2"}}</td>
+            </tr>
+        </ng-template>
+    </app-ni-table>
+</div>

@@ -1,0 +1,199 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['scheduleoffixedassets']}}</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1 mb-3">
+        <form #searchFilterForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="fixedAssetsScheduleModelValidation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['company']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Company"
+                                    [(ngModel)]="modelSvc.searchParam.companyID" 
+                                    [filter]="true" 
+                                    [options]="modelSvc.companyList" 
+                                    name="companyID" 
+                                    (onChange)="onChangeCompany()" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="company"
+                                    inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isBranchModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['office/branch/unit']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                                    [(ngModel)]="modelSvc.searchParam.orgID" 
+                                    [filter]="true" 
+                                    [showClear]="true"
+                                    [group]="true" 
+                                    [options]="modelSvc.officeBranchList" 
+                                    [niSelectedText]="modelSvc.searchParam" textProperty="unitBranch"
+                                    filterBy="name"
+                                    name="orgID"
+                                    optionLabel="name" optionValue="id" [group]="true"
+                                    [style]="{ width: '100%' }">
+                                </p-select> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isProjectModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['project']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Project"
+                                    [(ngModel)]="modelSvc.searchParam.projectID" 
+                                    [filter]="true"
+                                    [showClear]="true"
+                                    filterBy="name" 
+                                    [options]="modelSvc.projectList" 
+                                    [niSelectedText]="modelSvc.searchParam" textProperty="project"
+                                    name="projectID" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['financialyear']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Year"
+                                    [(ngModel)]="modelSvc.searchParam.financialYearID" 
+                                    [filter]="true"
+                                    filterBy="name" 
+                                    [options]="modelSvc.financialYearList"
+                                   
+                                    name="financialYearID" 
+                                    (onChange)="onChangeFinancialYear()" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="financialYear"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup" title="{{ fieldTitle['dateason'] }}">{{fieldTitle['dateason']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-datepicker appendTo="body" name="toDate" 
+                                [(ngModel)]="modelSvc.searchParam.toDate"
+                                 dateFormat="dd-M-y"
+                                [maxDate]="maxDate"
+                                [minDate]="minDate"
+                                [disabled]="!modelSvc.searchParam.financialYearID" 
+                                inputValidator 
+                                [style]="{ width: '100%' }"></p-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-row d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-warning"  (click)="reset()">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success"  (click)="onSubmit(searchFilterForm, false)">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">{{fieldTitle['search']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"  (click)="onSubmit(searchFilterForm, true)">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">{{fieldTitle['export']}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.fixedAssetsScheduleList" class="scrollable-table">
+        <ng-template pTemplate="header">
+          <tr>
+            <th rowspan="4">{{fieldTitle['sl#']}}</th>
+            <th rowspan="4">{{fieldTitle['particulars']}}</th>           
+            <th colspan="5" class="text-center">{{fieldTitle['assets']}}</th>       
+            <th colspan="3" class="text-center">{{fieldTitle['depreciation']}}</th>        
+            <th rowspan="2" class="text-center">{{fieldTitle['writtendownvalue']}}</th>       
+          </tr>
+          <tr>
+            <th class="text-center">{{fieldTitle['openingason']}}: {{modelSvc.fixedAssetsScheduleList[0]?.fromDate}}</th>
+            <th class="text-center">{{fieldTitle['additionduringtheyear']}}</th>           
+            <th class="text-center">{{fieldTitle['sales&disposed']}}</th>       
+            <th class="text-center">{{fieldTitle['totalason']}}: {{modelSvc.fixedAssetsScheduleList[0]?.toDate}}</th>        
+            <th class="text-center">{{fieldTitle['deprate']}}</th>       
+            <th class="text-center">{{fieldTitle['openingason']}}: {{modelSvc.fixedAssetsScheduleList[0]?.fromDate}}</th>       
+            <th class="text-center">{{fieldTitle['additionduringtheyear']}}</th>        
+            <th class="text-center">{{fieldTitle['totalason']}}: {{modelSvc.fixedAssetsScheduleList[0]?.toDate}}</th>       
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+          <tr>
+            <td>{{item.serialNo}}</td>
+            <td>{{item.ledger}}</td>
+            <td class="text-end">{{item.assetsOpeningBalance | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.assetsDebitVal | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.assetsCreditVal | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.assetsTotal | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.depreciationRate | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.depOpeningBalance | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.depCreditVal | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.depTotal | number:'1.2-2'}}</td>
+            <td class="text-end">{{item.writtenDownValue | number:'1.2-2'}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr>
+                <td>                           
+                   <b> {{fieldTitle['total']}}</b>
+                </td>
+                <td></td>
+                <td class="text-end">{{modelSvc.total.assetsOpeningBalance | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.assetsDebitVal | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.assetsCreditVal | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.assetsTotal | number:'1.2-2'}}</td>
+                <td></td>
+                <td class="text-end">{{modelSvc.total.depOpeningBalance | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.depCreditVal | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.depTotal | number:'1.2-2'}}</td>
+                <td class="text-end">{{modelSvc.total.writtenDownValue | number:'1.2-2'}}</td>
+            </tr>
+        </ng-template>
+      </app-ni-table>
+</div>
+
+
+

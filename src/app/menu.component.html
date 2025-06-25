@@ -1,0 +1,25 @@
+
+
+<div class="row for-menu-page">
+    <div class="offset-lg-2 col-lg-8 col-md-12">
+        <div class="menu-box">
+            <div class="row">
+                <div *ngFor="let menu of menuService.pageMenuItems" class="col">
+                    <button type="button" class="btn" (click)="actionOnMenuClick(menu)" [routerLink]="[menu.routerLink]"
+                        niDbclickPrevent>
+                        <i class="{{menu.icon}} parent-icon" aria-hidden="true"></i>
+                        <span [hidden]="menu.isPageOrMenu==2"><i class="fa fa-angle-double-right child-icon" aria-hidden="true"></i></span>
+                        {{menu.label}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <p>outlet: Menu works! From: {{routeData}}</p>
+<div class="content-body">
+    <router-outlet #menuOutlet="outlet"></router-outlet>
+</div> -->
+
+

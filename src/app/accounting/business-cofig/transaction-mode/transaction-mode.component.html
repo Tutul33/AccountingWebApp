@@ -1,0 +1,81 @@
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['transactionmode']}}</h1>
+</div>
+
+<div class="card-box p-3 mb-2 pb-1">
+  <form #transactionModeForm="ngForm" [addValidators]="validationMsgObj"
+  validationMessage="transactionModeValidation">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup" title="{{fieldTitle['name']}}">{{fieldTitle['name']}}</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="value" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.transactionModeDTO.value" placeholder="{{fieldTitle['name']}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label  class="ni-sup" title="{{fieldTitle['code']}}">{{fieldTitle['code']}}</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" niNumber name="code" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.transactionModeDTO.code" placeholder="{{fieldTitle['code']}}"
+              [disabled]="modelSvc.isCodeEntryDisabled">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="form-row d-flex justify-content-end">
+              <div class="form-check">
+                <input type="checkbox" formcontrolname="isActive" [(ngModel)]="modelSvc.transactionModeDTO.isActive" id="isActive" name="isActive" class="form-check-input">
+                <label for="isActive" title="IsActive" class="form-check-label">{{fieldTitle['active']}}</label>
+              </div>
+              <button type="button" disabled="" class="btn btn-sm btn-success"
+                [disabled]="!transactionModeForm.dirty"
+                (click)="saveTransactionMode(transactionModeForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" disabled="" class="btn btn-sm btn-warning"
+                [disabled]="!transactionModeForm.dirty" 
+                (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.transactionModeDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.transactionModeList">
+  <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ entity.code }}</td>
+      <td>{{ entity.value }}</td>
+      <td>{{ entity.isActive | niBoolean }}</td>
+      <td>
+        <div class="d-flex align-items-center justify-content-center">
+          <button type="button" pButton pRipple icon="pi pi-pencil"
+            class="p-button-primary p-mr-2" (click)="edit(entity)" [disabled]="entity.code == this.transactionMode.Cheque" ></button>
+          <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash"
+            class="p-button-danger" (click)="delete(entity)" [disabled]="entity.code == this.transactionMode.Cheque"></button>
+        </div>
+      </td> 
+    </tr>
+  </ng-template>
+</app-ni-table>

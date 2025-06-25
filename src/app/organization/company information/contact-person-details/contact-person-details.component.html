@@ -1,0 +1,37 @@
+<form class="p-0">
+  <div class="topAddMenu leftSpaceReduce">
+    <button class="btn btn-sm btn-primary ms-0" type="button" (click)="showEmployeeModal()" [disabled]="modelSvc.orgStructureID == 0">
+      <img src="../../../assets/images/icons/external-link.svg" alt="img"/>
+      {{fieldTitle['viewemployeelist']}}
+    </button>
+  </div>
+  <div class="table-striped px-0">
+    <app-ni-table [gridOption]="gridOptionContactPerson" [valueList]="modelSvc.contactDetailsList" class="scrollable-table">
+      <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+        <tr ngModelGroup="contactDetail{{ entity.id }}" [objWatcher]="entity" *ngIf="entity.tag != modelSvc.objectState.deleted">
+            <td>{{ entity.hR_EmployeeID }}</td>
+            <td>{{ entity.employeeName }}</td>
+            <td>{{ entity.designation }}</td>
+            <td>{{ entity.organization }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.contactNo }}</td>
+            <td>
+              <button type="button" niDbclickPrevent pButton
+                pRipple icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteContactDetails(entity)"></button>
+            </td>
+        </tr>
+      </ng-template>
+    </app-ni-table>
+  </div>
+  <div class="mt-3 d-flex align-items-center justify-content-end">
+    <button class="btn btn-sm btn-warning" type="button" (click)="resetContactDetail()" [disabled]="modelSvc.disableContactDetailRestButton">
+      <img src="../../../assets/images/icons/repeat.svg" alt="img"/>
+      {{fieldTitle['reset']}}
+    </button>
+    <button class="btn btn-sm btn-success" type="button" (click)="saveContactDetail()" [disabled]="modelSvc.disableContactDetailSaveButton">
+      <img src="../../../assets/images/icons/save.svg" alt="img"/>
+      {{fieldTitle['save']}}
+    </button>
+  </div>
+</form>

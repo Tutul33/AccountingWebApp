@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card-body">
+      <form #industryTypeForm="ngForm" [addValidators]="validationMsgObj" validationMessage="changeIndustryTypeValidation">
+        <div class="form-group">
+          <label class="ni-sup">Company Type</label>
+          <div class="form-group d-inline-block align-items-center mb-0">
+            <div class="form-radio my-2" *ngFor="let idustry of modelSvc.industryTypList">
+              <input inputValidator type="radio" [(ngModel)]="modelSvc.changeIndustryTypeDTO.value" class="form-radio-input" id="{{idustry.code}}"  [checked]="idustry.value == modelSvc.changeIndustryTypeDTO.value" name="value" value="{{idustry.value}}" (change)="onClickRadio(idustry)">
+              <label class="form-radio-label me-0 pe-3" for="{{idustry.code}}">{{idustry.value}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-0">
+          <div class="d-flex align-items-center justify-content-end">
+            <button type="button" (click)="reset()" [disabled]="!industryTypeForm.dirty"
+              class="btn btn-sm btn-warning mr-d-10">
+              <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+              {{fieldTitle['reset']}}
+            </button>
+            <button type="button" (click)="saveIndustry(industryTypeForm)" [disabled]="!industryTypeForm.dirty"
+              class="btn btn-sm btn-success mr-d-10">
+              <img src="../../../assets/images/icons/save.svg" alt="icon" />
+              {{fieldTitle['save']}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

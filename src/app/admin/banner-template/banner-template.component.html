@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="title-box">
+      <!-- <h1 class="card-title">Banner Template Upload</h1> -->
+    </div>
+  </div>
+
+  <div class="offset-md-2 col-md-8 col-sm-8 col-xs-12">
+    <div class="card-body">
+      <form #bannerTemplateForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="bannerTemplateValidateModel">
+        <div class="form-row">
+          <div class="form-group col">
+            <label class="ni-sup" title="{{ fieldTitle['bannertemplatename'] }}">{{fieldTitle["bannertemplatename"]}}</label>
+            <input type="text" name="templateName" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.bannerTemplate.templateName" placeholder="Enter Template Name">
+          </div>
+        </div>
+        <div class="form-row"> 
+          <div class="form-group">
+            <label class="ni-sup" title="{{fieldTitle['templatepath']}}">{{fieldTitle['templatepath']}}</label>
+            <div class="align-items-center justify-content-end col position-relative">
+              <app-ni-file-single-upload (change)="onImageChange()" [uploadOption]="fileUploadOption" [targetObject]="singleFile.photoFile"  class="file-parent"></app-ni-file-single-upload>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label title="{{ fieldTitle['templateserialno'] }}">{{fieldTitle["templateserialno"]}}</label>
+            <input type="number" readonly name="serialNo" class="form-control"
+              [(ngModel)]="modelSvc.bannerTemplate.serialNo" placeholder="Enter Serial No">
+          </div>
+        </div>
+          <div class="form-group">
+            <label title="">{{fieldTitle['preview']}}</label>
+            <div class="banner-preview d-flex align-items-center justify-content-start">
+              <app-ni-file-single-view [isFullImage]="true" [customStyle]="'max-height:200px;'" [uploadOption]="fileUploadOption" [targetObject]="singleFile.photoFile" [objectId]="singleFile.photoFile.id"></app-ni-file-single-view>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="button" (click)="save(bannerTemplateForm)" [disabled]="!bannerTemplateForm.dirty || isSubmitted" class="btn btn-sm btn-success mr-d-10">
+                <img src="../../../assets/images/icons/save.svg" alt="save"/>{{fieldTitle['save']}} 
+              </button>
+              <button type="button" (click)="reset()" [disabled]="!bannerTemplateForm.dirty" class="btn btn-sm btn-warning mr-d-10">
+                <img src="../../../assets/images/icons/repeat.svg" alt="save"/> {{fieldTitle['reset']}}
+              </button>
+              <button type="button" *ngIf="modelSvc.bannerTemplate.id > 0" (click)="setNew()" class="btn btn-sm btn-danger">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="save"/>{{fieldTitle['cancel']}} 
+              </button>
+            </div>
+          </div>
+      </form>
+      <div class="table-striped">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.bannerTemplateList" class="smaller-elements">
+          <ng-template pTemplate="body" let-bannerTemplate let-rowIndex="rowIndex">
+            <tr>
+              <td class="p-none">
+                <span class="d-flex">
+                  <span [ngClass]="{'not-active': bannerTemplate.isEnabledDown}" class="me-2">
+                    <button type="button" class="btn btn-sm btn-primary" [disabled]="bannerTemplate.isEnabledDown" (click)="onMoveDown(rowIndex)">
+                      <img src="../../../assets/images/icons/down.svg" alt="icon" class="me-0"/>
+                    </button>
+                  </span>
+                  <span [ngClass]="{'not-active': bannerTemplate.isEnabledUp}">
+                    <button type="button" class="btn btn-sm btn-primary" id="btnUp{{rowIndex}}" [disabled]="bannerTemplate.isEnabledUp" (click)="onMoveUp(rowIndex)">
+                      <img src="../../../assets/images/icons/up.svg" alt="icon" class="me-0"/>
+                    </button>
+                  </span>
+                </span>
+              </td>
+              <td>{{ bannerTemplate.templateName }}</td>
+              <!-- <td>{{fileUploadOption.folderName+"/"+bannerTemplate.templateFileName}}</td> -->
+              <td>{{ bannerTemplate.serialNo }}</td>
+              <td >
+                <app-ni-file-single-view [uploadOption]="fileUploadOption" [targetObject]="bannerTemplate.imageFile"
+                  [objectId]="bannerTemplate.id"></app-ni-file-single-view>
+              </td>
+              
+              <td>
+                <div>
+                  <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-success p-mr-2"
+                    (click)="onEdit(bannerTemplate)" type="button"></button>
+                  <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger"
+                    (click)="delete(bannerTemplate)" type="button"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </app-ni-table>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group d-flex native-group justify-content-end">
+            <button type="button" class="btn btn-sm btn-success" [disabled]="!isUpdateOrder" (click)="updateOrder()">
+              <img src="../../../assets/images/icons/check-circle.svg" alt="icon"/>
+              {{fieldTitle['ok']}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

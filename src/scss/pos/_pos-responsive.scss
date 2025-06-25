@@ -1,0 +1,1255 @@
+
+.btn-warning-dark {
+    color:#fff;
+    background: linear-gradient(#ff8862,#ff5722);
+    border: 0;
+    transition:all 0.7;
+}
+.btn-warning-dark:hover {
+    color:#fff;
+    background: linear-gradient(#ff5722,#ff5722);
+}
+
+.btn-cyan {
+    color:#fff;
+    background: linear-gradient(#00c3b1,#009688);
+    border: 0;
+    transition:all 0.7;
+}
+.btn-cyan:hover {
+    color:#fff;
+    background: linear-gradient(#009688,#009688);
+}
+
+.btn-violate {
+    color:#fff;
+    background: linear-gradient(#8852ff,#651fff);
+    border: 0;
+    transition:all 0.7;
+}
+.btn-violate:hover {
+    color:#fff;
+    background: linear-gradient(#651fff,#651fff);
+}
+
+.btn-pink {
+    color:#fff;
+    background: linear-gradient(#e54cff,#d500f9);
+    border: 0;
+    transition:all 0.7;
+}
+.btn-pink:hover {
+    color:#fff;
+    background: linear-gradient(#d500f9,#d500f9);
+}
+app-store-table-modal {
+	width: 830px;
+	max-width: 100%;
+	display: inherit;
+}
+p-dynamicdialog app-address-picker{
+    width: 800px;
+    max-width: 100%;
+    display: table;
+}
+.order-void-modal{
+    width:800px;
+    max-width:100%;
+}
+
+
+@media screen and (min-height: 1024px) {
+    .main-items.unique-items {
+        height: 165px;
+    }
+}
+
+@media screen and (max-width: 1599px) {
+    .pos-buttons-area button {
+        font-size: 19px;
+    }
+    .pos-buttons-area .accordion-body button {
+        font-size: 16px !important;
+    }
+    .pos-buttons-area button img {
+        height: 30px;
+        top: 0px;
+    }
+    .pos-menu-left h3 {
+        font-size: 21px;
+    }
+    .pos-pay-table table tr td input {
+        width: 80px;
+    }
+    .head-pos-info .form-control {
+        padding: 0 5px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 1575px) {
+    .pos-address-setup .btn-pos-order-type-active {
+        padding-left: 32px;
+        padding-right: 10px;
+        font-size:14px;
+    }
+    .pos-address-setup .btn-pos-order-type-inactive {
+        padding-left: 32px;
+        padding-right: 10px;
+        font-size:14px;
+    }
+    .coupon-offer {
+        padding: 0 5px;
+    }
+    .form-check.identity label{
+        margin-right: 8px;
+        margin-left: 2px;
+        font-size:12px;
+    }
+}
+
+@media screen and (max-width: 1365px) {
+    .pos-address-setup .btn-pos-order-type-active {
+        padding-left: 28px;
+        height: 26px;
+        &::before {
+            width: 26px;
+            height: 26px;
+        }
+    }
+    .pos-address-setup .btn-pos-order-type-inactive {
+        padding-left: 28px;
+        height: 26px;
+        &::before {
+            width: 26px;
+            height: 26px;
+        }
+    }
+    .pos-address-setup .btn-pos-order-type-active, 
+    .pos-address-setup .btn-pos-order-type-inactive {
+        margin-right: 5px;
+    }
+    .form-check.identity {
+        margin-right:0 !important;
+        height: 26px !important;
+    }
+    .form-check.identity .form-check-input[type="checkbox"] {
+        height: 26px !important;
+        width: 26px !important;
+    }
+    .coupon-offer {
+        margin-right: 5px;
+        height:26px;
+        padding:0 6px;
+    }
+}
+
+
+@media screen and (max-width: 1279px) {
+.full-customer-area .items-box li.item-head {
+    width: 113%;
+}
+.head-pos-info .row .col{
+    flex:0 0 auto;
+    width:50%;
+}
+.head-pos-info.detail-pos-info .row > *{
+    width:50%;
+}
+.pos-body-left {
+	height:auto;
+}
+.pos-pay-table.main-table {
+	padding: 0 2px 0 35px;
+	height: auto;
+	overflow-y: auto;
+}
+.pos-pay-table table tr th:nth-child(2) {
+	width: 200px;
+}
+.pos-pay-table table tr td:first-child {
+	width: 210px;
+    font-size:15px;
+}
+.pos-charges-list .row > *{
+    width:100%;
+}
+.pos-address-setup .btn-pos-order-type-active, 
+.pos-address-setup .btn-pos-order-type-inactive {
+	padding-left: 38px;
+	padding-right: 9px;
+	margin-right: 5px;
+}
+.pos-address-setup h3 {
+	font-size: 13px;
+}
+.date-time-box .btn-group-sm > .btn, .date-time-box .btn-sm {
+	font-size: 14px;
+}
+.p-calendar .p-inputtext {
+	padding: 0 9px !important;
+	font-size: 15px;
+}
+.pos-address-setup {
+	padding: 5px;
+}
+.pos-address-setup textarea.address-text {
+	font-size: 14px;
+	padding: 6px 8px;
+}
+.pos-address-setup textarea {
+	font-size: 14px;
+	padding: 12px 7px;
+}
+.pos-buttons-area button {
+	font-size: 15px;
+}
+.pos-buttons-area button img {
+	height: 23px;
+	left: 5px;
+}
+.pos-buttons-area button {
+	padding-left: 20px;
+}
+.bottom-of-left {
+	position: relative;
+	width: 100%;
+    height:auto;
+}
+.pos-body-right {
+	background: #050505;
+	position: relative;
+}
+.pos-menu-left {
+	height: 100%;
+	position: absolute;
+    left:0;
+}
+.pos-menu-left h3 {
+	font-size: 15px;
+}
+.pos-menu-box li button {
+	font-size: 16px;
+	line-height: 16px;
+}
+.head-btns label .ind-btn {
+	font-size: 18px;
+}
+.head-pos-info.detail-pos-info .table-bordered tr td {
+	padding: 0 2px;
+}
+.pos-menu-right {
+	height: auto;
+	position: absolute;
+	right: 0;
+}
+.toppings-items .pos-more {
+	font-size: 13px;
+}
+.bottom-of-right {
+	position: relative;
+}
+.item-menu-pant {
+	height: 98%;
+}
+app-add-topping-modal .adding-topping .topping-left .top-pan-size app-ni-file-single-view{
+    margin-bottom:0;
+}
+.main-items.unique-items.add-on-items .top-pan-size {
+	width: 16.6%;
+}
+.pos-buttons-area .accordion-body button {
+	font-size: 14px !important;
+}
+.pos-body-right {
+	height: auto;
+}
+.pos-address-setup .btn-pos-order-type-active, 
+.pos-address-setup .btn-pos-order-type-inactive {
+	padding-left: 27px;
+    font-size:12px;
+}
+.coupon-offer {
+	font-size: 12px;
+	padding: 0 5px;
+}
+}
+
+
+@media only screen and (width: 1280px){
+    .pos-body-left {
+        height: calc(100vh - 50px);
+    }
+    .pos-menu-right {
+        height: calc(100vh - 50px);
+    }
+    .pos-menu-left {
+        height: calc(100vh - 50px);
+    }
+    .item-menu-pant {
+        height: calc(100vh - 100px);
+    }
+    .beverage-items {
+        height: 78px !important;
+    }
+    .toppings-items.main-items.unique-items .img-pan {
+        height: 105px;
+    }
+    .main-items.unique-items.add-on-items .top-pan-size {
+        height: 85px;
+    }
+    .main-items.unique-items.add-on-items .img-pan {
+        height: 88px;
+    }
+    .pos-menu-box li button {
+        font-size: 16px;
+        padding: 0 3px;
+    }
+    .pos-charges-table {
+        padding-left: 0;
+        padding-right: 7px;
+    }
+    .pos-buttons-area button img {
+        height: 28px;
+        left: 7px;
+    }
+    .toppings-items.main-items .img-pan h5 {
+        font-size: 14.5px;
+    }
+    .toppings-items.main-items.unique-items .img-pan h5 {
+        font-size: 12.5px;
+        line-height: 12.5px;
+    }
+    .beverage-box .per-bv h6 {
+        font-size: 12.5px;
+        line-height: 12.5px;
+    }
+    .date-time-box .btn-group-sm > .btn, .date-time-box .btn-sm {
+        padding: 0 7px 0 0px;
+        font-size: 17px;
+        font-weight: 500;
+    }
+    .pos-address-setup h3 {
+        font-size: 14px;
+    }
+    .head-pos-info.detail-pos-info .table-bordered tr td {
+        font-size: 12px;
+        font-weight: 400;
+        padding: 4px 2px;
+        width:65px;
+    }
+    // .pos-address-setup .btn-pos-order-type-active, 
+    // .pos-address-setup .btn-pos-order-type-inactive {
+    //     margin-right: 8px;
+    // }
+    .head-pos-info h6 {
+        font-size: 12px;
+    }
+    .head-pos-info h6 span {
+        font-size: 12px;
+    }
+    .pos-pay-table table tr td {
+        padding: 5px 5px;
+    }
+    .pos-pay-table table tr td input {
+        width: 80px;
+    }
+    .pos-pay-table table tr td:first-child {
+        width: 255px;
+    }
+    .pos-pay-table table tr th {
+        padding: 4px 4px;
+    }
+    .pos-pay-table table tr td:nth-child(2){
+        width: 42px;
+        text-align:center;
+    }
+}
+
+
+
+@media only screen and (max-width: 1500px){
+    .table-ord-list table{
+        overflow-x:auto;
+        width:100% !important;
+        display:table !important;
+        overflow-y:clip;
+    }
+    .table-ord-list table table{
+        width:auto !important;
+    }
+    .list-table.ord-list .p-datatable .p-datatable-thead > tr > th table tr th:first-child, 
+    .list-table.ord-list .p-datatable .p-datatable-tbody > tr > td table tr td:first-child {
+        width: 80px !important;
+    }
+    .pos-buttons-area .accordion-body button img {
+        height: 20px;
+        top: 0px;
+    }
+    .pos-pay-table.main-table {
+        padding: 0 0 50px 30px;
+    }
+    .pos-charges-list table tr td .input-group {
+        flex-wrap: nowrap;
+    }
+    .pos-charges-list table tr td .guest-input {
+        width: 50px !important;
+    }
+    .pos-charges-table table .input-group-text{
+        padding: 0 5px;
+        font-size:14px;
+        height:26px;
+    }
+    .full-customer-area .items-box li.item-head {
+        width: 110%;
+    }
+    .toppings-items.main-items .img-pan h5 {
+        font-size: 12px;
+        line-height: 13px;
+    }
+    .toppings-items.main-items.unique-items .img-pan h5 {
+        font-size: 12px;
+    }
+    .beverage-box .per-bv h6 {
+        font-size: 12px;
+        line-height: 13px;
+    }
+    .beverage-box .per-bv {
+        height: 65px;
+    }
+}
+
+
+@media screen and (max-width: 1175px) {
+    .form-check.identity label {
+        margin-right: 5px;
+        font-size: 11px;
+        line-height: 11px;
+    }
+    .coupon-offer {
+        font-size: 11px;
+        line-height: 11px;
+    }
+}
+
+
+@media screen and (max-width: 1099px) {
+.left-main-area .row > .col-md-4{
+    width:33.3% !important;   
+}
+.pos-body .left-main-area .table tr th, 
+.pos-body .left-main-area .table tr td, 
+.pos-body .left-main-area table tr th, 
+.pos-body .left-main-area table tr td {
+	min-width: auto !important;
+}
+.head-pos-info .row .col {
+	width: 25% !important;
+}
+.pos-pay-table table tr th:nth-child(2) {
+	width: 630px;
+}
+.pos-pay-table table tr td:first-child {
+	width: 645px;
+}
+
+.pos-menu-left {
+	position: relative;
+}
+.pos-menu-right {
+	position: relative;
+}
+.content-body .row > *.pos-menu-left{
+    width: 12.5% !important;
+}
+.content-body .row > *.pos-menu-right{
+    width: 87.5% !important;
+}
+.content-body .row > *.head-btns-left {
+	width: 54.3% !important;
+}
+.content-body .row > *.head-btns-right {
+	width: 45.7% !important;
+}
+.content-body .row > *.avatar-pan {
+	width: auto !important;
+}
+.content-body .row > *.left-action {
+	width: 72.3% !important;
+}
+.content-body .row > *.right-action {
+	width: 27.7% !important;
+}
+.content-body .row > *.topping-left {
+	width: 88% !important;
+}
+.content-body .row > *.topping-right {
+	width: 11.5% !important;
+}
+.head-btns label {
+	overflow: hidden;
+}
+.item-menu-pant {
+	height:915px;
+}
+.toppings-items.main-items .row *.top-pan-size{
+    width:25% !important;
+}
+.main-items.unique-items.add-on-items .row *.top-pan-size {
+	width: 16.66% !important;
+}
+.beverage-items .row *.beverage-box{
+    width:14.25% !important;
+}
+.content-body .pos-address-setup .row > .col-md-8{
+	width: 66% !important;
+}
+.card.pos-main-card {
+	margin-bottom: 0 !important;
+}
+.main-items.unique-items {
+	height: auto;
+}
+.main-items.unique-items.add-on-items .top-pan-size {
+	width: 20%;
+}
+.order-void-modal .row > * > .form-row{
+    width:100% !important;
+}
+.table-ord-list table {
+	display: block !important;
+}
+.payment-table .table tr th, 
+.payment-table .table tr td, 
+.payment-table table tr th, 
+.payment-table table tr td {
+	min-width: auto !important;
+}
+.pos-charges-pop .table tr th, 
+.pos-charges-pop .table tr td, 
+.pos-charges-pop table tr th, 
+.pos-charges-pop table tr td {
+	min-width: auto !important;
+}
+.pos-body-right {
+	height: auto;
+}
+}
+
+
+
+@media screen and (max-width: 991px) {
+.full-customer-area .items-box li .it-unitname {
+    font-size: 16px;
+}
+.full-customer-area .items-box li.item-head span {
+    font-size: 16px;
+}
+.full-customer-area .items-box li .it-des {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 18px;
+    width:60%;
+}
+.full-customer-area .items-box li .it-unit {
+	width: 11%;
+}
+.full-customer-area .items-box li .it-quantity {
+	line-height: 40px;
+	font-size: 23px;
+	font-weight: 600;
+}
+.full-customer-area .items-box li .it-unit {
+	font-size: 16px;
+}
+.full-customer-area .items-box li .it-total {
+	font-size: 16px;
+}
+.full-customer-area .items-box {
+	padding-left: 90px;
+}
+.full-customer-area .items-box li.item-head {
+	margin-left: 0px;
+	width: 100%;
+}
+}
+
+
+@media screen and (max-width: 960px) {
+app-store-table-modal .checkbox-group.table-tile .row > *{
+    width:20% !important;
+}
+.quantity-spicy {
+	margin: auto;
+	display: table;
+}
+.main-items.unique-items.add-on-items .row .top-pan-size {
+	width: 25% !important;
+}
+.taka-line li {
+	list-style-type: none;
+	display: inline-block;
+    margin:5px 10px;
+}
+.taka-line li img {
+	margin-bottom: 0px !important;
+}
+}
+
+
+
+@media screen and (max-width: 899px) {
+.content-body .pos-address-setup .row .col-md-8{
+    width: 100% !important;
+} 
+.content-body .pos-address-setup .row .col-md-4{
+    width: 100% !important;
+} 
+.pos-pay-table table tr th:nth-child(2) {
+	width: 360px;
+}
+.pos-pay-table table tr td:first-child {
+	width: 372px;
+}
+.toppings-items .top-pan-size {
+	width: 24.666%;
+    margin-bottom:5px;
+}
+app-pos-payment .pos-buttons-area .row .col{
+    flex: 0 0 auto;
+    width: 33%; 
+}
+}
+
+
+
+@media screen and (max-width:767px) {
+.full-customer-area .container, .full-customer-area .container-sm{
+    max-width:100%;
+}
+.full-customer-area .btn-success {
+	width:320px;
+    float:right;
+}
+.table-ord-list .expand-table table tr td table tr td .btn-sm {
+    padding:0 7px !important;
+}
+.item-menu-pant {
+    height: 100vh;
+}
+.pos-menu-box li button {
+    font-size: 12px;
+    line-height: 15px;
+}
+.form-check.identity {
+	margin-bottom:0 !important;
+}
+}
+
+
+@media screen and (max-width: 679px) {
+.pos-pay-table table tr td:first-child {
+    width: 383px;
+}
+.head-pos-search .head-pos-info.detail-pos-info table .form-control {
+	min-width: 137px !important;
+	font-size: 13px;
+}
+.main-items.unique-items.toppings-items .img-pan b {
+	font-size: 10px;
+}
+.content-body .row .topping-right {
+	width: 14.5% !important;
+}
+.content-body .row .topping-left {
+	width: 85% !important;
+}
+app-store-table-modal .checkbox-group.table-tile .row > *{
+    width:25% !important;
+}
+.full-customer-area .items-box li.item-head span:nth-child(2) {
+	width: 12%;
+}
+}
+
+@media screen and (max-width: 708px) {
+.content-body .head-pos-search .row > * {
+    width: 100% !important;
+    flex:0 0 auto;
+}
+.content-body .head-pos-search .row > * > .search-box{
+    margin-bottom:5px;
+}
+.content-body .head-pos-search .head-pos-info .row > * {
+    width: 50% !important;
+}
+}
+
+
+@media screen and (max-width: 599px) {
+.full-customer-area .items-box li .it-unitname {
+    font-size: 13px;
+}
+.head-pos-search .head-pos-info.detail-pos-info table .form-control{
+	min-width: 125px !important;
+}
+.pos-pay-table table tr th:nth-child(2) {
+	width: 190px;
+}
+.left-main-area .row > .col-md-4 {
+	width: 100% !important;
+}
+.content-body .row > .pos-menu-left {
+	width: 21.5% !important;
+}
+.content-body .row > .pos-menu-right {
+	width: 78.5% !important;
+}
+.content-body .head-btns-left .row > *.sequence-btns,
+.content-body .head-btns-right .row > *.col{
+	width: 100% !important;
+    flex:0 0 auto;
+}
+.content-body .head-btns-left .row > *.sequence-btns .ind-btn,
+.content-body .head-btns-right .row > *.col .ind-btn{
+	margin-bottom:5px;
+}
+.content-body .topping-btns .row > *.left-action,
+.content-body .topping-btns .row > *.right-action{
+    width: 100% !important;
+    flex:0 0 auto;
+}
+.content-body .topping-btns .left-action .row > *.col,
+.content-body .topping-btns .right-action .row > *.col{
+	width: 50% !important;
+    flex:0 0 auto;
+}
+.content-body .topping-btns .left-action .row > *.col button,
+.content-body .topping-btns .right-action .row > *.col button{
+	margin-bottom:5px;
+}
+.content-body .row > .topping-left {
+	width: 77% !important;
+}
+.content-body .row > .topping-right {
+	width: 22.5% !important;
+}
+.toppings-items.main-items .row > .top-pan-size {
+	width: 50% !important;
+    margin-bottom:5px;
+}
+.main-items.unique-items.add-on-items .row > .top-pan-size {
+	width: 49.65% !important;
+}
+.beverage-items .row > .beverage-box {
+	width: 33.25% !important;
+}
+.content-body .bottom-of-right .buttons-action .row > .col{
+    width:50% !important;
+    flex: 0 0 auto !important;
+}
+.item-menu-pant {
+	height: 1525px;
+}
+app-store-table-modal .checkbox-group.table-tile .row > *{
+    width:33.33% !important;
+}
+.toppings-items .top-pan-size {
+	width: 33.33%;
+}
+.toppings-items .topping-left {
+	width: 83%;
+}
+.toppings-items .topping-right {
+	width: 16.5%;
+}
+.pos-charges-pop .table tr th, 
+.pos-charges-pop .table tr td, 
+.pos-charges-pop table tr th, 
+.os-charges-pop table tr td {
+	min-width: auto !important;
+}
+.taka-line {
+	text-align: center;
+}
+app-pos-payment .pos-buttons-area > .row > .col{
+    width: 50%; 
+}
+.customer-header h1 {
+	font-size: 18px;
+}
+.customer-bion h3{
+	font-size: 15px;
+    line-height:16px;
+}
+.customer-bion h3 b {
+	font-size: 15px;
+}
+.customer-bion h4 {
+	font-size: 14px;
+    line-height:16px;
+}
+.customer-bion h4 b {
+	font-size: 14px;
+}
+.full-customer-area .word-taka {
+	font-size: 15px;
+}
+.full-customer-area .btn-success {
+	width: 200px;
+	height: 115px;
+}
+.full-customer-area .items-box li .it-code {
+	height: 40px;
+	left: -56px;
+    width:65px;
+	line-height: 36px;
+	font-size: 15px;
+	padding-left: 10px;
+}
+.full-customer-area .items-box li .it-image {
+	height: 50px;
+	width: 50px;
+	left: -24px;
+}
+.full-customer-area .items-box {
+	padding-left: 42px;
+}
+.full-customer-area .items-box li .it-des {
+	font-size: 13px;
+    padding-left:16px;
+}
+.full-customer-area .items-box li .it-quantity {
+	line-height: 30px;
+	font-size: 16px;
+}
+.full-customer-area .items-box li .it-unit {
+	font-size: 12px;
+}
+.full-customer-area .items-box li .it-total {
+	font-size: 13px;
+}
+.full-customer-area .items-box li {
+	padding: 5px 5px 5px 15px;
+	border: 1px solid #fff;
+	margin: 10px 0;
+}
+.full-customer-area .items-box li .it-des {
+	width: 55%;
+}
+.full-customer-area .items-box li .it-quantity {
+	width: 10%;
+}
+.full-customer-area .items-box li .it-unitname {
+	width: 9%;
+}
+.full-customer-area .items-box li .it-unit {
+	width: 12%;
+}
+.full-customer-area .items-box li .it-total {
+	width: 14%;
+}
+.full-customer-area .items-box li.item-head span {
+	font-size: 12px;
+}
+.full-customer-area .items-box li.item-head span:first-child {
+	width: 58%;
+}
+.full-customer-area .items-box li.item-head span:nth-child(2) {
+	width: 12%;
+}
+.full-customer-area .items-box li.item-head span:nth-child(3) {
+	width: 9%;
+}
+.full-customer-area .items-box li .right-dr {
+	right: -11px;
+	height: 20px;
+	width: 10px;
+}
+.guest-tl{
+    width:100px;
+}
+.guest-it{
+	text-align: start !important;
+}
+app-pos-payment {
+	.accordion.accordion-flush.dropup-accordion {
+		.accordion-item {
+			.accordion-collapse{
+				left:0;
+                right:auto;
+			}
+		}
+	}
+}
+}
+
+
+@media screen and (max-width: 575px) {
+    .each-liner .set-img {
+        width: 155px;
+        position: relative;
+        display: table;
+        margin: auto;
+    }
+    .each-liner .set-text h3 {
+        text-align: center;
+        margin-top:10px;
+    }
+    .each-liner .set-text .d-flex.align-items-center {
+        align-items: center !important;
+        justify-content: center;
+    }
+    .bottom-liner .total-text h4 {
+        text-align: center;
+    }
+    .bottom-liner .total-text h2 {
+        text-align: center;
+        margin-bottom:15px;
+    }
+    .bottom-liner .row .justify-content-end {
+        justify-content: center !important;
+    }
+    app-swipe-modal-spicy .d-flex{
+        display:table !important;
+        margin:auto;
+    }
+    app-swipe-modal-change .col-6,
+    app-swipe-modal-update .col-6{
+        width: 50% !important;
+    }
+}
+
+
+
+@media screen and (max-width: 419px) {
+app-store-table-modal .checkbox-group.table-tile .row > *{
+    width:50% !important;
+}
+.toppings-items .top-pan-size {
+	width: 50%;
+}
+.date-time-box .btn-group-sm > .btn, .date-time-box .btn-sm {
+    font-size: 14px !important;
+}
+}
+
+
+
+
+
+//Responsive CSS by POS screen height---------->
+
+@media screen and (max-width:1920px) and (max-height: 1080px) {
+    .pos-menu-box li button {
+        height: 55px;
+    }
+}
+
+
+@media screen and (max-width:1599px) and (max-height: 1080px) {
+    .main-items.unique-items {
+        height: 260px;
+    }
+}
+
+
+@media screen and (max-width:1599px) and (max-height: 1024px) {
+    .main-items.unique-items {
+        height: 250px;
+    }
+    .pos-pay-table {
+        padding-left: 0;
+    }
+}
+
+
+@media screen and (max-width:1920px) and (max-height: 960px) {
+    .pos-menu-box li button {
+        height: 54.3px;
+    }
+}
+
+
+@media screen and (max-width:1599px) and (max-height: 960px) {
+    .pos-pay-table.main-table {
+        height: 248px;
+    }
+    .head-btns label .ind-btn {
+        height: 52px;
+        line-height: 52px;
+    }
+    .droppan-btn {
+        width: 52px;
+        height: 52px;
+    }
+    .topping-btns .col button {
+        height: 40px;
+    }
+    .toppings-items .pos-more {
+        height: 84px;
+    }
+    .toppings-items.main-items .top-pan-size {
+        height: 84px;
+    }
+    .toppings-items.main-items .top-pan-size label {
+        height: 84px;
+    }
+    .toppings-items.main-items .img-pan {
+        height: 84px;
+    }
+    .toppings-items .top-pan-size {
+        height: 84px;
+    }
+    .toppings-items .top-pan-size label {
+        height: 84px;
+    }
+    .toppings-items .img-pan {
+        height: 84px;
+    }
+    .main-items.unique-items.add-on-items .top-pan-size {
+        height: 72px;
+    }
+    .main-items.unique-items.add-on-items .img-pan {
+        height: 72px;
+    }
+    .main-items.unique-items.add-on-items {
+        padding: 5px 10px;
+    }
+    .beverage-items {
+        height: 84px;
+    }
+}
+
+
+@media screen and (max-width:1599px) and (max-height: 900px) {
+    .pos-buttons-area .col {
+        padding: 3px 4px !important;
+    }
+    .pos-buttons-area button {
+        margin-top: 8px;
+    }
+    .main-items.unique-items {
+        height: 208px;
+    }
+    .pos-menu-box li button {
+        height: 51px;
+    }
+}
+
+
+@media screen and (max-width:1920px) and (max-height: 800px) {
+    .head-btns label .ind-btn {
+        height: 48px;
+        line-height: 48px;
+    }
+    .droppan-btn {
+        width: 48px;
+        height: 48px;
+    }
+    .topping-btns .col button {
+        height: 40px;
+        font-size: 16px;
+    }
+    .pos-buttons-area button {
+        height:46px;
+        font-size:18px;
+    }
+    .toppings-items.main-items.unique-items .top-pan-size {
+        height: 100px;
+    }
+    .toppings-items.main-items.unique-items .img-pan {
+        height: 100px;
+    }
+    .toppings-items .pos-more {
+        height: 84px;
+    }
+    .toppings-items.main-items .top-pan-size {
+        height: 84px;
+    }
+    .toppings-items.main-items .top-pan-size label {
+        height: 84px;
+    }
+    .toppings-items.main-items .img-pan {
+        height: 84px;
+    }
+    .toppings-items .top-pan-size {
+        height: 84px;
+    }
+    .toppings-items .top-pan-size label {
+        height: 84px;
+    }
+    .toppings-items .img-pan {
+        height: 84px;
+    }
+    .beverage-items {
+        height: 84px;
+    }
+    .main-items.unique-items.add-on-items .top-pan-size {
+        height: 72px;
+    }
+    .main-items.unique-items.add-on-items .img-pan {
+        height: 72px;
+    }
+    .main-items.unique-items {
+        height: 128px;
+    }
+    .main-items.unique-items.add-on-items {
+        padding: 5px 10px;
+    }
+    .pos-buttons-area .col {
+        padding: 3px!important;
+    }
+    .head-pos-search .search-box .form-control {
+        height:40px;
+    }
+    .head-pos-search .search-box button {
+        height:40px !important;
+    }
+    .pos-pay-table table tr th {
+        font-size: 15px;
+        padding: 3px 4px;
+    }
+    .pos-pay-table table tr td span.code {
+        height: 40px;
+        width: 40px;
+        font-size:19px;
+        line-height:40px;
+    }
+    .pos-pay-table table tr td:first-child {
+        width: 215px;
+        padding: 5px 5px 5px 20px;
+    }
+    .pos-pay-table table tr td input {
+        height: 40px;
+        width: 72px;
+    }
+    .date-time-box .btn-group-sm > .btn, .date-time-box .btn-sm {
+        font-size: 16px;
+        height:38px;
+    }
+    .date-time-box .p-calendar .p-inputtext {
+        height:38px;
+        font-size:14px;
+    }
+    .pos-address-setup {
+        padding: 5px 7px 2px;
+    }
+    .pos-address-setup textarea{
+        font-size: 14px;
+        line-height: 16px;
+        height:40px;
+    }
+    .pos-address-setup textarea.address-text::placeholder {
+        font-size: 14px;
+    }
+    .pos-buttons-area button {
+        margin-top: 6px;
+    }
+    .date-time-box {
+        margin-top: 5px;
+    }
+    .add-area-pos{
+        margin-top:5px !important;
+    }
+    .head-pos-info.detail-pos-info .table-bordered tr td {
+        padding: 1px 2px;
+    }
+    .head-pos-info.detail-pos-info table .form-control {
+        height: 22px;
+    }
+    .pos-pay-table.main-table {
+        height: 208px;
+    }
+    .pos-pay-table table tr td {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .pos-menu-box li {
+        margin-top: 4px;
+    }
+    .pos-menu-box li button {
+        height: 50px;
+    }
+    .accordion-flush.dropup-accordion .accordion-item .accordion-collapse {
+        bottom: 46px;
+        width:195px;
+        min-width:195px;
+    }
+}
+
+
+
+@media screen and (max-width:1920px) and (max-height: 768px) {
+    .main-items.unique-items {
+        height: 120px;
+    }
+    .toppings-items.main-items.unique-items .top-pan-size {
+        height: 100px;
+    }
+    .toppings-items.main-items.unique-items .img-pan {
+        height: 100px;
+    }
+    .toppings-items .pos-more {
+        height: 78px;
+    }
+    .toppings-items.main-items .top-pan-size {
+        height: 78px;
+    }
+    .toppings-items.main-items .top-pan-size label {
+        height: 78px;
+    }
+    .toppings-items.main-items .img-pan {
+        height: 78px;
+    }
+    .toppings-items .top-pan-size {
+        height: 78px;
+    }
+    .toppings-items .top-pan-size label {
+        height: 78px;
+    }
+    .toppings-items .img-pan {
+        height: 78px;
+    }
+    .beverage-items {
+        height: 78px;
+    }
+    .beverage-box .per-bv {
+        height: 68px;
+    }
+    .main-items.unique-items.add-on-items .top-pan-size {
+        height: 68px;
+    }
+    .main-items.unique-items.add-on-items .img-pan {
+        height: 68px;
+    }
+    .buttons-action {
+        padding: 4px 7px;
+    }
+    .pos-pay-table table tr th {
+        padding: 1px 4px;
+    }
+    .pos-buttons-area button {
+        height: 42px;
+    }
+    .head-pos-search .search-box .form-control {
+        height: 36px;
+        padding-left:50px;
+        font-size:15px;
+    }
+    .head-pos-search .search-box .form-control::placeholder {
+        font-size:15px;
+    }
+    .head-pos-search .search-box button {
+        height: 36px !important;
+    }
+    .pos-pay-table.main-table {
+        height: 192px;
+    }
+    .pos-menu-box li button {
+        font-size: 14px;
+        line-height: 16px;
+        height: 47px;
+    }
+}
+

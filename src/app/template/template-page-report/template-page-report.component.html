@@ -1,0 +1,1737 @@
+
+
+<!-------------Chart of Accounts Report------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Chart of Accounts Report</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                <th>Accounts Nature</th>
+                <th>Group Ledger</th>           
+                <th>Sub Group Ledger</th>       
+                <th>Control Ledger</th>        
+                <th>Ledger</th>       
+                <th>Sub Ledger</th>       
+                <th>Note No</th>       
+                <th>Dept. Rate</th>       
+                <th>Parent Asset</th>       
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                <td></td>
+                <td></td>
+                <td></td>     
+                <td></td>
+                <td></td>  
+                <td></td>
+                <td></td>     
+                <td></td>
+                <td></td>  
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+<!-------------Cash Book------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Cash Book</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Cash Book Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Name"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>Particulars</th>           
+                    <th>Voucher No</th>       
+                    <th>Debit (BDT)</th>        
+                    <th>Credit (BDT)</th>       
+                    <th>Balance (BDT)</th>         
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>  
+                    <td></td> 
+                </tr>
+            </ng-template>
+        </app-ni-table>
+        <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-sm btn-warning">
+                    <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                </button>
+                <button type="button" class="btn btn-sm btn-success">
+                    <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+<!-------------Mail Sending Option------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Mail Sending Option</h1>
+</div>
+<div class="card-section">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-4">
+            <div class="card-box p-3">
+                <div class="box-head mb-2">
+                    <h1 class="box-title">Mail Sending Option</h1>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" name="number" placeholder="Type Email" class="form-control">
+                </div>
+                <div class="form-group mt-2 mb-0">
+                    <div class="form-row d-flex justify-content-end">
+                        <button type="button" alt="icon" class="btn btn-sm btn-success">
+                            <img src="../../../assets/images/icons/send.svg" alt="icon">Send Email 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+
+<!-------------Bank Book------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Bank Book</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Bank Book Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Name"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>
+                    <th>Particulars</th>           
+                    <th>Voucher No</th>       
+                    <th>Debit (TK)</th>        
+                    <th>Credit (BDT)</th>       
+                    <th>Balance (BDT)</th>         
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>  
+                    <td></td> 
+                </tr>
+            </ng-template>
+        </app-ni-table>
+        <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-sm btn-warning">
+                    <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                </button>
+                <button type="button" class="btn btn-sm btn-success">
+                    <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+  
+
+
+
+
+
+
+
+<!-------------Day Book------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Day Book</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>       
+                    <th>Voucher No</th>       
+                    <th>From Account</th>       
+                    <th>Sub-Ledger</th>       
+                    <th>Particulars</th>       
+                    <th>Cheque No</th>       
+                    <th>Cheque Date</th>       
+                    <th>To Account</th>  
+                    <th>Sub-Ledger</th>     
+                    <th>Inv/Bill Ref. No</th>     
+                    <th>Debit (BDT)</th>        
+                    <th>Credit (BDT)</th>          
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>  
+                    <td></td> 
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>  
+                    <td></td> 
+                </tr>
+            </ng-template>
+        </app-ni-table>
+        <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex align-items-center justify-content-end">
+                <button type="button" class="btn btn-sm btn-warning">
+                    <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                </button>
+                <button type="button" class="btn btn-sm btn-success">
+                    <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+<!-------------Receipts & Payments------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Receipts & Payments</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mb-0">
+                    <label>Result Type</label>
+                </div>
+                <div class="form-group d-inline-block align-items-center">
+                    <div class="form-radio my-2">
+                        <input id="Acrual" name="shapes" type="radio" class="form-radio-input">
+                        <label for="Acrual" class="form-radio-label">Acrual Basis</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="Cash" name="shapes" type="radio" class="form-radio-input">
+                        <label for="Cash" class="form-radio-label">Cash Basis</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+<!-------------Ledger------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Ledger</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Salary Expense"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>             
+                    <th>Particulars</th>       
+                    <th>Voucher No</th>          
+                    <th>Debit (BDT)</th>        
+                    <th>Credit (BDT)</th>          
+                    <th>Balance (BDT)</th>          
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+  
+
+
+
+
+
+
+<!-------------Group Ledger------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Group Ledger</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Group Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Salary Expense"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Sl. No.</th>             
+                    <th>Particulars</th>         
+                    <th>Debit Balance (BDT)</th>        
+                    <th>Credit Balance (BDT)</th>           
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+<!-------------Sub Ledger------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Sub Ledger</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Sub Ledger Name</label>
+                    <input id="name" type="text" placeholder="Type Name" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Salary Expense"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <div class="form-row d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Sl. No.</th>             
+                    <th>Particulars</th>         
+                    <th>Payable (BDT)</th>        
+                    <th>Receivable (BDT)</th>           
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+<!-------------Sub Ledger------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Sub Ledger Details</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Sub Ledger Type</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Sub Ledger"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Ledger"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Sub Ledger Name</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Salary Sub Ledger"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <div class="form-row d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Date</th>             
+                    <th>Particulars</th>         
+                    <th>Voucher No</th>         
+                    <th>Debit (BDT)</th>        
+                    <th>Credit (BDT)</th>        
+                    <th>Balance (BDT)</th>           
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                    <td></td>     
+                    <td></td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+  
+
+
+
+
+
+
+
+<!-------------Note Ledger------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Note Ledger</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Financial Year</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Year"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group top-mt mb-0">
+                    <div class="form-row d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning ms-3">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Ledger Name</th>             
+                    <th>Note No</th>             
+                    <th>Action</th>           
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>   
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+<!-------------Trial Balance------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Trial Balance</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group top-mt d-inline-block align-items-center">
+                    <div class="form-check my-2">
+                        <input id="nature" name="trialchecks" type="checkbox" class="form-check-input">
+                        <label for="nature" class="form-check-label">Account Nature</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="groupLedger" name="trialchecks" type="checkbox" class="form-check-input">
+                        <label for="groupLedger" class="form-check-label">Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="subGroupLedger" name="trialchecks" type="checkbox" class="form-check-input">
+                        <label for="subGroupLedger" class="form-check-label">Sub Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="controlLedger" name="trialchecks" type="checkbox" class="form-check-input">
+                        <label for="controlLedger" class="form-check-label">Control Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="ledger" name="trialchecks" type="checkbox" class="form-check-input">
+                        <label for="ledger" class="form-check-label">Ledger</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <div class="form-row d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <button type="button" class="btn btn-sm btn-warning ms-3">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th rowspan="2">Account Name</th>             
+                    <th colspan="2" class="colspan text-center">Opening Balance</th>             
+                    <th colspan="3" class="colspan text-center">Transactional Balance</th>           
+                    <th colspan="2" class="colspan">Closing Balance</th>           
+                </tr>
+                <tr>
+                    <th>Debit</th>             
+                    <th>Credit</th>             
+                    <th>Debit</th>             
+                    <th>Credit</th>             
+                    <th>Balance</th>             
+                    <th>Debit</th>             
+                    <th>Credit</th>                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>   
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+<!-------------Income Statement------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">Income Statement</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Financial Year</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Year"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date Range</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date Range"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mb-0">
+                    <label>Result Type</label>
+                </div>
+                <div class="form-group d-inline-block align-items-center">
+                    <div class="form-radio my-2">
+                        <input id="tshape" name="shapes" type="radio" class="form-radio-input">
+                        <label for="tshape" class="form-radio-label">T Shape</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="lshape" name="shapes" type="radio" class="form-radio-input">
+                        <label for="lshape" class="form-radio-label">L Shape</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group d-inline-block align-items-center">
+                    <div class="form-check my-2">
+                        <input id="nature" name="incomeState" type="checkbox" class="form-check-input">
+                        <label for="nature" class="form-check-label">Account Nature</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="groupLedger" name="incomeState" type="checkbox" class="form-check-input">
+                        <label for="groupLedger" class="form-check-label">Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="subGroupLedger" name="incomeState" type="checkbox" class="form-check-input">
+                        <label for="subGroupLedger" class="form-check-label">Sub Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="controlLedger" name="incomeState" type="checkbox" class="form-check-input">
+                        <label for="controlLedger" class="form-check-label">Control Ledger</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <div class="form-row d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <button type="button" class="btn btn-sm btn-warning ms-3">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Particulars</th>     
+                    <th></th>       
+                    <th></th>       
+                    <th></th>       
+                    <th>Amount (BDT)</th>                     
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>   
+                    <td></td>   
+                    <td></td>   
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+
+
+
+
+
+
+
+
+<!-------------Balancesheet Statement------------->
+<div class="card-head mb-2">
+    <h1 class="section-title">BalanceSheet Statement</h1>
+</div>
+<div class="card-section">
+    <div class="card-box p-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="ni-sup">Company</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Company"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Office/Branch/Unit</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Office/Branch/Unit"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Project</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Project"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Financial Year</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Year"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Date AS ON</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Stock Price On</label>
+                    <p-select appendTo="body" 
+                        formControlName="dataType"
+                        placeholder="Select Date Range"
+                        textProperty="dataTypeText"
+                        inputValidator
+                        [style]="{ width: '100%' }">
+                    </p-select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group mb-0">
+                    <label>Result Type</label>
+                </div>
+                <div class="form-group d-inline-block align-items-center">
+                    <div class="form-radio my-2">
+                        <input id="tshape" name="shapes" type="radio" class="form-radio-input">
+                        <label for="tshape" class="form-radio-label">T Shape</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="lshape" name="shapes" type="radio" class="form-radio-input">
+                        <label for="lshape" class="form-radio-label">L Shape</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group top-mt d-inline-block align-items-center">
+                    <div class="form-check my-2">
+                        <input id="nature" name="balanceSheet" type="checkbox" class="form-check-input">
+                        <label for="nature" class="form-check-label">Account Nature</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="groupLedger" name="balanceSheet" type="checkbox" class="form-check-input">
+                        <label for="groupLedger" class="form-check-label">Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="subGroupLedger" name="balanceSheet" type="checkbox" class="form-check-input">
+                        <label for="subGroupLedger" class="form-check-label">Sub Group Ledger</label>
+                    </div>
+                    <div class="form-radio my-2">
+                        <input id="controlLedger" name="balanceSheet" type="checkbox" class="form-check-input">
+                        <label for="controlLedger" class="form-check-label">Control Ledger</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <div class="form-row d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-warning">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <button type="button" class="btn btn-sm btn-warning ms-3">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="gridOptionAnother" [valueList]="list">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Particulars</th>         
+                    <th>2024 Amount (BDT)</th>                     
+                    <th>2023 Amount (BDT)</th>                     
+                    <th>2022 Amount (BDT)</th>                     
+                    <th>2021 Amount (BDT)</th>                     
+                    <th>Particulars</th>         
+                    <th>2024 Amount (BDT)</th>                     
+                    <th>2023 Amount (BDT)</th>                     
+                    <th>2022 Amount (BDT)</th>                     
+                    <th>2021 Amount (BDT)</th>                     
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>   
+                    <td></td>   
+                    <td></td>   
+                    <td></td>
+                    <td></td>
+                    <td></td>   
+                    <td></td>   
+                    <td></td>   
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>

@@ -1,0 +1,162 @@
+<div class="card-head mb-2 d-flex align-items-center justify-content-between">
+  <h1 class="section-title">{{fieldTitle['agingreport']}}</h1>
+</div>
+<div class="card-section">
+  <div class="top-card-box p-3 pb-1 mb-3">
+    <form #agingreportForm="ngForm" [addValidators]="validationMsgObj" validationMessage="formValidateModel">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['company']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="{{fieldTitle['selectcompany']}}"
+                  [(ngModel)]="modelSvc.searchParam.companyID" [filter]="true" [options]="modelSvc.companyList"
+                  name="companyID" (onChange)="onChangeCompany()" optionLabel="name" optionValue="id"
+                  [niSelectedText]="modelSvc.searchParam" textProperty="companyName" inputValidator
+                  [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="isBranchModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['office/branch/unit']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="{{fieldTitle['selectoffice/branch/unit']}}"
+                  [(ngModel)]="modelSvc.searchParam.orgID" [filter]="true" [group]="true" [showClear]="true"
+                  (onChange)="onChangeOrg()" [options]="modelSvc.officeBranchUnitList"
+                  [niSelectedText]="modelSvc.searchParam" textProperty="unitBranch" filterBy="name" name="orgID"
+                   optionLabel="name" optionValue="id" [group]="true" [style]="{ width: '100%' }">
+                  <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                      <span>{{ group.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="isProjectModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['project']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="{{fieldTitle['selectproject']}}"
+                  [(ngModel)]="modelSvc.searchParam.projectID" [filter]="true" filterBy="name" [showClear]="true"
+                  (onChange)="onChangeProject()" [options]="modelSvc.projectList"
+                  [niSelectedText]="modelSvc.searchParam" textProperty="project" name="projectID" optionLabel="name"
+                  optionValue="id" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['subledgertype']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Sub Ledger Type"
+                  [(ngModel)]="modelSvc.searchParam.subLedgerTypeID" [filter]="true" filterBy="name"
+                  (onChange)="onChangeLedgerType()" inputValidator [options]="modelSvc.subLedgerTypeList"
+                  [niSelectedText]="modelSvc.searchParam" textProperty="subLedgerName" name="subLedgerTypeID"
+                  optionLabel="name" optionValue="id" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['ledgername']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" placeholder="Select Ledger" [(ngModel)]="modelSvc.searchParam.ledgerID"
+                  [filter]="true" filterBy="ledger" inputValidator [options]="modelSvc.ledgerList"
+                  [niSelectedText]="modelSvc.searchParam" textProperty="ledgerName" name="ledgerID" optionLabel="ledger"
+                  optionValue="id" [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['asondate']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.asOnDate"
+                  name="asOnDate" [readonlyInput]="true" [showIcon]="true"
+                  [style]="{ width: '100%' }" inputValidator>
+                </p-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <div class="form-row d-flex align-items-center justify-content-end">
+              <button type="button" class="btn btn-sm btn-warning" (click)="reset(agingreportForm)">
+                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-primary" (click)="search(agingreportForm)">
+                <img src="../../../assets/images/icons/search.svg" alt="icon"> {{fieldTitle['search']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-danger" (click)="onExport(true)">
+                <img src="../../../assets/images/icons/download.svg" alt="icon"> {{fieldTitle['export']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-success" (click)="onExport(false)">
+                <img src="../../../assets/images/icons/send.svg" alt="icon">
+                {{fieldTitle['sendemail']}}
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.agingList">
+    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ entity.subLedgerName }}</td>
+        <td>{{ entity.contactNo }}</td>
+        <td class="text-end">{{ entity.currentBalance | number : "1.2-2" }}</td>
+        <td class="text-end">{{ entity.daysBalance30 | number : "1.2-2"}}</td>
+        <td class="text-end">{{ entity.daysBalance60 | number : "1.2-2"}}</td>
+        <td class="text-end">{{ entity.daysBalance90 | number : "1.2-2"}}</td>
+        <td class="text-end">{{ entity.daysBalance120 | number : "1.2-2"}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="2" class="text-end">{{fieldTitle['total']}}</td>
+        <td class="text-end">{{modelSvc.totalCurrentBalance | number : "1.2-2"}}</td>
+        <td class="text-end">{{modelSvc.total30DaysBalance | number : "1.2-2"}}</td>
+        <td class="text-end">{{modelSvc.total60DaysBalance | number : "1.2-2"}}</td>
+        <td class="text-end">{{modelSvc.total90DaysBalance | number : "1.2-2"}}</td>
+        <td class="text-end">{{modelSvc.total120DaysBalance | number : "1.2-2"}}</td>
+      </tr>
+
+    </ng-template>
+  </app-ni-table>
+</div>

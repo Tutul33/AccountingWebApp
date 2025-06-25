@@ -1,0 +1,17 @@
+
+
+<form #chequePrintModalForm="ngForm">
+
+  <div class="form-group">
+    <label >{{fieldTitle['payTo']}}</label>
+    <input type="text" name="payTo" class="form-control" [(ngModel)]="payTo"
+      placeholder="{{fieldTitle['payTo']}}">
+  </div>
+  <div class="form-group d-flex justify-content-end">
+    <button type="button" class="btn btn-sm btn-warning" 
+      (click)="onPrintCheque()">
+        <img src="../../../assets/images/icons/print.svg" alt="icons"/>
+        {{fieldTitle['print']}}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,31 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['chequeloglist']}}</h1>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-12">
+    <div class="card-box p-3">
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.chequeBookLeafManagementList"
+        class="scrollable-table">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ entity.company }}</td>
+            <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.org }}</td>
+            <td *ngIf="this.modelSvc.isProjectModuleActive">{{ entity.project }}</td>
+            <td>{{ entity.chequeTransaction }}</td>
+            <td>{{ entity.bankAccount }}</td>
+            <td>{{ entity.leafNo }}</td>
+            <td>{{ entity.amount }}</td>
+            <td>{{ entity.chequeDate }}</td>
+            <td>{{ entity.lastUpdate }}</td>
+            <td>{{ entity.status }}</td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-sm btn-success" type="button" (click)="onCheckHistory(entity)">{{fieldTitle['checkhistory']}}</button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </app-ni-table>
+    </div>
+  </div>
+</div>

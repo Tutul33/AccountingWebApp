@@ -1,0 +1,241 @@
+
+<div class="card-body">
+  <form #codeGenForm="ngForm" [addValidators]="validationMsgObj" validationMessage="codeGenValidateModel">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label title="" class="ni-sup">{{ fieldTitle["code"] }}</label>
+          <p-select appendTo="body" [filter]="true" [options]="modelSvc.keyCodeList" name="keyCode"
+            [(ngModel)]="modelSvc.codeGenModel.keyCode" placeholder="Select Code" optionLabel="value" optionValue="code"
+            [style]="{ width: '100%' }" (onChange)="onChangeKeyCode($event)">
+          </p-select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-row">
+          <div class="form-check mt-4">
+            <input type="checkbox" [(ngModel)]="modelSvc.codeGenModel.isVariantRequired" id="isVarientRequired"
+            name="isVarientRequired" class="form-check-input" (change)="onChangeVariantRequired()" />
+            <label for="isVarientRequired" title="isVarientRequired" class="form-check-label">
+              {{ fieldTitle["codevaryondata"] }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label title="">{{ fieldTitle["codedatavariants"] }}</label>
+              <p-select appendTo="body" [filter]="true" [options]="modelSvc.codeGenDataVariantList" name="codeGenVarID"
+                [(ngModel)]="modelSvc.codeGenModel.codeGenVarID" optionLabel="value" optionValue="code"
+                [disabled]="!modelSvc.codeGenModel.isVariantRequired" placeholder="Select Code Data"
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group top-mt">
+              <p-select appendTo="body" [filter]="true" [options]="modelSvc.dataVariantList" name="dataVariantID"
+                [(ngModel)]="modelSvc.codeGenModel.dataVariantID" optionLabel="value" optionValue="code"
+                [disabled]="!modelSvc.codeGenModel.isVariantRequired" placeholder="Select Data Variant"
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="form-group col">
+                <label class="ni-sup" title="{{ fieldTitle['start'] }}">
+                  {{ fieldTitle["start"] }}
+                </label>
+                <input type="text" name="valFromFormat" class="form-control" inputValidator
+                  [(ngModel)]="modelSvc.codeGenModel.valFromFormat" (change)="onChangeStart()" placeholder="" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="form-group col">
+                <label title="{{ fieldTitle['end'] }}">
+                  {{ fieldTitle["end"] }}
+                </label>
+                <input type="text" name="valTo" class="form-control" inputValidator [(ngModel)]="modelSvc.codeGenModel.valTo"
+                  placeholder="" (change)="onChangeEnd()" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-row">
+          <div class="form-group col">
+            <label title="{{ fieldTitle['codeexample'] }}">
+              {{ fieldTitle["codeexample"] }}
+            </label>
+            <div class="d-flex align-items-center justify-content-center">
+              <input type="text" id="codeexample" name="codeexample" class="form-control" inputValidator [disabled]="true"
+                [(ngModel)]="modelSvc.codeGenModel.genCodeFormat" placeholder="{{ fieldTitle['codeexample'] }}" />
+              <button type="button" (click)="updateCodeGenFormat()" class="btn btn-sm btn-warning">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.codeGenModel.codeGenItems"
+          class=" smaller-elements code-gen-table">
+          <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+            <tr ngModelGroup="{{rowIndex}}"
+                [addValidators]="validationMsgObj"
+                validationMessage="codeGenItemValidateModel" 
+                *ngIf="item.tag !== 2"
+            >
+              <td>
+                <p-select
+                  appendTo="body"
+                  [filter]="true"
+                  [options]="modelSvc.propertyList"
+                  id="propertyName{{ rowIndex + 1 }}"
+                  name="propertyName"
+                  [(ngModel)]="item.propertyName"
+                  placeholder="Select Property"
+                  optionLabel="propertyText"
+                  optionValue="propertyName"
+                  inputValidator
+                  [style]="{ width: '100%' }"
+                  (onChange)="onChangeProperty(item)"
+                >
+                </p-select>
+              </td>
+              <td>
+                <input [disabled]="!item.propertyName || item.propertyName != 'Text'" type="text" name="value"
+                  class="form-control" [(ngModel)]="item.value" />
+              </td>
+              <td>
+                <div class="form-check">
+                  <input type="checkbox" [style.border-color]="item.isPrefixOrSuffixSelected ? 'red' : ''"
+                    [(ngModel)]="item.prefix" name="prefix" id="prefix_{{ rowIndex + 1 }}" inputValidator
+                    (change)="onChangePrefixSuffix(item,'prefix')" [disabled]="!item.propertyName"
+                    class="form-check-input" />
+                  <label for="prefix_{{ rowIndex + 1 }}" title="Prefix" (change)="onChangePrefixSuffix(item,'prefix')"
+                    class="form-check-label">{{fieldTitle["prefix"]}}</label>
+                </div>
+              </td>
+              <td>
+                <input 
+                  type="text"
+                  id="psl_{{ rowIndex + 1 }}"
+                  name="pSL"
+                  class="form-control"
+                  [(ngModel)]="item.pSL"
+                  [disabled]="!item.propertyName || !item.prefix || item.reset"
+                  niNumber
+                />
+              </td>
+              <td>
+                <div class="form-check">
+                  <input type="checkbox" [style.border-color]="item.isPrefixOrSuffixSelected ? 'red' : ''"
+                    [(ngModel)]="item.sufffix" name="Sufffix" id="sufffix_{{ rowIndex + 1 }}" inputValidator
+                    (change)="onChangePrefixSuffix(item,'suffix')" [disabled]="!item.propertyName"
+                    class="form-check-input" />
+                  <label for="sufffix_{{ rowIndex + 1 }}" (change)="onChangePrefixSuffix(item,'suffix')" title="sufffix"
+                    class="form-check-label">{{fieldTitle["suffix"]}}</label>
+                </div>
+              </td>
+              <td>
+                <input 
+                type="text"
+                id="ssl_{{ rowIndex + 1 }}"
+                name="sSL"
+                class="form-control"
+                [(ngModel)]="item.sSL"
+                [disabled]="!item.propertyName || !item.sufffix || item.reset"
+                niNumber
+              />
+              </td>
+              <td>
+                <input 
+                type="text"
+                id="startIndex_{{ rowIndex + 1 }}"
+                name="startIndex"
+                class="form-control"
+                [(ngModel)]="item.startIndex"
+                [disabled]="!item.propertyName || item.reset"
+                niNumber
+                (change)="onStartIndexChange(item)"
+              />
+              </td>
+              <td>
+                <input 
+                type="text"
+                id="length_{{ rowIndex + 1 }}"
+                name="length"
+                class="form-control"
+                [(ngModel)]="item.length"
+                [disabled]="!item.startIndex"
+                niNumber
+                (change)="onLengthChange(item)"
+              />
+              </td>
+              <td>
+                <div [style]=" { 'border': item.isActionNotSelected?'red 1px solid':'', 'border-radius': item.isActionNotSelected?'5px':''}">
+                  <p-select [disabled]="!item.length && !item.startIndex"
+                  appendTo="body"
+                  [filter]="true"
+                  [options]="modelSvc.actionList" 
+                  name="action" 
+                  [(ngModel)]="item.action" 
+                  placeholder="Select action"
+                  optionLabel="actionName"
+                  optionValue="value"
+                  [style]="{ 'width': '100%'}"
+                  (onChange)="onActionChanged(item)"
+                >
+                </p-select>
+                </div>
+              </td>
+              <td>             
+                <div class="toggleWrapper">
+                  <input type="checkbox" [(ngModel)]="item.reset" id="reset_{{ rowIndex + 1 }}"  name="reset_{{ rowIndex + 1 }}" 
+                  [disabled]="!item.propertyName || item.propertyName === 'Text'"/>
+                  <label class="toggle" for="reset_{{ rowIndex + 1 }}">
+                    <span class="toggle__handler"></span>
+                  </label>
+                </div>
+              </td>
+              <td class="not-last-child text-center">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" niDbclickPrevent class="p-button-danger" pButton pRipple icon="pi pi-trash" (click)="removeProperty(item)"></button>
+                  <button type="button" class="p-button-primary" pButton pRipple icon="pi pi-plus" *ngIf="item.lastIndex" (click)="addProperty(item,codeGenForm)"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-end mt-3">
+      <button type="button" class="btn btn-sm btn-success" [disabled]="!codeGenForm.dirty" (click)="save(codeGenForm)">
+        <img src="../../../assets/images/icons/save.svg" alt="reset"/>
+        {{ fieldTitle["save"] }}
+      </button>
+      <button type="button" class="btn btn-sm btn-warning" [disabled]="!codeGenForm.dirty" (click)="reset()">
+        <img src="../../../assets/images/icons/repeat.png" alt="reset"/>
+        {{ fieldTitle["reset"] }}
+      </button>
+      <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">
+        <img src="../../../assets/images/icons/x-circle.svg" alt="cancel" />
+        {{ fieldTitle["cancel"] }}
+      </button>
+    </div>
+  </form>
+</div>

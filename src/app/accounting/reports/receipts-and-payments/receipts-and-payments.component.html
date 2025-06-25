@@ -1,0 +1,232 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['receipts&payments']}}</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1">
+        <form #searchFilterForm="ngForm" [addValidators]="validationMsgObj"
+            validationMessage="receiptsAndPaymentsModelValidation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['company']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Company"
+                                    [(ngModel)]="searchParam.companyID" [filter]="true" [options]="modelSvc.companyList"
+                                    name="companyID" (onChange)="onChangeCompany()" optionLabel="name" optionValue="id"
+                                    [niSelectedText]="searchParam" textProperty="company" inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isBranchModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['office/branch/unit']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                                    [(ngModel)]="searchParam.orgID" [filter]="true" [group]="true" [showClear]="true"
+                                    [options]="modelSvc.officeBranchList" [niSelectedText]="searchParam"
+                                    textProperty="unitBranch" filterBy="name" name="orgID" optionLabel="name"
+                                    optionValue="id" [group]="true" [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isProjectModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['project']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Project"
+                                    [(ngModel)]="searchParam.projectID" [filter]="true" filterBy="name"
+                                    [showClear]="true" [options]="modelSvc.projectList" [niSelectedText]="searchParam"
+                                    textProperty="project" name="projectID" optionLabel="name" optionValue="id"
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                      <div class="row align-items-center">
+                        <div class="col-md-4">
+                          <label class="ni-sup">{{fieldTitle['datefrom-to']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="row g-1">
+                            <div class="col-md-6">
+                              <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="searchParam.fromDate" name="fromDate"
+                                [readonlyInput]="true" 
+                                [showIcon]="true" 
+                                [maxDate]="searchParam.toDate"
+                                [style]="{ width: '100%' }" 
+                                inputValidator>
+                              </p-datepicker>
+                            </div>
+                            <div class="col-md-6">
+                              <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="searchParam.toDate" name="toDate"
+                                [readonlyInput]="true" 
+                                [showIcon]="true"  
+                                [minDate]="searchParam.fromDate"
+                                [style]="{ width: '100%' }" 
+                                inputValidator>
+                              </p-datepicker>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-0">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup"
+                                    title="{{ fieldTitle['resulttype'] }}">{{fieldTitle['resulttype']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group d-inline-block align-items-center mb-0">
+                                    <div class="form-radio my-1">
+                                        <input id="Acrual" name="resultType" [(ngModel)]="searchParam.resultType"
+                                            value="1" inputValidator type="radio" class="form-radio-input">
+                                        <label for="Acrual"
+                                            class="form-radio-label">{{fieldTitle['acrualbasis']}}</label>
+                                    </div>
+                                    <div class="form-radio my-1">
+                                        <input id="Cash" name="resultType" [(ngModel)]="searchParam.resultType"
+                                            type="radio" inputValidator value="2" class="form-radio-input">
+                                        <label for="Cash" class="form-radio-label">{{fieldTitle['cashbasis']}} </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-row d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" (click)="search(searchFilterForm)">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon"> {{fieldTitle['search']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"
+                                (click)="onSubmit(searchFilterForm, true)">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">{{fieldTitle['export']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success"
+                                (click)="onSubmit(searchFilterForm, false)">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon">{{fieldTitle['sendemail']}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="openingDataList.length > 0">
+        <app-ni-table [gridOption]="gridOptionOpeing" [valueList]="openingDataList">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>
+                    <th width="20%">{{fieldTitle['balance(bdt)']}}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr *ngIf="entity.particularType==1">
+                    <td> <span
+                            [ngStyle]="{'white-space': 'pre', 'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.ledger}}</span>
+                    </td>
+                    <td> <span
+                            [ngStyle]="{'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.balance}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+
+    <div *ngIf="receiptDataList.length > 0">
+        <app-ni-table [gridOption]="gridOptionRecceipt" [valueList]="receiptDataList">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>
+                    <th width="20%">{{fieldTitle['balance(bdt)']}}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr *ngIf="entity.particularType==2">
+                    <td> <span
+                            [ngStyle]="{'white-space': 'pre', 'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.ledger}}</span>
+                    </td>
+                    <td> <span
+                            [ngStyle]="{'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.balance}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+
+    <div *ngIf="paymentDataList.length > 0">
+        <app-ni-table [gridOption]="gridOptionPayment" [valueList]="paymentDataList">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>
+                    <th width="20%">{{fieldTitle['balance(bdt)']}}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr *ngIf="entity.particularType==3">
+                    <td> <span
+                            [ngStyle]="{'white-space': 'pre', 'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.ledger}}</span>
+                    </td>
+                    <td> <span
+                            [ngStyle]="{'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.balance}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+
+    <div *ngIf="closingDataList.length > 0">
+        <app-ni-table [gridOption]="gridOptionClosing" [valueList]="closingDataList">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>
+                    <th width="20%">{{fieldTitle['balance(bdt)']}}</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr *ngIf="entity.particularType==4">
+                    <td> <span
+                            [ngStyle]="{'white-space': 'pre', 'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.ledger}}</span>
+                    </td>
+                    <td> <span
+                            [ngStyle]="{'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.balance}}</span>
+                    </td>
+
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>

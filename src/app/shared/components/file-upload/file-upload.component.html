@@ -1,0 +1,49 @@
+<div class="p-dialog-header-icons">
+  <button type="button" class="btn btn-danger" (click)="onClose()">
+    <i class="pi pi-times"></i>
+  </button>
+</div>
+<div>
+  <ng-container>
+    <div class="page-box upload-box">
+        <input type="file" [disabled]="isMultipleUpload()" [attr.multiple]="uploadOption.isMultipleSelection ? uploadOption.isMultipleSelection : null" (change)="onSelectFiles($event)">
+        <button type="button" [disabled]="!isPageChanged" (click)="onUploadFiles()">Upload</button>
+    </div>
+  </ng-container>
+</div>
+
+<p-table [value]="targetObjectList">  
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Serial</th>
+      <th>File Name</th>
+      <th>File</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Action</th>
+      <th>Progress</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-file let-rowIndex="rowIndex">
+    <tr *ngIf="file.tag !== 2">
+      <td>{{rowIndex + 1}}</td>
+      <td style="overflow: hidden;">{{file.fileName}}</td>
+      <td>
+        <div class="attachedImage">
+          <span *ngIf="file.fileSrc == ''"><i class="fa fa fa-spinner fa-spin"></i></span>
+          <img *ngIf="file.fileSrc != ''" [niLoadImage]="file" [imageOption]="uploadOption" src="{{file.thubnailSrc?file.thubnailSrc:file.fileSrc}}" alt="" class="img-responsive" />
+          <div *ngIf="file.thubnailSrc && file.filePath" [niFileDownload]="file.filePath" class="attachedImageHover"></div>
+          <div *ngIf="!file.thubnailSrc" (click)="imageGalleryModal(targetObjectList, file)" class="attachedImageHover"></div>          
+        </div>
+      </td>
+      <td>{{file.creationDate}}</td>
+      <td>{{file.creationTime}}</td>
+      <td>
+        <button type="button" href="javascript:void(0)" (click)="removeImage(rowIndex)" class="btn btn-sm btn-danger">
+          <i class="pi pi-times p-0"></i>
+        </button>
+      </td>
+      <td><p-progressBar [value]="file.progress" [showValue]="true"></p-progressBar></td>
+    </tr>
+  </ng-template>  
+</p-table>

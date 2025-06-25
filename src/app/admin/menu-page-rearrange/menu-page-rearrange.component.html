@@ -1,0 +1,35 @@
+
+<div class="row align-items-center justify-content-center">
+  <div class="col-lg-5">
+    <div class="card-body">
+      <h1 class="table-title w-100">{{ fieldTitle["listmenu"] }}</h1> 
+      <p-tree [value]="modelSvc.allTreeData" selectionMode="single" [draggableNodes]="modelSvc.dragDropEnable" [droppableNodes]="modelSvc.dragDropEnable"           
+        [filter]="true" (onNodeDrop)="onNodeDrop($event)"  filterMode="strict" filterPlaceholder="{{fieldTitle['search']}}" class="admin-menus d-table w-100">
+        <ng-template let-node pTemplate="default">               
+          <div (click)="onNodeClick(node)" class="d-flex align-items-center gap-2">
+            <div class="p-checkbox p-component" >
+              <div [ngClass]="{'p-checkbox-box': true, 'p-highlight': selectedNode===node}"></div>
+            </div>
+            <label style="cursor:pointer" [style.color]="node.selectedNode ? 'green' : (node.isPageOrMenu ==2 ? '#ec950a' :'')">{{ node.label }}</label>
+          </div>                  
+        </ng-template>
+      </p-tree>
+      <div class="form-group mt-2 mb-0">
+        <div class="d-flex justify-content-end">
+          <button type="button" (click)="edit()" [disabled]="isEdit" class="btn btn-sm btn-primary mr-d-10">
+            <img src="../../../assets/images/icons/edit.svg" alt="icon" />
+            {{fieldTitle['edit']}}
+          </button>
+          <button type="button" (click)="save()" [disabled]="!isEdit" class="btn btn-sm btn-success mr-d-10">
+            <img src="../../../assets/images/icons/save.svg" alt="icon" />
+            {{fieldTitle['save']}}
+          </button>
+          <button type="button" (click)="reset()" class="btn btn-sm btn-warning">
+            <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+            {{fieldTitle['reset']}}
+          </button>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

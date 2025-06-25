@@ -1,0 +1,32 @@
+<section class="sign-area">
+    <div class="container">
+      <div class="sign-box sign-head">
+        <div class="px-lg-0 col-md-6 col-sm-12 col-xs-12">
+          <div class="sign-boxer"></div>
+        </div>
+        <div class="px-lg-0 col-md-6 col-sm-12 col-xs-12">
+          <div class="sign-boxer-right align-middle">
+            <div class="align-self-center">
+              <h1>ENTER OTP</h1>
+              <div class="tabcontent">
+                <div class="place-box">
+                  <form #oTPForm="ngForm" autocomplete="off" [addValidators]="validationMsgObj" validationMessage="oTPValidateModel" (keydown)="onEnterFunction($event, oTPForm)"> 
+                    <div class="form-group">
+                      <label><i class="pi pi-lock"></i></label>
+                      <input type="text" autocomplete="off" inputValidator [(ngModel)]="modelSvc.oTPModel.oTP" name="oTP" placeholder="Enter OTP">
+                    </div>
+                    <div class="text-center">
+                      <button type="button" (click)="onSubmit(oTPForm)" [disabled]="!oTPForm.dirty || modelSvc.isSubmitted" class="sign-btn">Confirm</button>
+                    </div>
+                    <p>
+                      <button type="button" [disabled]="modelSvc.oTPModel.isTimeCount" (click)="resendOTP()">Resend OTP</button> &nbsp; <span *ngIf="modelSvc.oTPModel.isTimeCount">{{modelSvc.oTPModel.countingTime}} Sec.</span>
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

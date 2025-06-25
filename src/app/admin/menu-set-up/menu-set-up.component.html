@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-lg-4 col-sm-4 col-xs-12">
+    <div class="card-body">
+      <app-module-tree-view (outputEvent)="handleOutputEvent($event)"></app-module-tree-view>
+    </div>
+  </div>
+  <div class="col-lg-8 col-sm-8 col-xs-12">
+    <div class="card-body">
+      <form #menuForm="ngForm" *ngIf="showForm" [addValidators]="validationMsgObj" validationMessage="modelValidationModel">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="d-flex justify-content-start">
+                <button type="button" (click)="setNew(menuForm)" class="btn btn-sm btn-success mr-d-10">
+                  <img src="../../../assets/images/icons/plus-circle.svg" alt="icon"/>
+                  {{fieldTitle['addchildmenu']}}
+                </button>
+                <button type="button" (click)="deleteMenu()" [disabled]="modelSvc.moduleModel.id == 0" class="btn btn-sm btn-danger mr-d-10">
+                  <img src="../../../assets/images/icons/trash-2.svg" alt="icon"/>
+                  {{fieldTitle['delete']}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" >
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="form-group col">
+                <label class="ni-sup" title="Parent Menu">{{fieldTitle['parentmenu']}}</label>
+                <input type="text" id="parentName" name="parentName" class="form-control" inputValidator [disabled]="true" 
+                [(ngModel)]="modelSvc.moduleModel.parentName" placeholder="Parent Menu"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="form-group col">
+                <label class="ni-sup" title="Menu Title">{{fieldTitle['menutitle']}}</label>
+                <input type="text" id="moduleName" name="moduleName" class="form-control" inputValidator [(ngModel)]="modelSvc.moduleModel.moduleName"
+                  placeholder="Menu Title"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label class="ni-sup" title="Serail No"> {{fieldTitle['slno']}} </label>
+                    <input type="text" id="serialNo" name="serialNo" class="form-control" inputValidator [disabled]="true"
+                      [(ngModel)]="modelSvc.moduleModel.serialNo" placeholder="Enter Serial Number"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label class="ni-sup" title="Menu Level">{{fieldTitle['menulevel']}}</label>
+                    <input type="text" id="menuLevel" name="menuLevel" class="form-control" inputValidator [disabled]="true"
+                      [(ngModel)]="modelSvc.moduleModel.menuLevel" placeholder="Menu Lvel"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <div class="form-group col">
+                <label title="Menu Icon"> {{fieldTitle['menuicon']}} </label>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="align-items-center justify-content-start">
+                    <app-ni-file-single-view 
+                    [uploadOption]="modelSvc.imageFileUploadOption" 
+                    [targetObject]="modelSvc.moduleModel.moduleImage" 
+                    [objectId]="modelSvc.moduleModel.moduleImage.id">
+                    </app-ni-file-single-view>
+                  </div>
+                  <div class="align-items-center justify-content-end col position-relative">
+                    <app-ni-file-single-upload 
+                    (change)="onImageChange(menuForm)" 
+                    (removeEvent)="onRemoveImage(menuForm)" 
+                    [uploadOption]="modelSvc.imageFileUploadOption"
+                    [targetObject]="modelSvc.moduleModel.moduleImage" 
+                    class="file-parent">
+                    </app-ni-file-single-upload>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="showAction">
+            <div class="form-group">
+              <label title="" class="ni-sup">{{fieldTitle["action"]}}</label>
+              <input class="form-control" type="text"  [(ngModel)]="modelSvc.moduleModel.action" id="action" name="action" placeholder="Action"/>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="d-inline-block top-mt">
+              <div class="form-check">
+                <input type="checkbox" [(ngModel)]="modelSvc.moduleModel.isActive" id="isActive" name="isActive" class="form-check-input"/>
+                <label for="isActive" title="Active" class="form-check-label">{{fieldTitle["isactive"]}}</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" [(ngModel)]="modelSvc.moduleModel.isDashboard" id="isDashboard" name="isDashboard" class="form-check-input"/>
+                <label for="isDashboard" title="IsDashboard" class="form-check-label">{{fieldTitle['isdashboard']}}</label>
+              </div>
+            </div>
+          </div>
+        </div>        
+        <div class="form-group" >
+          <div class="d-flex justify-content-end">
+            <button type="button" (click)="save(menuForm)" [disabled]="!menuForm.dirty" class="btn btn-sm btn-success mr-d-10">
+              <img src="../../../assets/images/icons/save.svg" alt="icon"/>
+              {{fieldTitle['save']}}
+            </button>
+            <button type="button" (click)="reset()" class="btn btn-sm btn-warning mr-d-10">
+              <img src="../../../assets/images/icons/repeat.png" alt="icon"/>
+              {{fieldTitle['reset']}}
+            </button>
+            <button type="button" (click)="close()" class="btn btn-sm btn-danger">
+              <img src="../../../assets/images/icons/x-circle.svg" alt="icon"/>
+              {{fieldTitle['cancel']}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

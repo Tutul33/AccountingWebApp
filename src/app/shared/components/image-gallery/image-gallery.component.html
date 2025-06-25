@@ -1,0 +1,14 @@
+<p-galleria [value]="photoGallery" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '600px'}"
+  [numVisible]="5" [circular]="true" [showItemNavigators]="isMultiple" [showThumbnails]="isMultiple"
+  [activeIndex]="currentIndex">
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.fileSrc" style="display: block;" alt="item.fileName"
+      title="item.fileName" />
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="p-grid p-nogutter p-justify-center">
+      <img [src]="item.fileSrc" style="display: block; height:60px;width:80px;" alt="item.fileName"
+        title="item.fileName" />
+    </div>
+  </ng-template>
+</p-galleria>

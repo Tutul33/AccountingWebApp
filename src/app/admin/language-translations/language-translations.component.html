@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-lg-4 col-sm-12 col-xs-12">
+        <div class="card-body divided">
+            <div class="card-divide mb-2">
+                <div class="p-2">
+                    <h1 class="table-title w-100 mb-1 pt-0 mt-0">{{fieldTitle["selectlanguage"]}}</h1>
+
+                    <div class="form-group">
+                        <p-select appendTo="body"  [filter]="true"
+                                [options]="modelSvc.languageList" name="userId"
+                                [(ngModel)]="modelSvc.searchLanguageCode" placeholder="Select Language"
+                                optionLabel="languageName" optionValue="code" 
+                                [style]="{ width: '100%' }">
+                            </p-select>
+                    </div>
+
+                    <div class="from-group d-flex justify-content-end mt-3">
+                        <button type="button" niDbclickPrevent class="btn btn-sm btn-primary"  (click)="changeLanguageCode()">
+                            <img src="../../../assets/images/icons/check-circle.svg" alt="icon"/>
+                            {{fieldTitle["change"]}}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-divide mb-2">
+                <div class="p-2">
+                    <form #languageKeyForm="ngForm" class="divided"  [addValidators]="validationMsgObj" validationMessage="languageKeyValidationModel">
+                        <h1 class="table-title w-100 mb-1 pt-0 mt-0">{{fieldTitle['addnewtranslation']}}</h1>
+    
+                        <div class="form-group">
+                            <label title="" class="ni-sup">{{fieldTitle["textkey"]}}</label>
+                            <input type="text" class="form-control" inputValidator name="keyCode" (input)="onInputLangugeKey()" [(ngModel)]="modelSvc.languageKeyModel.keyCode" placeholder="Type text_key"/>
+                        </div>
+                            
+                        <div class="form-group" *ngFor="let item of modelSvc.languageKeyModel.languageKeyValueList;let i = index">
+                            <label title="">{{fieldTitle["translationfor"]+" "+item.languageName}}</label>
+                            <input type="text" name="itemValue{{i}}" id="itemValue{{i}}" class="form-control" [(ngModel)]="item.value" placeholder="{{'Type for '+item.languageName}}"/>
+                        </div>
+                        
+                        <div class="from-group d-flex justify-content-end">
+                            <button type="button" niDbclickPrevent class="btn btn-sm btn-success" [disabled]="!languageKeyForm.valid" (click)="saveKey(languageKeyForm)">
+                                <img src="../../../assets/images/icons/check-circle.svg" alt="icon" />
+                                {{fieldTitle['create']}}
+                            </button>
+                        </div>                   
+    
+                    </form>
+                </div>
+            </div>
+            <div class="card-divide">
+                <div class="p-2">
+                    <h1 class="table-title w-100 mb-1 pt-0 mt-0">{{fieldTitle['removetranslation']}}</h1>
+
+                    <div class="form-group">
+                        <label title="" class="ni-sup">{{fieldTitle["textkey"]}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="modelSvc.removeLanguageKeyCode" placeholder="Type text_key"/>
+                    </div>
+
+                    <div class="from-group d-flex justify-content-end mt-3">
+                        <button type="button" niDbclickPrevent class="btn btn-sm btn-danger" (click)="removeLanguageKey()">
+                            <img src="../../../assets/images/icons/trash-2.svg" alt="icon" />
+                            {{fieldTitle['remove']}}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-8 col-xs-12">
+        <div class="card-body">
+            <div class="table-striped">
+                <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.languageKeyValueList" class=" smaller-elements">                    
+                    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{item.languageKeyCode}}</td>
+                            <td>
+                                <textarea class="form-control" [(ngModel)]="item.value"></textarea>
+                            </td>
+                            <td class="text-center" style="width:10%">
+                                <button type="button" niDbclickPrevent class="btn btn-sm btn-primary" (click)="updateLanguageKeyValue(item)">
+                                    <img src="../../../assets/images/icons/check-circle.svg" alt="icon"/>
+                                    {{fieldTitle['update']}}
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </app-ni-table> 
+            </div>
+        </div>
+    </div>
+</div>

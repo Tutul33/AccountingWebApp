@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card-body">
+      <form>
+        <h1 class="title">{{fieldTitle['searchorganization']}}</h1>
+        <div class="my-3 d-flex collapse-expand">
+          <p-button icon="pi pi-plus" label="Expand all" (onClick)="expandAll()" class="mr-2" />
+          <p-button icon="pi pi-minus" label="Collapse all" (onClick)="collapseAll()" />
+        </div>
+        <p-tree [value]="treeDataList" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"
+          selectionMode="single" [(selection)]="selectedNode" class="admin-menus">
+          <ng-template let-node pTemplate="default" class="d-flex justify-content-between">
+            <span (click)="onNodeClick(node)" class="coa-label">{{node.label}}</span>
+          </ng-template>
+        </p-tree>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <p-tabView (onChange)="onTabChange($event)">
+      <p-tabPanel header="Basic Info">
+        <ng-container #viewContainerBasicInfo></ng-container>
+      </p-tabPanel>
+      <p-tabPanel header="Address">
+        <ng-container #viewContainerAddress></ng-container>
+      </p-tabPanel>
+      <p-tabPanel header="Contact Person Details">
+        <ng-container #viewContainerContactPerson></ng-container>
+      </p-tabPanel>
+      <p-tabPanel header="Billing Address">
+        <ng-container #viewContainerBillingAddress></ng-container>
+      </p-tabPanel>
+      <p-tabPanel header="Delivery Address">
+        <ng-container #viewContainerDeliveryAddress></ng-container>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

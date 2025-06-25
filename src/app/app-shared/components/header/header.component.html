@@ -1,0 +1,71 @@
+
+
+<div class="header">
+    <div class="page-head">
+        <h1 class="page-title">{{pageTitle}}</h1>
+        <p-breadcrumb [model]="menuService.breadcrumbs" (onItemClick)="onBreadcrumbClick($event)" [home]="home"></p-breadcrumb>
+    </div>
+    <div class="header-right">
+        <ul class="link-area">
+            <li>
+                
+                <p-select appendTo="body"
+                    [options]="languageList"
+                    name="orgID"
+                    optionLabel="languageValue"
+                    optionValue="code"
+                    placeholder="Language"
+                    [style]="{ width: '100%' }"
+                    (onChange)="changeLanguage()"
+                    [(ngModel)]="lgCode">
+                </p-select>
+            </li>
+            <li>
+                <a href="javascript:void(0)" 
+                    [ngClass]="isDarkMode ? 'btn-dark' : 'btn-light'" 
+                    (click)="toggleTheme()"
+                    [innerHTML]="isDarkMode ? darkIcon : lightIcon">
+                </a>
+            </li>
+            <li><a href="javascript:void(0)"><i class="pi pi-calendar"></i></a></li>
+            <li><a href="javascript:void(0)" class="link-space"><i class="pi pi-envelope"></i><span class="inbox-count">1</span></a></li>
+            <li><a href="javascript:void(0)" class="link-space"><i class="pi pi-bell"></i><span class="notify-count">1</span></a></li>
+        </ul>
+        <div class="header-profile">
+            <button type="button" class="head-link" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="header-info">
+                    <strong>{{userName}}</strong>
+                    <span>Available</span>
+                </div>
+                <div class="user-image">
+                    <img src="../../../../assets/images/user/1.png" width="20" alt="" />
+                    <span></span>
+                </div>
+            </button>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <img src="../../../../assets/images/user/1.png" alt="" />
+                    <p>{{userName}}</p>
+                </li>
+                <li class="drop-link">
+                    <a href="javascript:void(0)">
+                        <i class="pi pi-user"></i>
+                        Profile
+                    </a>
+                </li>
+                <li class="drop-link">
+                    <a href="javascript:void(0)">
+                        <i class="pi pi-sliders-h"></i>
+                        Settings
+                    </a>
+                </li>
+                <li class="drop-link">
+                    <a href="/signin" (click)="logOut()">
+                        <img src="../../../../assets/images/icons/signout.svg" alt="icons"/> 
+                        Sign Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

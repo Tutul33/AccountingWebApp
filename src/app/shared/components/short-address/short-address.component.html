@@ -1,0 +1,70 @@
+  <form #shortAddressForm="ngForm" [addValidators]="validationMsgObj" validationMessage="addressValidation" class="p-3">
+    <div class="form-group">
+      <label>Short Address Preview</label>
+      <textarea type="text" name="shortAddressDescription" inputValidator class="form-control" placeholder="{{fieldTitle['description']}}" [(ngModel)]="shortAddressDescription" (ngModelChange)="change()"></textarea>
+    </div>
+    <div class="form-address-btns">
+      <div class="d-inline-block">
+        <button type="button" class="btn btn-sm" id="addressLine1" (click)="onclick($event, 'addressLine1')">
+          <i class="pi pi-copy"></i>
+          Address Line 1
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'addressLine2')">
+          <i class="pi pi-copy"></i>
+          Address Line 2
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'village')">
+          <i class="pi pi-copy"></i>
+          Village/Street
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'pOBox')">
+          <i class="pi pi-copy"></i>
+          Post Box
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'postOffice')">
+          <i class="pi pi-copy"></i>
+          Post Office
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'zip')">
+          <i class="pi pi-copy"></i>
+          Zip Code/Post Code
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'thana')">
+          <i class="pi pi-copy"></i>
+          Police Station/Thana
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'district')">
+          <i class="pi pi-copy"></i>
+          District
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'division')">
+          <i class="pi pi-copy"></i>
+          Division
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'city')">
+          <i class="pi pi-copy"></i>
+          City/Town
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'state')">
+          <i class="pi pi-copy"></i>
+          State
+        </button>
+        <button type="button" class="btn btn-sm" (click)="onclick($event, 'country')">
+          <i class="pi pi-copy"></i>
+          Country
+        </button>
+      </div>
+    </div>
+    
+    <div class="d-flex align-items-center justify-content-end mt-2">
+      <button type="button" (click)="reset()" [disabled]="!shortAddressForm.dirty || !isSubmited" class="btn btn-sm btn-warning mr-d-10">
+        <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+        {{fieldTitle['reset']}}
+      </button>
+      <button type="button" (click)="closeModal()" [disabled]="!shortAddressForm.dirty || !isSubmited"
+        class="btn btn-sm btn-success mr-d-10">
+        <img src="../../../assets/images/icons/save.svg" alt="icon" />
+        {{fieldTitle['ok']}}
+      </button>
+    </div>
+  </form>

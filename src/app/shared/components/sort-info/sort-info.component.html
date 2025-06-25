@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-8">
+        <label
+            class=" control-label"
+            title="Short Address">
+            Sorting Preview
+        </label>
+    </div>
+</div>
+<div class="row m-b-10">
+    <div class="col-8">
+        <textarea
+            class="form-control"
+            [(ngModel)]="mappedStr"
+            disabled="disabled"
+            rows="2"
+        ></textarea>
+    </div>
+    <div class="col-4">
+        <div
+            class="btn-group pull-right"
+            role="group">
+            <button
+                type="button"
+                class="btn btn-primary"
+                (click)="closeModal()">
+                Ok
+            </button>
+            <button
+                type="button"
+                class="btn btn-danger"
+                (click)="reset()">
+                Reset
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row m-b-5">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;"></th>
+                        <th
+                            style="width: 85%;"
+                            title="Sorting Field">
+                            Field
+                        </th>
+                        <th
+                            style="width: 10%;"
+                            title="Serial No">
+                            SL.
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of input;">
+                        <td
+                            style="width: 5%;"
+                            class="p-none">
+                            <p-checkbox
+                                [(ngModel)]="item.isSelected"
+                                (onChange)="onChecked()"
+                                [binary]="true"
+                            ></p-checkbox>
+
+                        </td>
+                        <td style="width: 85%;">{{item.displayName}}</td>
+                        <td
+                            style="width: 10%;"
+                            class="p-none">
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{item.slNo}}"
+                                [(ngModel)]="item.slNo"
+                                (ngModelChange)="onChangeSerial()"
+                                [disabled]="!item.isSelected">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

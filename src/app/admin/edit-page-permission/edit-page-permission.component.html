@@ -1,0 +1,63 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card-body">
+      <form #menuPagePermissionForm="ngForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{this.fieldTitle["role"]}}</label>
+              <p-select appendTo="body"
+              [options]="groupList"
+              name="groupID"
+              [(ngModel)]="modelSvc.pagePermission.groupID"
+              placeholder=" {{fieldTitle['selectany']}}" 
+              optionLabel="name"
+              optionValue="groupID"
+              [style]="{ width: '100%' }"
+              (onChange)="onChangeRole()"
+            >
+            </p-select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>{{this.fieldTitle["user"]}}</label>
+              <input type="text" class="form-control" placeholder="" name="userEmployee" readonly="true" [(ngModel)]="modelSvc.pagePermission.userEmployee">
+              <div class="d-flex absolute justify-content-end p-0" style="height:auto">
+                <button class="btn btn-sm btn-primary px-3" (click)="selectUsers()" type="button">{{fieldTitle['userlist']}}</button>
+                <button type="button" class="btn btn-sm btn-warning me-0" (click)="resetSearch()">
+                  <img src="../../../assets/images/icons/repeat.svg" alt="reset" />{{fieldTitle['reset']}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.editPagePermissionList">
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ entity.groupName }}</td>
+                <td>{{ entity.moduleHierarchy }}</td>
+                <td>{{ entity.pageTitle }}</td>
+                <td class="text-center">
+                  <input type="checkbox" [(ngModel)]="entity.read" id="isSelected_{{rowIndex+1}}"
+                    name="isSelected_{{rowIndex+1}}" class="form-check-input"
+                    (change)="permisssionChange(entity, entity.read, permissionLevel.read)" />
+                </td>
+              </tr>
+            </ng-template>
+          </app-ni-table>
+        </div>
+        <div class="d-flex form-group justify-content-end mt-2 mb-0">
+          <button type="button" class="btn btn-sm btn-warning" (click)="reset()" [disabled]="!isDisable"> 
+            <img src="../../../assets/images/icons/repeat.svg" alt="reset" />{{fieldTitle['reset']}}
+          </button>
+          <button type="button" class="btn btn-sm btn-success" (click)="savePagePermission()"
+            [disabled]="!isDisable">
+            <img src="../../../assets/images/icons/save.svg" alt="save" />{{fieldTitle['save']}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['cashbalancecontrolconfig']}}</h1>
+</div>
+<!-- <div class="row">
+  <div class="col-md-4">
+    <div class="card-box p-3">
+      <form #orgCashConfigForm="ngForm" [addValidators]="validationMsgObj"
+      validationMessage="orgCashConfigValidation">
+      
+        <div class="form-group">
+          <label class="ni-sup" title="{{fieldTitle['company']}}">{{fieldTitle['company']}}</label>
+          <p-select appendTo="body" placeholder="Select Company" [(ngModel)]="modelSvc.orgCashConfigDTO.companyID"
+              [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+              optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.orgCashConfigDTO" textProperty="companyName"
+              inputValidator [style]="{ width: '100%' }">
+          </p-select>
+        </div>
+
+        <div class="form-group" *ngIf="modelSvc.isBranchModuleActive">
+          <label class="ni-sup" title="{{fieldTitle['office/branch/unit']}}">{{fieldTitle['office/branch/unit']}}</label>
+          <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+              [(ngModel)]="modelSvc.orgCashConfigDTO.unitBranchID" [filter]="true"
+              [options]="modelSvc.officeBranchUnitList" filterBy="name" name="unitBranchID" optionLabel="name" optionValue="id"
+              [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%', 'display':'grid', 'border-radius':'7px'} : {'width': '100%', 'display':'grid'}"
+              [group]="true" [style]="{ width: '100%' }" (onChange)="onSelectOrg()">
+              <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                  <span>{{ group.label }}</span>
+                </div>
+              </ng-template>
+          </p-select>
+        </div>
+        
+        <p class="mb-2">{{fieldTitle['iscashaccountnature']}}</p>
+        <div class="form-check mb-2">
+          <input type="checkbox" formcontrolname="isNegativeBalanceAllowed" [(ngModel)]="modelSvc.orgCashConfigDTO.isNegativeBalanceAllowed" id="isNegativeBalanceAllowed" name="isNegativeBalanceAllowed" class="form-check-input">
+          <label for="isNegativeBalanceAllowed" title="IsActive" class="form-check-label">{{fieldTitle['isnegetivebalanceacceptence']}}</label>
+        </div>
+        
+        <div class="d-flex align-items-center justify-content-end">
+          <div class="form-row d-flex justify-content-end">
+            <button type="button" class="btn btn-sm btn-success"
+              [disabled]="!orgCashConfigForm.dirty"
+              (click)="saveOrgCashConfig(orgCashConfigForm)">
+              <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+            </button>
+            <button type="button"class="btn btn-sm btn-warning"
+              [disabled]="!orgCashConfigForm.dirty" 
+              (click)="reset()">
+              <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+            </button>
+            <button *ngIf="modelSvc.orgCashConfigDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+              <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+            </button>
+          </div>
+        </div> 
+      </form>
+    </div>
+  </div>
+
+
+  <div class="col-md-8">
+    <div class="card-box p-3">
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.orgCashConfigList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.companyName }}</td>
+              <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.unitBranchName }}</td>
+              <td> 
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  {{ entity.isNegativeBalanceAllowed | niBoolean }}
+                  <div class="toggleWrapper">
+                    <input id="{{'typeSwitch' + rowIndex}}" name="{{'typeSwitch' + rowIndex}}"
+                      [(ngModel)]="entity.isNegativeBalanceAllowed" type="checkbox" (ngModelChange)="changeActiveStatus(entity)" />
+                    <label class="toggle" for="{{'typeSwitch' + rowIndex}}">
+                      <span class="toggle__handler"></span>
+                    </label>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" pButton pRipple icon="pi pi-pencil"
+                      class="p-button-primary p-mr-2" (click)="edit(entity)"></button>
+                  <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash"
+                      class="p-button-danger" (click)="delete(entity)"></button>
+                </div>
+              </td> 
+            </tr>
+          </ng-template>
+        </app-ni-table>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-box p-3">
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.companyBranchList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.companyName }}</td>
+              <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.unitBranchName }}</td>
+              <td> 
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  {{ entity.isNegativeBalanceAllowed | niBoolean }}
+                  <div class="toggleWrapper">
+                    <input id="{{'typeSwitch' + rowIndex}}" name="{{'typeSwitch' + rowIndex}}" placeholder="{{fieldTitle['isnegetivebalanceacceptence']}}"
+                      [(ngModel)]="entity.isNegativeBalanceAllowed" type="checkbox" (ngModelChange)="changeActiveStatus(entity)" />
+                    <label class="toggle" for="{{'typeSwitch' + rowIndex}}">
+                      <span class="toggle__handler"></span>
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </app-ni-table>
+    </div>
+  </div>
+</div>

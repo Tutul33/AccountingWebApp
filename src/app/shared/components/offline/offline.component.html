@@ -1,0 +1,22 @@
+
+<div class="offline-area" [hidden]="!isServerInactive">
+    <div class="d-flex align-items-center justify-content-center h-75">
+        <div class="offline-card">
+            <h1>Server Disconnected!!!</h1>
+            <img class="my-2" src="assets/images/disconnect.gif" alt="Server Disconnected" height="100"/>
+            <h3>We apologize, but the server connection has been lost.</h3>
+            <p>Our system is trying to connect with server and you will notify when connected. Or communicate with our customer service.</p>
+        </div>
+    </div>
+</div>
+
+<div class="offline-area" [hidden]="!offlineActive">
+    <div class="d-flex align-items-center justify-content-center h-75">
+        <div class="offline-card">
+            <h1>No Internet Connection!!!</h1>
+            <img class="my-2" src="assets/images/offline.gif" alt="offline" height="100"/>
+            <h3>It looks like you're not connected to the internet.</h3>
+            <p>Please check your network connection or restart network devices or communicate your internet service provider.</p>
+        </div>
+    </div>
+</div>

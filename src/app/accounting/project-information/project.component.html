@@ -1,0 +1,133 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['projectinformation']}}</h1>
+</div>
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="card-box p-3">
+        <form #projectForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="projectValidation">
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['name']}}</label>
+            <input type="text" name="name" class="form-control" 
+            inputValidator [(ngModel)]="modelSvc.projectDTO.name" placeholder="{{fieldTitle['name']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['address']}}</label>
+            <input type="text" name="address" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.projectDTO.address" placeholder="{{fieldTitle['address']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['contactperson']}}</label>
+            <input type="text" name="contactPerson" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.projectDTO.contactPerson" placeholder="{{fieldTitle['contactperson']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['contactpersonemail']}}</label>
+            <input type="text" name="contactPersonEmail" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.projectDTO.contactPersonEmail" placeholder="{{fieldTitle['contactpersonemail']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['contactpersonmobile']}}</label>
+            <input type="text" name="contactPersonMobileNo" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.projectDTO.contactPersonMobileNo" placeholder="{{fieldTitle['contactpersonmobile']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['website']}}</label>
+            <input type="text" name="website" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.projectDTO.website" placeholder="{{fieldTitle['website']}}">
+          </div>
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['company']}}</label>
+            <p-select appendTo="body" [filter]="true" *ngIf="!isPlaceholderDisable"
+              placeholder="Select Company"
+              [(ngModel)]="modelSvc.projectDTO.companyID"
+              [options]="modelSvc.companyList" (onChange)="onChangeCompany()"
+              name="companyID" optionLabel="name" optionValue="id" 
+              [niSelectedText]="modelSvc.projectDTO" textProperty="companyName"
+              [style]="{ width: '100%' }" inputValidator>
+            </p-select>
+
+            <p-select appendTo="body" [filter]="true" *ngIf="isPlaceholderDisable"
+              [(ngModel)]="modelSvc.projectDTO.companyID"
+              [options]="modelSvc.companyList" (onChange)="onChangeCompany()"
+              name="companyID" optionLabel="name" optionValue="id" 
+              [niSelectedText]="modelSvc.projectDTO" textProperty="companyName"
+              [style]="{ width: '100%' }" inputValidator>
+            </p-select>
+          </div>
+          <div class="form-group" *ngIf="modelSvc.isBranchModuleActive">
+            <label class="ni-sup" title="{{fieldTitle['office/branch/unit']}}">{{fieldTitle['office/branch/unit']}}</label>
+            <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                [(ngModel)]="modelSvc.projectDTO.unitBranchID" [filter]="true"
+                [options]="modelSvc.officeBranchUnitList" filterBy="name" name="unitBranchID" optionLabel="name" optionValue="id"
+                [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%', 'border-radius':'7px'} : {'width': '100%' }"
+                [group]="true" [style]="{ width: '100%' }" (onChange)="onSelectOrg()">
+                <ng-template let-group pTemplate="group">
+                  <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                  </div>
+                </ng-template>
+            </p-select>
+          </div>
+          <div class="form-check my-2">
+            <input class="form-check-input" id="isActive" name="isActive" type="checkbox" 
+            [(ngModel)]="modelSvc.projectDTO.isActive"/>
+            <label class="form-check-label" for="isActive">{{fieldTitle['active']}}</label>
+          </div>
+          <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-success"
+                [disabled]="!projectForm.dirty"
+                (click)="saveProject(projectForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-warning" [disabled]="!projectForm.dirty" (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.projectDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-head mb-2 d-flex align-items-center justify-content-between">
+        <h1 class="section-title">{{fieldTitle['projectlist']}}</h1>
+        <div class="head-btn">
+          <button type="button" class="btn btn-primary absolute d-flex align-items-center" (click)="bulkUploadModal()">
+            <img src="../../../assets/images/icons/upload.svg" alt="icon">
+            {{fieldTitle['projectupload']}}
+          </button>
+        </div>
+      </div>
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.projectList" class="scrollable-table">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.companyName }}</td>
+              <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.unitBranchName }}</td>
+              <td>{{ entity.name }}</td>
+              <td>{{ entity.address }}</td>
+              <td>{{ entity.contactPerson }}</td>
+              <td>{{ entity.contactPersonEmail }}</td>
+              <td>{{ entity.contactPersonMobileNo }}</td>
+              <td>{{ entity.website }}</td>
+              <td class="text-center">{{ entity.isActive | niBoolean }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" pButton pRipple icon="pi pi-pencil"
+                      class="p-button-primary p-mr-2" (click)="edit(entity)"></button>
+                  <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash"
+                      class="p-button-danger" (click)="delete(entity)"></button>
+                </div>
+              </td> 
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+  </div>
+</div>

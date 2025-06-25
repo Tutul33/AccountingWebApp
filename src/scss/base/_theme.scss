@@ -1,0 +1,318 @@
+
+
+//Light Color Set Variables
+$light-bg: #ffffff;
+$light-secondary-bg: #d8d8d8;
+$light-text: #000000;
+$light-secondary-text: #777777;
+$light-active-color: #007aff;
+$light-active-border: #0A53BE;
+$light-header-bg: #F6F6F6;
+$light-header-border: #ffffff;
+$light-header-btn-bg: #e3e3e3;
+$light-header-btn-icon: #4E5660;
+$light-bredcrumb-bg: #80868B;
+$light-bredcrumb-node-bg: #ffffff;
+$light-footer-bg: #f1f1f1;
+$light-fotter-text: #777777;
+$light-card-bg: #f6f6f6;
+$light-sidebar-bg: #f6f6f6;
+$light-sidebar-border: #c1c1c1;
+$light-sidebar-search: #E4E4E4;
+$light-mainmenu-hover-bg: #007aff;
+$light-mainmenu-hover-text: #ffffff;
+$light-mainmenu-active-bg: #007bff1a;
+$light-mainmenu-active-text: #007AFF;
+$light-menus-head: #EAEAEA;
+$light-menus-head-border: #d9d9d9;
+$light-submenu-text: #4E5660;
+$light-submenu-hover-bg: #e3e3e3;
+$light-submenu-hover-text: #007aff;
+$light-submenu-line: #d9d9d9;
+$light-submenu-line-hover: #007aff;
+$light-body-bg: #E3E3E3;
+$light-page-body-bg: #F6F6F6;
+$light-page-card-bg: #ffffff;
+$light-top-card-bg: #cfcfcf;
+$light-form-title: #252728;
+$light-form-input: #ffffff;
+$light-form-disable: #dfdfdf;
+$light-form-input-border: #bababa;
+$light-input-placeholder: #212529;
+$light-table-header: #E1EAF7;
+// $light-table-header: #E5E9F2;
+$light-table-footer: #D7D6D6;
+$light-table-row: #fafafa;
+$light-table-border: #D7D6D6;
+$light-table-text: #4E5660;
+
+
+//Dark Color Set Variables
+$dark-bg: #1E1E1E;
+$dark-secondary-bg: #3A3A3A;
+$dark-text: #ffffff;
+$dark-secondary-text: #c4c4c4;
+$dark-active-color: #007aff;
+$dark-active-border: #0A53BE;
+$dark-header-bg: #323232;
+$dark-header-border: #202124;
+$dark-header-btn-bg: #1E1E1E;
+$dark-header-btn-icon: #cacaca;
+$dark-bredcrumb-bg: #5b5f62;
+$dark-bredcrumb-node-bg: #9c9c9c;
+$dark-footer-bg: #333333;
+$dark-fotter-text: #b9b9b9;
+$dark-card-bg: #333;
+$dark-sidebar-bg: #323232;
+$dark-sidebar-border: #434343;
+$dark-sidebar-search: #383838;
+$dark-mainmenu-hover-bg: #007aff;
+$dark-mainmenu-hover-text: #ffffff;
+$dark-mainmenu-active-bg: #007bff23;
+$dark-mainmenu-active-text: #ffffff;
+$dark-menus-head: #424242;
+$dark-menus-head-border: #202020;
+$dark-submenu-text: #c9c9c9;
+$dark-submenu-hover-bg: #202022;
+$dark-submenu-hover-text: #007AFF;
+$dark-submenu-line: #464646;
+$dark-submenu-line-hover: #007aff;
+$dark-body-bg: #1E1E1E;
+$dark-page-body-bg: #2f2f2f;
+$dark-page-card-bg: #1E1E1E;
+$dark-top-card-bg: #3A3A3A;
+$dark-form-title: #959595;
+$dark-form-input: #252525;
+$dark-form-disable: #333333;
+$dark-form-input-border: #464646;
+$dark-input-placeholder: #ffffff;
+$dark-table-header: #535862;
+$dark-table-footer: #3e3e3e;
+$dark-table-row: #222222;
+$dark-table-border: #464646;
+$dark-table-text: #cacaca;
+
+
+//Light Color Theme Combination Apply
+.light-mode{
+    --bg-color: #{$light-bg};
+    --secondary-bg: #{$light-secondary-bg};
+    --text-color: #{$light-text};
+    --secondary-text: #{$light-secondary-text};
+    --active-color: #{$light-active-color};
+    --active-border: #{$light-active-border};
+    --header-bg: #{$light-header-bg};
+    --header-border: #{$light-header-border};
+    --header-btn-bg: #{$light-header-btn-bg};
+    --header-btn-icon: #{$light-header-btn-icon};
+    --bredcrumb-bg: #{$light-bredcrumb-bg};
+    --bredcrumb-node-bg: #{$light-bredcrumb-node-bg};
+    --footer-bg: #{$light-footer-bg};
+    --footer-text: #{$light-fotter-text};
+    --card-bg: #{$light-card-bg};
+    --sidebar-bg: #{$light-sidebar-bg};
+    --sidebar-border: #{$light-sidebar-border};
+    --sidebar-search: #{$light-sidebar-search};
+    --mainmenu-hover-bg: #{$light-mainmenu-hover-bg};
+    --mainmenu-hover-text: #{$light-mainmenu-hover-text};
+    --mainmenu-active-bg: #{$light-mainmenu-active-bg};
+    --mainmenu-active-text: #{$light-mainmenu-active-text};
+    --menus-head: #{$light-menus-head};
+    --menus-head-border: #{$light-menus-head-border};
+    --submenu-text: #{$light-submenu-text};
+    --submenu-hover-bg: #{$light-submenu-hover-bg};
+    --submenu-hover-text: #{$light-submenu-hover-text};
+    --submenu-line: #{$light-submenu-line};
+    --submenu-line-hover: #{$light-submenu-line-hover};
+    --body-bg: #{$light-body-bg};
+    --page-body-bg: #{$light-page-body-bg};
+    --page-card-bg: #{$light-page-card-bg};
+    --top-card-bg: #{$light-top-card-bg};
+    --form-title: #{$light-form-title};
+    --form-input: #{$light-form-input};
+    --form-disable: #{$light-form-disable};
+    --form-input-border: #{$light-form-input-border};
+    --input-placeholder: #{$light-input-placeholder};
+    --table-header: #{$light-table-header};
+    --table-footer: #{$light-table-footer};
+    --table-row: #{$light-table-row};
+    --table-border: #{$light-table-border};
+    --table-text: #{$light-table-text};
+}
+
+
+//Dark Color Theme Combinations
+.dark-mode{
+    --bg-color: #{$dark-bg};
+    --secondary-bg: #{$dark-secondary-bg};
+    --text-color: #{$dark-text};
+    --secondary-text: #{$dark-secondary-text};
+    --active-color: #{$dark-active-color};
+    --active-border: #{$dark-active-border};
+    --header-bg: #{$dark-header-bg};
+    --header-border: #{$dark-header-border};
+    --header-btn-bg: #{$dark-header-btn-bg};
+    --header-btn-icon: #{$dark-header-btn-icon};
+    --bredcrumb-bg: #{$dark-bredcrumb-bg};
+    --bredcrumb-node-bg: #{$dark-bredcrumb-node-bg};
+    --footer-bg: #{$dark-footer-bg};
+    --footer-text: #{$dark-fotter-text};
+    --card-bg: #{$dark-card-bg};
+    --sidebar-bg: #{$dark-sidebar-bg};
+    --sidebar-border: #{$dark-sidebar-border};
+    --sidebar-search: #{$dark-sidebar-search};
+    --mainmenu-hover-bg: #{$dark-mainmenu-hover-bg};
+    --mainmenu-hover-text: #{$dark-mainmenu-hover-text};
+    --mainmenu-active-bg: #{$dark-mainmenu-active-bg};
+    --mainmenu-active-text: #{$dark-mainmenu-active-text};
+    --menus-head: #{$dark-menus-head};
+    --menus-head-border: #{$dark-menus-head-border};
+    --submenu-text: #{$dark-submenu-text};
+    --submenu-hover-bg: #{$dark-submenu-hover-bg};
+    --submenu-hover-text: #{$dark-submenu-hover-text};
+    --submenu-line: #{$dark-submenu-line};
+    --submenu-line-hover: #{$dark-submenu-line-hover};
+    --body-bg: #{$dark-body-bg};
+    --page-body-bg: #{$dark-page-body-bg};
+    --page-card-bg: #{$dark-page-card-bg};
+    --top-card-bg: #{$dark-top-card-bg};
+    --form-title: #{$dark-form-title};
+    --form-input: #{$dark-form-input};
+    --form-disable: #{$dark-form-disable};
+    --form-input-border: #{$dark-form-input-border};
+    --input-placeholder: #{$dark-input-placeholder};
+    --table-header: #{$dark-table-header};
+    --table-footer: #{$dark-table-footer};
+    --table-row: #{$dark-table-row};
+    --table-border: #{$dark-table-border};
+    --table-text: #{$dark-table-text};
+}
+
+
+//Common Mixin Color Combination set
+// @mixin color-scheme ($text, $bg, $border){
+//     color: $text;
+//     background: $bg;
+//     border: 1px solid $border;
+// }
+
+
+
+
+
+//Toggle Switch Button
+.theme-switch{
+	width: 100%;
+	background: var(--header-bg);
+	display: flex;
+	padding: 10px 20px 10px 10px;
+	border-radius: 23px;
+    justify-content: space-between;
+    align-items: center;
+    p-inputswitch {
+        margin: 0;
+        padding: 0;
+        height: 28px;
+        .p-inputswitch .p-inputswitch-slider {
+            background: #bbc3ca;
+        }
+    }
+    p{
+        color: var(--secondary-text);
+    }
+}
+
+
+//Custom Color Theme Combination Apply
+.custom-mode{
+    --bg-color: #000;
+    --text-color: #fff;
+    --secondary-text: #ddd;
+    --header-bg: #222;
+    --header-border: #343434;
+    --header-btn-bg: #333;
+    --bredcrumb-bg: #222;
+    --bredcrumb-node-bg: #333;
+    --footer-bg: #222;
+    --footer-text: #fff;
+    --sidebar-bg: #111;
+    --sidebar-border: #121212;
+    --sidebar-search: #000;
+    --body-bg: #000;
+    --page-body-bg: #111;
+    --page-card-bg: #222;
+    --form-title: #555;
+}
+
+
+
+
+$grid-breakpoints: (
+  xs: 360px,
+  sm: 767px,
+  md: 1024px,
+  lg: 1366px,
+  xl: 1400px,
+  xxl: 1600px
+) !default;
+
+
+
+// //Update the variables
+// updateCSSVariable(property: string, value: string): void {
+//     document.documentElement.style.setProperty(property, value);
+// }
+  
+// //Call updateCSSVariable when colors are selected
+// updateBackgroundColor(): void {
+//     this.updateCSSVariable('--bg-color', this.backgroundColor);
+// }
+// updateTextColor(): void {
+//     this.updateCSSVariable('--text-color', this.textColor);
+// }
+// updateSecondTextColor(): void {
+//     this.updateCSSVariable('--secondary-text', this.secondTextColor);
+// }
+// updateHeaderBackground(): void {
+//     this.updateCSSVariable('--header-bg', this.headerBackground);
+// }
+// updateHeaderBorder(): void {
+//     this.updateCSSVariable('--header-border', this.headerBorder);
+// }
+// updateHeaderButtonBg(): void {
+//     this.updateCSSVariable('--header-btn-bg', this.headerButtonBg);
+// }
+// updateBreadcrumbBackground(): void {
+//     this.updateCSSVariable('--bredcrumb-bg', this.breadcrumbBackground);
+// }
+// updateBreadcrumbNodeBackground(): void {
+//     this.updateCSSVariable('--bredcrumb-node-bg', this.breadcrumbNodeBackground);
+// }
+// updateFooterBackground(): void {
+//     this.updateCSSVariable('--footer-bg', this.footerBackground);
+// }
+// updateFooterText(): void {
+//     this.updateCSSVariable('--footer-text', this.footerText);
+// }
+// updateSidebarBackground(): void {
+//     this.updateCSSVariable('--sidebar-bg', this.sidebarBackground);
+// }
+// updateSidebarBorder(): void {
+//     this.updateCSSVariable('--sidebar-border', this.sidebarBorder);
+// }
+// updateSidebarSearch(): void {
+//     this.updateCSSVariable('--sidebar-search', this.sidebarSearch);
+// }
+// updateBodyBackground(): void {
+//     this.updateCSSVariable('--body-bg', this.bodyBackground);
+// }
+// updatePageBodyBackground(): void {
+//     this.updateCSSVariable('--page-body-bg', this.pageBodyBackground);
+// }
+// updatePageCardBackgroundr(): void {
+//     this.updateCSSVariable('--page-card-bg', this.pageCardBackground);
+// }
+// updateFormTitle(): void {
+//     this.updateCSSVariable('--form-title', this.formTitle);
+// }
+  

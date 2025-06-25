@@ -1,0 +1,192 @@
+<!-------------Opening Balance List------------->
+<div class="card-head mb-2 d-flex align-items-center justify-content-between">
+  <h1 class="section-title">{{fieldTitle['openingbalancelist']}}</h1>
+  <div class="head-btn">
+    <button type="button" class="btn btn-primary absolute d-flex align-items-center" (click)="bulkUploadModal()">
+      <img src="../../../assets/images/icons/upload.svg" alt="icon">
+      {{fieldTitle['bulkupload']}}
+    </button>
+  </div>
+</div>
+<div class="card-section">
+  <div class="card-box p-3">
+    <div class="d-flex justify-content-end mb-2">
+
+      <button type="button" niDbclickPrevent class="btn btn-danger" pRipple pButton (click)="remove()">
+        <img src="../../../assets/images/icons/trash-2.svg" alt="icon">
+        Remove
+      </button>
+    </div>
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.openingBalanceList">
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["company"] }}
+              <ni-columnFilter field="company" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="companyList" optionLabel="company"
+                    [filter]="true" optionValue="company" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="company">
+                      <span>{{ option["company"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+          <th *ngIf="isBranchModuleActive">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["unit/branch"] }}
+              <ni-columnFilter field="org" matchMode="in" display="menu" [hideOnClear]="true" [showMatchModes]="false"
+                [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="unitBranchList" optionLabel="org"
+                    [filter]="true" optionValue="org" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="org">
+                      <span>{{ option["org"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+          <th *ngIf="isProjectModuleActive">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["project"] }}
+              <ni-columnFilter field="project" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="projectList" optionLabel="project"
+                    [filter]="true" optionValue="project" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="project">
+                      <span>{{ option["project"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+          <th>{{fieldTitle['year']}}</th>
+          <th>{{fieldTitle['opendate']}}</th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["accountname"] }}
+              <ni-columnFilter field="ledger" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="accountNameList" optionLabel="ledger"
+                    [filter]="true" optionValue="ledger" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="ledger">
+                      <span>{{ option["ledger"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["subledgername"] }}
+              <ni-columnFilter field="subLedger" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="subLedgerList" optionLabel="subLedger"
+                    [filter]="true" optionValue="subLedger" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="subLedger">
+                      <span>{{ option["subLedger"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["debit(bdt)"] }}
+              <!-- <ni-columnFilter field="debitVal" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="debitList" optionLabel="debitVal"
+                    [filter]="true" optionValue="debitVal" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="debitVal">
+                      <span>{{ option["debitVal"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter> -->
+              <ni-columnFilter type="numeric" field="debitVal" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{ fieldTitle["credit(bdt)"] }}
+              <!-- <ni-columnFilter field="creditVal" matchMode="in" display="menu" [hideOnClear]="true"
+                [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <p-multiSelect appendTo="body" [ngModel]="value" [options]="creditList" optionLabel="creditVal"
+                    [filter]="true" optionValue="creditVal" (onChange)="filter($event.value)"
+                    placeholder="{{fieldTitle['selectany']}}">
+                    <ng-template let-option pTemplate="creditVal">
+                      <span>{{ option["creditVal"] }}</span>
+                    </ng-template>
+                  </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter> -->
+              <ni-columnFilter type="numeric" field="creditVal" display="menu" [hideOnClear]="true"
+              [showOperator]="false" [showAddButton]="true">
+            </ni-columnFilter>
+            </div>
+          </th>
+          <th>
+            <div class="form-check me-0 mb-0">
+              <input type="checkbox" name="isSelectAll" class="form-check-input" [(ngModel)]="modelSvc.isSelectAll"
+                (ngModelChange)="onSelectAllItemcode()">
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ entity.company }}</td>
+          <td *ngIf="isBranchModuleActive">{{ entity.org }}</td>
+          <td *ngIf="isProjectModuleActive">{{ entity.project }}</td>
+          <td>{{ entity.financialYear }}</td>
+          <td>{{ entity.openDate }}</td>
+          <td>{{ entity.ledger }}</td>
+          <td>{{ entity.subLedger }}</td>
+          <td class="text-end">{{ entity.debitVal | number : "1.2-2" }}</td>
+          <td class="text-end">{{ entity.creditVal | number : "1.2-2"}}</td>
+          <td>
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="form-check me-0">
+                <input type="checkbox" id="{{'isCheck' + rowIndex}}" name="{{'isCheck' + rowIndex}}"
+                  class="form-check-input" [(ngModel)]="entity.isCheck" (change)="onSelectItemcode(entity,rowIndex)">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+      
+          <td [attr.colspan]="colspan" style="text-align: end;">Total</td>
+          <td class="text-end">{{totalDebit | number : "1.2-2"}}</td>
+          <td class="text-end">{{totalCrdit | number : "1.2-2"}}</td>
+          <td></td>
+        </tr>
+      </ng-template>
+    </app-ni-table>
+
+  </div>
+</div>

@@ -1,0 +1,50 @@
+
+<form #pageForm="ngForm" class="divided"  [addValidators]="validationMsgObj" validationMessage="modulePageValidationModel">
+     <div class="form-group">
+        <label title="">{{fieldTitle["menutitle"]}}</label>
+        <input class="form-control" type="text" inputValidator [disabled]="true" [(ngModel)]="modelSvc.moduleModel.menuTitle" name="menuTitle" placeholder="Menu Title"/>
+    </div>
+     <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["pagename"]}}</label>
+        <input class="form-control" type="text" inputValidator  [(ngModel)]="modelSvc.moduleModel.moduleName" name="moduleName" placeholder="Page Name"/>
+    </div>
+     <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["pagetitle"]}}</label>
+        <input class="form-control" type="text" inputValidator  [(ngModel)]="modelSvc.moduleModel.pageTitle" name="pageTitle" placeholder="Page Title"/>
+    </div>
+    <div class="form-group">
+        <label title="">{{fieldTitle["serialno"]}}</label>
+        <input class="form-control" type="text" [disabled]="true" inputValidator  [(ngModel)]="modelSvc.moduleModel.serialNo" name="serial No" placeholder="SL No."/>
+    </div>
+    <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["action"]}}</label>
+        <input class="form-control" type="text" inputValidator  [(ngModel)]="modelSvc.moduleModel.action" name="action" placeholder="Action"/>
+    </div>
+    <div class="form-group">
+        <label title="" class="ni-sup">{{fieldTitle["projectfilename"]}}</label>
+        <p-select appendTo="body"  [filter]="true" inputValidator
+                [options]="modelSvc.projectModuleList" name="projectFileName"
+                [(ngModel)]="modelSvc.moduleModel.projectFileName" placeholder="Select Project Module"
+                optionLabel="name" optionValue="id" 
+                [style]="{ width: '100%' }">
+            </p-select>
+    </div>    
+    <div class="form-group">                    
+        <div class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" id="activeLanguage" name="activeLanguage"
+                [(ngModel)]="modelSvc.moduleModel.isActive">
+            <label for="activeLanguage" class="form-check-label ml-5">{{fieldTitle["isactive"]}}</label>
+        </div>                    
+    </div>     
+    <div class="form-group">
+        <div class="d-flex align-items-center justify-content-end">
+            <button type="button" class="btn btn-sm btn-success mr-d-10"  [disabled]="!pageForm.dirty" (click)="save(pageForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="save">{{fieldTitle["save"]}} 
+            </button>
+            <button type="button" class="btn btn-sm btn-danger mr-d-10" (click)="closeModal()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="reset">{{fieldTitle["close"]}}  
+            </button>
+        </div>
+    </div>
+</form>
+

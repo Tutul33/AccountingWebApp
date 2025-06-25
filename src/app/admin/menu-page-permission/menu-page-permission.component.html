@@ -1,0 +1,58 @@
+
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-6">
+    <div class="card-body">
+      <form #menuPagePermissionForm="ngForm">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{this.fieldTitle["selectuser"]}}</label>
+              <input type="text" class="form-control" placeholder="" name="userEmployee" readonly="true" [(ngModel)]="modelSvc.menuPermission.userEmployee">
+              <button class="btn btn-sm btn-primary d-flex absolute justify-content-end px-3" (click)="selectUser()" type="button">{{fieldTitle['userlist']}}</button>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{this.fieldTitle["selectrole"]}}</label>
+              <p-select appendTo="body"
+                [options]="groupList"
+                name="groupID"
+                [(ngModel)] ="modelSvc.menuPermission.groupID"
+                placeholder=" {{fieldTitle['selectany']}}" 
+                optionLabel="name"
+                optionValue="groupID"
+                inputValidator
+                [style]="{ width: '100%' }"
+                (onChange)="onChangeGroup()">
+              </p-select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-group">
+            <h1 class="table-title">{{this.fieldTitle["menu"]}}</h1>
+          </div>
+          <p-tree
+            [value]="modelSvc.treeDataList"
+            selectionMode="checkbox"
+            [(selection)]="modelSvc.selectedMenu"
+            (onNodeSelect)="onNodeSelect($event.node)" (onNodeUnselect)="onNodeUnSelect($event.node)" class="admin-menus">
+            <ng-template let-node pTemplate="default">  
+              <label>{{node.label}}</label>
+            </ng-template>
+          </p-tree>
+        </div>
+        <div class="d-flex form-group justify-content-end mb-0">
+          <button type="button" class="btn btn-sm btn-success" (click)="save()" [disabled]="!isDisable">
+            <img src="../../../assets/images/icons/save.svg" alt="save" />{{fieldTitle['save']}}
+          </button>
+          <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+            <img src="../../../assets/images/icons/repeat.svg" alt="reset"/>{{fieldTitle['reset']}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

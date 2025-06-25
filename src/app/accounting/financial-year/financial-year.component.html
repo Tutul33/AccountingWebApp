@@ -1,0 +1,125 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{ fieldTitle['newfinancialyear'] }}</h1>
+</div>
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="card-box p-3">
+        <form #financialYearForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="financialYearValidation">
+          <div class="form-group">
+            <label class="ni-sup">{{ fieldTitle['fromdate'] }}</label>
+            <div class="row g-1">
+              <div class="col">
+                <p-select appendTo="body" name="fromYearID" [options]="modelSvc.yearList" 
+                  [filter]="true" filterBy="year" [showClear]="true"
+                  optionLabel="year" optionValue="year" [(ngModel)]="modelSvc.financialYearDTO.fromYearID" 
+                  [niSelectedText]="modelSvc.financialYearDTO" textProperty="fromYear"
+                  inputValidator [style]="{ width: '100%' }" placeholder="Year" (onChange)="changeDate()" [disabled]="modelSvc.isFromDateDisabled">
+                </p-select>
+              </div>
+              <div class="col">
+                <p-select appendTo="body" name="fromMonthID" [options]="modelSvc.monthList" 
+                  [filter]="true" filterBy="fullName" [showClear]="true"
+                  optionLabel="fullName" optionValue="code" [(ngModel)]="modelSvc.financialYearDTO.fromMonthID" 
+                  [niSelectedText]="modelSvc.financialYearDTO" textProperty="fromMonth" inputValidator
+                  [style]="{ width: '100%' }" placeholder="Month" (onChange)="changeDate()" [disabled]="modelSvc.isFromMonthDisabled">
+                </p-select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="ni-sup">{{ fieldTitle['todate'] }}</label>
+            <div class="row g-1">
+              <div class="col">
+                <p-select appendTo="body" name="toYearID" [options]="modelSvc.toYearList" 
+                  [filter]="true" filterBy="year" [showClear]="true"
+                  optionLabel="year" optionValue="year" [(ngModel)]="modelSvc.financialYearDTO.toYearID" 
+                  [niSelectedText]="modelSvc.financialYearDTO" textProperty="toYear"
+                  inputValidator [style]="{ width: '100%' }" placeholder="Year" (onChange)="changeDate()">
+                </p-select>
+              </div>
+              <div class="col">
+                <p-select appendTo="body" name="toMonthID" [options]="modelSvc.toMonthList" 
+                  [filter]="true" filterBy="fullName" [showClear]="true"
+                  optionLabel="fullName" optionValue="code" [(ngModel)]="modelSvc.financialYearDTO.toMonthID" 
+                  [niSelectedText]="modelSvc.financialYearDTO" textProperty="toMonth" inputValidator
+                  [style]="{ width: '100%' }" placeholder="Month" (onChange)="changeDate()">
+                </p-select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['financialyear']}}</label>
+            <input type="text" name="name" class="form-control" inputValidator 
+              [(ngModel)]="modelSvc.financialYearDTO.name" placeholder="{{fieldTitle['financialyear']}}" readonly>
+          </div>
+          <div class="form-group mb-0">
+            <label class="ni-sup">{{fieldTitle['status']}}</label>
+          </div>
+          <div class="form-group d-inline-block align-items-center">
+            <div class="form-radio my-2">
+               <input class="form-radio-input" 
+                id="isOpen" 
+                name="status" 
+                type="radio" 
+                [value]="status.Open" 
+                [(ngModel)]="modelSvc.financialYearDTO.status"
+                inputValidator [disabled]="this.modelSvc.financialYearList.length == 0"/>
+              
+               <label class="form-radio-label" for="isOpen">{{fieldTitle['open']}}</label>
+            </div>
+            <div class="form-radio my-2">
+              <input class="form-radio-input" 
+                id="isPartiallyOpen" 
+                name="status" 
+                type="radio" 
+                [value]="status.PartiallyOpen" 
+                [(ngModel)]="modelSvc.financialYearDTO.status"
+                inputValidator [disabled]="this.modelSvc.financialYearList.length == 0"/>
+
+              <label class="form-radio-label" for="isPartiallyOpen">{{fieldTitle['partiallyopen']}}</label>
+            </div>
+          </div>
+          <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-success" 
+                [disabled]="!financialYearForm.dirty" (click)="saveFinancialYear(financialYearForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-warning" 
+                [disabled]="!financialYearForm.dirty" (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.financialYearDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.financialYearList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.name }}</td>
+              <td>{{ entity.fromDate }}</td>
+              <td>{{ entity.toDate }}</td>
+              <td>{{ entity.statusValue }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button *ngIf="entity.status != 12" type="button" pButton pRipple icon="pi pi-pencil" title="{{fieldTitle['edit']}}"
+                  class="p-button-primary p-mr-2" (click)="edit(entity)"></button>
+                  <button *ngIf="entity.status == 79 || modelSvc.financialYearList.length == 1" type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" title="{{fieldTitle['delete']}}"
+                  class="p-button-danger" (click)="delete(entity)"></button>
+                </div>
+              </td>     
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+  </div>
+</div>

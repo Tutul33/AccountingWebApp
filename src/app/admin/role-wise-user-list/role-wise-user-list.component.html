@@ -1,0 +1,41 @@
+<div class="row">
+    <app-ni-table [gridOption]="gridOption" [valueList]="userList">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+                 <td>{{ entity.groupName }}</td>
+                <td>{{ entity.userID }}</td>
+                <td>{{ entity.userName }}</td>
+                <td>{{ entity.userType }}</td>
+                <td>{{ entity.employeeID }}</td>
+                <td>{{ entity.employeeName }}</td>
+                <td>{{ entity.designation }}</td>
+                <td>{{ entity.organization }}</td>
+                <td>{{ entity.contactNo }}</td>
+                <td>{{ entity.email }}</td>
+                <td class="text-center">
+                    <input type="checkbox" *ngIf="isMultiSelect"
+                      [disabled]="entity.isDisabled"
+                      [(ngModel)]="entity.isSelected" class="form-check-input"
+                      (change)="selectMultipleItem(entity, entity.isSelected)" />
+                    <button type="button" *ngIf="!isMultiSelect" pButton pRipple icon="pi pi-send" class="p-button-primary"
+                      (click)="selectSingleItem(entity)"></button>
+                  </td>
+            </tr>
+        </ng-template>
+    </app-ni-table>
+
+    <div class="form-group">
+        <div class="d-flex justify-content-end">
+          <button type="button" *ngIf="isMultiSelect" (click)="ok()" label="Ok"
+            class="btn btn-sm btn-success">
+            <img src="../../../assets/images/icons/check-circle.svg" alt="icon"/> {{fieldTitle['ok']}}
+          </button>
+          <button type="button" *ngIf="isMultiSelect" (click)="reset()" label="Reset"
+            class="btn btn-sm btn-warning">
+            <img src="../../../assets/images/icons/repeat.svg" alt="icon"/> {{fieldTitle['reset']}}
+          </button>
+        </div>
+    </div>
+</div>
+
+

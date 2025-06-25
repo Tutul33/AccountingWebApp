@@ -1,0 +1,112 @@
+
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['vouchercategory']}}</h1>
+</div>
+
+
+<form #voucherCategoryForm="ngForm" [addValidators]="validationMsgObj"
+  validationMessage="voucherCategoryValidation">
+  <div class="top-card-box p-3 pb-1 mb-3" *ngIf="modelSvc.voucherCategoryDTO.id > 0">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup" title="{{fieldTitle['title']}}">{{fieldTitle['title']}}</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="title" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.voucherCategoryDTO.title" placeholder="{{fieldTitle['title']}}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup" title="{{fieldTitle['vouchertype']}}">{{fieldTitle['vouchertype']}}</label>
+            </div>
+            <div class="col-md-8">
+              <!-- <p-select appendTo="body" *ngIf="!isPlaceholderDisable" 
+                placeholder="Select Voucher Type"
+                [(ngModel)]="modelSvc.voucherCategoryDTO.voucherCode"
+                [options]="modelSvc.voucherList"
+                name="voucherCode" optionLabel="value" optionValue="code" inputValidator
+                [niSelectedText]="modelSvc.voucherCategoryDTO" textProperty="voucherType"
+                [style]="{ width: '100%' }">
+              </p-select>
+              <p-select appendTo="body" *ngIf="isPlaceholderDisable"
+                [(ngModel)]="modelSvc.voucherCategoryDTO.voucherCode"
+                [options]="modelSvc.voucherList"
+                name="voucherCode" optionLabel="value" optionValue="code" inputValidator
+                [niSelectedText]="modelSvc.voucherCategoryDTO" textProperty="voucherType"
+                [style]="{ width: '100%' }">
+              </p-select> -->
+
+              <p-select appendTo="body" *ngIf="!isPlaceholderDisable" 
+                placeholder="Select Voucher Type"
+                [(ngModel)]="modelSvc.voucherCategoryDTO.voucherCode"
+                [options]="modelSvc.voucherList"
+                name="voucherCode" optionLabel="value" optionValue="code" inputValidator
+                [niSelectedText]="modelSvc.voucherCategoryDTO" textProperty="voucherType" [disabled]="modelSvc.voucherCategoryDTO.id > 0"
+                [style]="{ width: '100%' }">
+              </p-select>
+              <p-select appendTo="body" *ngIf="isPlaceholderDisable"
+                [(ngModel)]="modelSvc.voucherCategoryDTO.voucherCode"
+                [options]="modelSvc.voucherList"
+                name="voucherCode" optionLabel="value" optionValue="code" inputValidator
+                [niSelectedText]="modelSvc.voucherCategoryDTO" textProperty="voucherType" [disabled]="modelSvc.voucherCategoryDTO.id > 0"
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="form-row d-flex justify-content-end">
+              <!-- <div class="form-check">
+                <input type="checkbox" formcontrolname="isActive" [(ngModel)]="modelSvc.voucherCategoryDTO.isActive" id="isActive" name="isActive" class="form-check-input">
+                <label for="isActive" title="IsActive" class="form-check-label">{{fieldTitle['active']}}</label>
+              </div> -->
+              <button type="button" disabled="" class="btn btn-sm btn-success"
+                [disabled]="!voucherCategoryForm.dirty"
+                (click)="saveVoucherCategory(voucherCategoryForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" disabled="" class="btn btn-sm btn-warning"
+                [disabled]="!voucherCategoryForm.dirty" 
+                (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.voucherCategoryDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.voucherCategoryList">
+  <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ entity.title }}</td>
+      <td>{{ entity.voucherType }}</td>
+      <td>{{ entity.transactionNatureName }}</td>
+      <!-- <td class="text-center">{{ entity.isActive | niBoolean }}</td> -->
+      <td>
+        <div class="d-flex align-items-center justify-content-center">
+          <button type="button" pButton pRipple icon="pi pi-pencil" title="{{fieldTitle['edit']}}"
+              class="p-button-primary p-mr-2" (click)="edit(entity)"></button>
+          <!-- <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash"
+              class="p-button-danger" (click)="delete(entity)"></button> -->
+        </div>
+      </td> 
+    </tr>
+  </ng-template>
+</app-ni-table>

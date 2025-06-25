@@ -1,0 +1,226 @@
+<form #multiVoucherCashForm="ngForm" [addValidators]="multiCashValidationMsgObj"
+  validationMessage="voucherValidationModel">
+  <div class="top-card-box p-3 pb-1 mb-3">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label class="ni-sup">{{fieldTitle['company']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <!-- <input type="text" class="form-control" placeholder="{{fieldTitle['company']}}" name="companyName"
+                    [(ngModel)]="modelSvc.creditReceiptVoucherModel.company" disabled /> -->
+                    <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID"
+                    [(ngModel)]="modelSvc.creditReceiptVoucherModel.companyID" [disabled]="modelSvc.creditReceiptVoucherModel.id>0"
+                    placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator  (onChange)="onChangeCompany()"
+                    [style]="{ width: '100%' }">
+                  </p-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="modelSvc.isBranchModuleActive">
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID"
+                    [(ngModel)]="modelSvc.creditReceiptVoucherModel.orgID" optionLabel="name" [options]="modelSvc.orgList"
+                    optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true"
+                    [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%', 'border-radius':'7px'} : {'width': '100%' }" 
+                    (onChange)="onSelectOrg(modelSvc.creditReceiptVoucherModel)" [disabled]="modelSvc.creditReceiptVoucherModel.id>0" >
+                    <ng-template let-group pTemplate="group">
+                      <div class="flex align-items-center">
+                        <span>{{ group.label }}</span>
+                      </div>
+                    </ng-template>
+                  </p-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="modelSvc.isProjectModuleActive">
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label>{{fieldTitle['project']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <p-select appendTo="body" [filter]="true" [showClear]="true" [options]="modelSvc.projectList"
+                  name="projectID" [(ngModel)]="modelSvc.creditReceiptVoucherModel.projectID" (onChange)="onSelectToPrjectMulti(modelSvc.creditReceiptVoucherModel)" placeholder="Project"
+                  optionLabel="name" optionValue="id" [style]="{ width: '100%' }" [disabled]="modelSvc.creditReceiptVoucherModel.id>0">
+                </p-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label class="ni-sup">{{fieldTitle['vouchernumber']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" placeholder="VoucherNo" name="voucherNo" disabled
+                    [(ngModel)]="modelSvc.creditReceiptVoucherModel.voucherNo" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label class="ni-sup">{{fieldTitle['date']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12" [showIcon]="true" name="voucherDate"
+                    [(ngModel)]="modelSvc.creditReceiptVoucherModel.voucherDate" [style]="{ width: '100%' }" inputValidator>
+                  </p-datepicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label>{{fieldTitle['remarks']}}</label>
+            </div>
+            <div class="col-md-8">
+              <textarea class="form-control" name="remarks" inputValidator placeholder="{{fieldTitle['remarks']}}"
+                [(ngModel)]="modelSvc.creditReceiptVoucherModel.remarks"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+
+  <app-ni-table [gridOption]="gridOptionCash" [valueList]="modelSvc.creditReceiptVoucherModel.voucherItemList" class="scrollable-table">
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+      <tr [ngModelGroup]="item.id" [objWatcher]="item" [addValidators]="multiCashValidationMsgObj"
+        validationMessage="voucherValidationItemModel" *ngIf="item.tag !== 2">
+    
+        <td>
+          <p-select appendTo="body" [filter]="true" [showClear]="true"
+            [options]="item.fromCoaStructureList"
+            name="fromCOAStructID" [(ngModel)]="item.fromCOAStructID" (onChange)="onSelectFromAccount(item)"
+            placeholder="{{fieldTitle['fromaccountname']}}" optionLabel="ledger" optionValue="id" inputValidator
+            [style]="{ width: '100%' }">
+          </p-select>
+
+        </td>
+        <td>
+          <input type="text" name="fromCoaStructBalance" placeholder="Balance" [(ngModel)]="item.fromCoaStructBalance"
+            class="form-control" disabled />
+        </td>
+        <td>
+          <p-select appendTo="body" [filter]="true" [showClear]="true"
+            [options]="item.fromSubLedgerDetailList"
+            name="fromSubLedgerDetailID" [(ngModel)]="item.fromSubLedgerDetailID"
+            (onChange)="onSelectFromAccountSubLedgerMulti(item)" placeholder="Sub Ledger" optionLabel="name"
+            optionValue="id"
+            [style]="{ width: '100%' , border:!item.fromSubLedgerDetailID && item.fromCOAStructID && item.fromSubLedgerDetailList?.length?'1px solid red !important':'' }">
+          </p-select>
+        </td>
+        <td class="text-end">{{item.fromSubLedgerBalance}}</td>
+        <td>
+          <p-select appendTo="body" [filter]="true" [showClear]="true"
+            [options]="item.toCoaStructureList"
+            name="toCOAStructID" [(ngModel)]="item.toCOAStructID" (onChange)="onSelectToAccount(item)"
+            placeholder="{{fieldTitle['toaccountname']}}" optionLabel="ledger" optionValue="id" inputValidator
+            [style]="{ width: '100%' }">
+          </p-select>
+        </td>
+        <td class="text-end">{{item.toAccountBalance}}</td>
+
+        <td>
+          <textarea class="form-control" name="description" inputValidator [(ngModel)]="item.description" placeholder="{{fieldTitle['description']}}"></textarea>
+        </td>
+
+        <td>
+          <input niSelect type="text" name="creditVal" class="form-control" (keyup)="onCreditFieldChange(item)"  placeholder="{{fieldTitle['amount']}}"
+            [niDecimal]="modelSvc.decimalPlace" [(ngModel)]="item.creditVal" inputValidator />
+        </td>
+        <td>
+          <input niSelect type="text" name="invoiceBillRefNo" class="form-control" placeholder="{{fieldTitle['invoice/billrefno.']}}"
+            [(ngModel)]="item.invoiceBillRefNo" />
+        </td>
+
+        <td>
+          <div class="d-flex justify-content-center">
+            <button pRipple pButton class="btn p-button-warning me-0" niDbclickPrevent title="{{fieldTitle['ref.doc']}}" type="button"
+              (click)="fileUploadMultiEntryModal(item)" icon="pi pi-upload"></button>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <button pRipple pButton class="btn p-button-danger m-0" (click)="removeVoucherItem(item)" title="{{fieldTitle['delete']}}" type="button"
+              icon="pi pi-trash"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="7" class="text-end">{{fieldTitle['totalamount']}}</td>
+        <td class="text-end">{{modelSvc.totalCredit}}</td>
+        <td colspan="3"></td>
+      </tr>
+    </ng-template>
+  </app-ni-table>
+  <div class="form-group mt-2 mb-0">
+    <div class="form-row d-flex justify-content-between">
+      <button type="button" class="btn btn-sm btn-primary" (click)="addNewItem()">
+        <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />
+        {{fieldTitle['addmore']}}
+      </button>
+      <div class="form-row d-flex align-items-center">
+        <div class="form-check my-2" [class.disabled]="true" *ngIf="modelSvc.isSendSMSautomatically">
+          <input [(ngModel)]="modelSvc.sendSMS" id="isSendSMSautomatically" name="isSendSMSautomatically"
+            class="form-check-input" type="checkbox" />
+          <label class="form-check-label" for="isSendSMSautomatically">{{fieldTitle['sendsms']}}</label>
+        </div>
+        <div class="form-check my-2" *ngIf="!modelSvc.isSendSMSautomatically">
+          <input [(ngModel)]="modelSvc.sendSMS" id="isSendSMSautomatically" name="isSendSMSautomatically"
+            class="form-check-input" type="checkbox" />
+          <label class="form-check-label" for="isSendSMSautomatically">{{fieldTitle['sendsms']}}</label>
+        </div>
+        <div class="form-check my-2" *ngIf="modelSvc.isEdit?modelSvc.creditReceiptVoucherModel.createdByID==loginUserID:true">
+          <input class="form-check-input" id="draft" [(ngModel)]="modelSvc.creditReceiptVoucherModel.isDraft"
+            name="draft" type="checkbox" />
+          <label class="form-check-label" for="draft">Draft</label>
+        </div>
+        <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+          [disabled]="modelSvc.creditReceiptVoucherModel.id==0" (click)="printVoucher(modelSvc.creditReceiptVoucherModel.id)"></button>
+        <button type="button" class="btn btn-sm btn-primary" 
+          (click)="addNew()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />{{fieldTitle['addanother']}}
+        </button>
+        <!-- <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+        <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download" title="{{fieldTitle['download']}}"
+          [disabled]="!isSubmitted" (click)="printVoucher(modelSvc.creditReceiptVoucherModel.id)"></button>
+        <button type="button" class="btn btn-sm btn-primary" [disabled]="this.modelSvc.isMultiCashEditMode?true:!isSubmitted && !modelSvc.isEdit"
+          (click)="addNew()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />{{fieldTitle['addanother']}}
+        </button> -->
+        <button type="button" class="btn btn-sm btn-warning" (click)="onFormResetFormMultiple()"
+        ><img src="../../../assets/images/icons/repeat.svg" alt="icon" />{{fieldTitle['reset']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" [disabled]="!multiVoucherCashForm.dirty"
+          (click)="multiSaveCash(multiVoucherCashForm)">
+          <img src="../../../assets/images/icons/save.svg" alt="icon" />
+          {{fieldTitle['save']}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

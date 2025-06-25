@@ -1,0 +1,69 @@
+
+<div id="wrapper" [class.toggled]="isToggled">
+
+    <!--New-Sidebar------------>
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+            <a href="javascript:void(0)" (click)="loadHome()" class="logo-area">
+                <img class="logo-compact" src="../../../../assets/images/logo.png" alt="logo">
+                <img class="logo-compact white" src="../../../../assets/images/logo-white.png" alt="logo">
+            </a>
+            <div class="menu-area">
+                <span class="menu-search">
+                    <i class="pi pi-search"></i>
+                    <p-autoComplete
+                        name="menuSearchText"
+                        [(ngModel)]="menuSearchText"
+                        [datasource]="menuSearchList"
+                        field="pageTitle"
+                        (onSelect)="onSelectSearchMenu($event)"
+                        [style]="{ width: '100%' }"
+                        placeholder="Search">
+                    </p-autoComplete>
+                </span>
+                <p-panelMenu [multiple]="false" (click)="panelMenuClick()" [model]="menuService.items" [style]="{'width':'100%'}"></p-panelMenu>
+            </div>
+        </ul>
+    </div>
+
+
+    <!--Page-Content------------>
+    <div id="page-content-wrapper">
+
+        <!--Header-Content------------>
+        <section class="header-top">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" (click)="toggleMenu()">
+                    <div class="hamburger">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </div>
+                </button>
+            </div>
+            <app-header [pageTitle]="menuService.pageTitle"></app-header>
+        </section>
+
+        <spinner></spinner> 
+        <app-offline></app-offline>
+
+        <!--Page-body-content--------->
+        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12">
+            <div class="card" [ngClass]="{'pos-main-card':  currentPage.action == 'pos' || currentPage.action == 'pos-customer'}" (click)="display=true">
+                <div class="content-body">
+                    <router-outlet/>
+                </div>
+            </div>
+        </div>
+
+        <!--Page-Footer--------->
+        <div *ngIf="currentPage.action != 'pos'">
+            <div *ngIf="currentPage.action != 'pos-customer'">
+                <div class="footer-sign">
+                    <p>All rights Reserved. Powered by: <a href="https://nextitltd.com/" target="blank">Next IT Limited</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

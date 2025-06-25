@@ -1,0 +1,144 @@
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card-box p-3">
+            <form #orgAndProjectForm="ngForm" [addValidators]="validationMsgObj"
+              validationMessage="orgAndProjectValidationModelValidation">
+              <div *ngIf="!isProjectWise" class="box-head mb-2 d-flex align-items-center">
+                <h1 class="box-title">{{fieldTitle['organizationwisechartofaccounts']}}</h1>
+              </div>
+              <div *ngIf="isProjectWise" class="box-head mb-2 d-flex align-items-center">
+                <h1 class="box-title">{{fieldTitle['projectwisechartofaccounts']}}</h1>
+              </div>
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="ni-sup">{{fieldTitle['company']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [(ngModel)]="modelSvc.cOAOrgMapDTO.companyID" [showClear]="true"
+                      [options]="modelSvc.companyList" name="companyID" (onChange)="onSelectToCompany()"
+                      placeholder="Select Company" optionLabel="name" optionValue="id" inputValidator
+                      [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isBranchWise" class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="ni-sup">{{fieldTitle['office/branch/unitname']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" name="orgID" [(ngModel)]="modelSvc.cOAOrgMapDTO.orgID" optionLabel="name"
+                      [options]="modelSvc.officeBrachUnitList" optionValue="id" inputValidator [showClear]="true"
+                      placeholder="{{fieldTitle['selectoffice/branch/unit']}}" [group]="true" [style]="{ width: '100%' }"
+                      (onChange)="onSelectToOfficeBranch()">
+                      <ng-template let-group pTemplate="group">
+                        <div class="flex align-items-center">
+                          <span>{{ group.label }}</span>
+                        </div>
+                      </ng-template>
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="isProjectWise" class="form-group mb-4">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="ni-sup">{{fieldTitle['projectname']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [showClear]="true" [options]="projectList" name="projectID"
+                      [(ngModel)]="modelSvc.cOAOrgMapDTO.projectID" (onChange)="onSelectToPrject()" [showClear]="true"
+                      placeholder="{{fieldTitle['selectproject']}}" optionLabel="name" optionValue="id" inputValidator
+                      [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!isProjectWise" class="box-head mb-2 d-flex align-items-center">
+                <h1 class="box-title">{{fieldTitle['selectbranch/officewisechartofaccounts']}}</h1>
+              </div>
+              <div *ngIf="isProjectWise" class="box-head mb-2 d-flex align-items-center">
+                <h1 class="box-title">{{fieldTitle['selectprojectwisechartofaccounts']}}</h1>
+              </div>
+              <p-tree [value]="modelSvc.treeDataList" [filter]="true" filterMode="strict"
+                filterPlaceholder="{{fieldTitle['search']}}" selectionMode="checkbox" [(selection)]="modelSvc.selectedMenu"
+                (onNodeSelect)="onNodeSelect($event.node)" (onNodeUnselect)="onNodeUnSelect($event.node)"
+                class="admin-menus">
+                <ng-template let-node pTemplate="default">
+                  <label>{{node.label}}</label>
+                </ng-template>
+              </p-tree>
+              <div class="d-flex form-group justify-content-end mt-2 mb-0">
+                <button type="button" class="btn btn-sm btn-success" (click)="save(orgAndProjectForm)"
+                  [disabled]="!orgAndProjectForm.dirty">
+                  <img src="../../../assets/images/icons/save.svg" alt="save" />{{fieldTitle['save']}}
+                </button>
+                <button type="button" class="btn btn-sm btn-warning" (click)="reset()"
+                  [disabled]="!orgAndProjectForm.dirty">
+                  <img src="../../../assets/images/icons/repeat.svg" alt="reset" />{{fieldTitle['reset']}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-box p-3">
+            <div *ngIf="!isProjectWise" class="box-head mb-2 d-flex align-items-center">
+              <h1 class="box-title">{{fieldTitle['organizationwisechartofaccounts']}}</h1>
+            </div>
+            <div *ngIf="isProjectWise" class="box-head mb-2 d-flex align-items-center">
+              <h1 class="box-title">{{fieldTitle['projectwisechartofaccounts']}}</h1>
+            </div>
+            <div class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label>{{fieldTitle['companyname']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" name="companyName" [(ngModel)]="companyName" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isBranchWise" class="form-group">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label>{{fieldTitle['branch/office']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" name="branchName" [(ngModel)]="branchName" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-4" *ngIf="isProjectWise">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <label>{{fieldTitle['projectname']}}</label>
+                </div>
+                <div class="col-md-8">
+                  <input type="text" name="projectName" [(ngModel)]="projectName" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!isProjectWise" class="box-head mb-2 d-flex align-items-center">
+              <h1 class="box-title">{{fieldTitle['branch/office/unitwisechartofaccounts']}}</h1>
+            </div>
+            <div *ngIf="isProjectWise" class="box-head mb-2 d-flex align-items-center">
+              <h1 class="box-title">{{fieldTitle['projectwisechartofaccounts']}}</h1>
+            </div>
+            <p-tree [filter]="true" filterMode="strict" filterPlaceholder="{{fieldTitle['search']}}"
+              [value]="modelSvc.projectWiseDataList">
+              <ng-template let-node pTemplate="default">
+                <label>{{node.label}}</label>
+              </ng-template>
+            </p-tree>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

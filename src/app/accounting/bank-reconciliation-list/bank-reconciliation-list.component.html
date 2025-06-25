@@ -1,0 +1,37 @@
+<!------------Bank Reconciliation------------>
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['bankreconciliation']}}</h1>
+  </div>
+  <div class="card-section">
+    <div class="card-box p-3">
+      <div class="topAddMenu">
+        <button type="button" class="btn btn-success btn-sm d-flex align-items-center" (click)="create()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="plus">{{fieldTitle['create']}} 
+        </button>
+      </div>
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.bankReconciliationList">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ entity.fromDate }}</td>
+            <td>{{ entity.toDate }}</td>
+            <td>{{ entity.companyName }}</td>
+            <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.orgName }}</td>
+            <td *ngIf="modelSvc.isProjectModuleActive">{{ entity.projectName }}</td>
+            <td>{{ entity.bankAccount }}</td>
+            <td>{{ entity.statementBalance }}</td>
+            <td (click)="onClickDiscrepancy(entity)">
+                <span style="text-decoration: underline; color: rgb(235, 114, 34); cursor: pointer;">
+                  {{ entity.discrepancy }}
+                </span>
+            </td>
+            <td>{{ entity.status }}</td>
+          </tr>
+        </ng-template>
+      </app-ni-table>
+    </div>
+  </div>
+
+  
+  
+  
+  

@@ -1,0 +1,110 @@
+
+<div class="card-head mb-2">
+  <h1 class="section-title">Chart of Accounts Report</h1>
+</div>
+<div class="card-section">
+  <div class="top-card-box p-3 pb-1 mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">Company</label>
+            </div>
+            <div class="col-md-8">
+              <p-select
+                appendTo="body"
+                [(ngModel)]="searchParam.companyID"
+                [filter]="true"
+                [showClear]="true"
+                [options]="modelSvc.companyList"
+                name="companyID"
+                (onChange)="onSelectToCompany()"
+                placeholder="Select Company"
+                optionLabel="name"
+                optionValue="id"
+                [niSelectedText]="searchParam"
+                textProperty="company"
+                inputValidator
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+       <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label>Office/Branch/Unit</label>   
+            </div>
+            <div class="col-md-8">
+              <p-select
+                appendTo="body"
+                [filter]="true"
+                [showClear]="true"
+                name="orgID"
+                [(ngModel)]="searchParam.orgID"
+                optionLabel="name"
+                [options]="modelSvc.officeBranchList"
+                optionValue="id"
+                placeholder="{{fieldTitle['selectbusinessunit']}}"            
+                [group]="true"
+                [style]="{ width: '100%' }"
+                (onChange)="onSelectToOrg()"
+                [niSelectedText]="searchParam"
+                textProperty="orgName">
+                <ng-template let-group pTemplate="group">
+                  <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                  </div>
+                </ng-template>
+              </p-select>
+            </div>
+          </div>  
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label>Project</label>
+            </div>
+            <div class="col-md-8">
+              <p-select
+                appendTo="body"
+                [filter]="true"
+                [showClear]="true"
+                [options]="modelSvc.projectList"
+                name="projectID"
+                [(ngModel)]="searchParam.projectID"
+                (onChange)="onSelectToProject()"
+                placeholder="Project"
+                optionLabel="name"
+                optionValue="id"
+                [style]="{ width: '100%' }"
+                [niSelectedText]="searchParam"
+                textProperty="projectName">
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.chartOfAccountList">
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+      <tr>
+        <td>{{item.accountsNature}}</td>
+        <td>{{item.groupLedger}}</td>
+        <td>{{item.subGroupLedger}}</td>
+        <td *ngIf="!modelSvc.isSkippedControlLedger">{{item.controlLedger}}</td>
+        <td>{{item.ledger}}</td>
+        <td>{{item.subLedgerTypeName}}</td>
+        <td>{{item.note}}</td>
+        <td>{{item.depreciationRate}}</td>
+        <td>{{item.parentAsset}}</td>
+      </tr>
+    </ng-template>
+  </app-ni-table>
+</div>

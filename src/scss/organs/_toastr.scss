@@ -1,0 +1,83 @@
+
+.toast-container{
+    .toast-message{
+        font-size:15px;
+        font-weight:500;
+        &::after{
+            content: "";
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 5px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    }
+}
+.toast-container .ngx-toastr {
+	padding: 10px 10px 10px 58px;
+    min-height: 62px;
+	border-radius: 5px;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35);
+	font-size: 15px;
+    line-height: 18px;
+	letter-spacing: 0.5px;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	-webkit-backdrop--filter: blur(4px);
+    display: flex;
+    align-items: center;
+    &:hover{
+        box-shadow:0 0 15px rgba(0,0,0,0.35);
+    }
+}
+.toast-success {
+    background-color: #1d974ab2;
+    border:1px solid #218144;
+    background-image:none;
+    .toast-message{
+        color:#fff;
+        &::after{
+            background-image:url("../../assets/images/icons/toast-success.png");
+        }
+    }
+}
+.toast-error {
+    background-color: #df1414b4;
+    border:1px solid #c92626;
+    background-image:none;
+    .toast-message{
+        color:#fff;
+        &::after{
+            background-image:url("../../assets/images/icons/toast-error.png");
+        }
+    }
+}
+.toast-info {
+    background-color: #0ba4ebaf;
+    border:1px solid #0ca2e7;
+    background-image:none;
+    .toast-message{
+        color:#fff;
+        &::after{
+            background-image:url("../../assets/images/icons/toast-info.png");
+        }
+    }
+}
+.toast-warning {
+    background-color: #ea5a0cb7;
+    border:1px solid #EA580C;
+    background-image:none;
+    .toast-message{
+        color:#fff;
+        &::after{
+            background-image:url("../../assets/images/icons/toast-warning.png");
+        }
+    }
+}

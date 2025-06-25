@@ -1,0 +1,32 @@
+
+<div class="card-section">
+    <form #emailForm="ngForm" [addValidators]="validationMsgObj" validationMessage="emailValidation">
+        <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['email']}}</label>
+            <input type="text" [(ngModel)]="modelSvc.emailDTO.email" 
+            id="email" name="email" class="form-control" 
+            placeholder="{{fieldTitle['typeemailaddress']}}" 
+            class="form-control" inputValidator>
+        </div>
+        <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['subject']}}</label>
+            <input type="text" [(ngModel)]="modelSvc.emailDTO.subject" 
+            id="subject" name="subject" class="form-control" 
+            placeholder="{{fieldTitle['typeemailsubject']}}" 
+            class="form-control" inputValidator>
+        </div>
+        <div class="form-group">
+            <label>{{fieldTitle['bodytext']}}</label>
+            <p-editor name="body" id="body"
+            [(ngModel)]="modelSvc.emailDTO.body" placeholder="{{fieldTitle['typeemailbodytext']}}" [style]="{'height':'200px'}"></p-editor>
+        </div>
+        <div class="form-group mt-2 mb-0">
+        <div class="form-row d-flex justify-content-end">
+            <button type="button" class="btn btn-sm btn-success" alt="icon"
+            (click)="send(emailForm)" [disabled]="!emailForm.dirty">
+            <img src="../../../assets/images/icons/send.svg" alt="icon">Send
+            </button>
+        </div>
+        </div>
+    </form>
+</div>

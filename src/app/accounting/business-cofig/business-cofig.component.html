@@ -1,0 +1,62 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['businessconfiguration']}}</h1>
+</div>
+<div class="card-section">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card-box">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active" data-bs-target="#define" data-bs-toggle="pill" (click)="loadComponent(1)">{{fieldTitle['destinationsdefine']}}</button>
+          <button class="nav-link" data-bs-target="#chart" data-bs-toggle="pill" (click)="loadComponent(2)">{{fieldTitle['chartofaccountleveldepth']}}</button>
+          <button class="nav-link" data-bs-target="#sub" data-bs-toggle="pill" (click)="loadComponent(3)">{{fieldTitle['subledgertype']}}</button>
+          <button class="nav-link" data-bs-target="#transaction" data-bs-toggle="pill" (click)="loadComponent(4)">{{fieldTitle['transactionmode']}}</button>
+          <button class="nav-link" data-bs-target="#voucher" data-bs-toggle="pill" (click)="loadComponent(5)">{{fieldTitle['vouchersmsconfig']}}</button>
+          <button class="nav-link" data-bs-target="#projectBranch" data-bs-toggle="pill" (click)="loadComponent(6)">{{fieldTitle['branchandprojectconfig']}}</button>
+          <button class="nav-link" data-bs-target="#voucherCategory" data-bs-toggle="pill" (click)="loadComponent(7)">{{fieldTitle['vouchercategory']}}</button>
+          <button class="nav-link" data-bs-target="#cashBalance" data-bs-toggle="pill" (click)="loadComponent(8)">{{fieldTitle['cashbalancecontrolconfig']}}</button>
+          <button class="nav-link" data-bs-target="#chequeLeafStatus" data-bs-toggle="pill" (click)="loadComponent(9)">{{fieldTitle['chequeleafstatus']}}</button>
+          <button class="nav-link" data-bs-target="#chequeStatusNotify" data-bs-toggle="pill" (click)="loadComponent(10)">{{fieldTitle['chequestatusnotify']}}</button>
+          <button class="nav-link" data-bs-target="#cashFlowStatementGroups" data-bs-toggle="pill" (click)="loadComponent(11)">{{fieldTitle['cashflowstatementgroups']}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="tab-content" id="v-pills-tabContent">
+        <!----First-Tab---->
+        <div class="tab-pane fade show active" id="define">
+          <ng-container #viewContainerDestinationDefine></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="chart">
+          <ng-container #viewContainerAccountHead></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="sub">
+          <ng-container #viewContainerSubLedgerType></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="transaction">
+          <ng-container #viewContainerTransactionMode></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="voucher">
+          <ng-container #viewContainerVoucherNotification></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="projectBranch">
+          <ng-container #viewContainerProjectBranch></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="voucherCategory">
+          <ng-container #viewContainerVoucherCategory></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="cashBalance">
+          <ng-container #viewContainerCashBalanceControl></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="chequeLeafStatus">
+          <ng-container #viewContainerChequeLeafStatus></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="chequeStatusNotify">
+          <ng-container #viewContainerChequeStatusNotify></ng-container>
+        </div>
+        <div class="tab-pane fade show active" id="cashFlowStatementGroups">
+          <ng-container #viewContainerCashFlowStatementGroups></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

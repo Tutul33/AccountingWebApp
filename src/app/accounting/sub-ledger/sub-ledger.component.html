@@ -1,0 +1,108 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['subledger']}}</h1>
+</div>
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="card-box p-3">
+        <form #subLedgerForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="subLedgerValidation">
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['subledgertype']}}</label>
+            <p-select appendTo="body" *ngIf="!isPlaceholderDisable"
+              placeholder="Select Sub Ledger Type"
+              [(ngModel)]="modelSvc.subLedgerDTO.subLedgerTypeID" [filter]="true" filterBy="value" [showClear]="true"
+              [options]="modelSvc.subLedgerTypeList"
+              name="subLedgerTypeID" optionLabel="value" optionValue="id" 
+              [niSelectedText]="modelSvc.subLedgerDTO" textProperty="subLedgerType"
+              [style]="{ width: '100%' }" inputValidator>
+            </p-select>
+
+            <p-select appendTo="body" *ngIf="isPlaceholderDisable"
+              [(ngModel)]="modelSvc.subLedgerDTO.subLedgerTypeID" [filter]="true" filterBy="value" [showClear]="true"
+              [options]="modelSvc.subLedgerTypeList"
+              name="subLedgerTypeID" optionLabel="value" optionValue="id" 
+              [niSelectedText]="modelSvc.subLedgerDTO" textProperty="subLedgerType"
+              [style]="{ width: '100%' }" inputValidator>
+            </p-select>
+          </div>
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['subledger']}}</label>
+            <p-autoComplete
+              name="name"
+              [(ngModel)]="modelSvc.subLedgerDTO.name"
+              [datasource]="modelSvc.subLedgerList"
+              field="name"
+              [style]="{ width: '100%' }"
+              placeholder="{{fieldTitle['subledger']}}" inputValidator>
+            </p-autoComplete>
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['email']}}</label>
+            <input type="text" name="email" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.subLedgerDTO.email" placeholder="{{fieldTitle['email']}}">
+          </div>
+          <div class="form-group">
+            <label>{{fieldTitle['mobileno']}}</label>
+            <input type="text" name="mobile" class="form-control" inputValidator 
+            [(ngModel)]="modelSvc.subLedgerDTO.mobile" placeholder="{{fieldTitle['mobileno']}}">
+          </div>
+          <div class="form-check my-2">
+            <input class="form-check-input" id="isActive" name="isActive" type="checkbox" 
+            [(ngModel)]="modelSvc.subLedgerDTO.isActive"/>
+            <label class="form-check-label" for="isActive">{{fieldTitle['active']}}</label>
+          </div>
+          <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-success"
+                [disabled]="!subLedgerForm.dirty"
+                (click)="saveSubLedger(subLedgerForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-warning"
+                [disabled]="!subLedgerForm.dirty" 
+                (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.subLedgerDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-head mb-2 d-flex align-items-center justify-content-between">
+        <h1 class="section-title">{{fieldTitle['subledgerlist']}}</h1>
+        <div class="head-btn">
+          <button type="button" class="btn btn-primary absolute d-flex align-items-center" (click)="bulkUploadModal()">
+            <img src="../../../assets/images/icons/upload.svg" alt="icon">
+            {{fieldTitle['subledgerupload']}}
+          </button>
+        </div>
+      </div>
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.subLedgerList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.subLedgerType }}</td>
+              <td>{{ entity.name }}</td>
+              <td>{{ entity.email }}</td>
+              <td>{{ entity.mobile }}</td>
+              <td class="text-center">{{ entity.isActive | niBoolean }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" pButton pRipple icon="pi pi-pencil" title="{{fieldTitle['edit']}}"
+                  class="p-button-primary p-mr-2" (click)="edit(entity)" [disabled]="entity.refID != null"></button>
+                  <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" title="{{fieldTitle['delete']}}"
+                  class="p-button-danger" (click)="delete(entity)" [disabled]="entity.refID != null"></button>
+                </div>
+              </td> 
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+  </div>
+</div>

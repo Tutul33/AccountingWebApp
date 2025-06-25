@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="card-body">
+      <form>
+        <div class="mb-3 d-flex collapse-expand">
+          <p-button icon="pi pi-plus" label="Expand all" (onClick)="expandAll()"/>
+          <p-button icon="pi pi-minus" label="Collapse all" (onClick)="collapseAll()" />
+        </div>
+        <p-tree [value]="modelSvc.treeDataList" 
+          (onNodeSelect)="nodeSelect($event)"
+          [filter]="true" 
+          selectionMode="single" 
+          filterMode="strict" 
+          filterPlaceholder="Strict Filter"
+          class="admin-menus">
+        </p-tree>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="card-body" >
+      <div class="p-3">
+        <div class="highcharts-area">
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="modelSvc.chartOptions"
+            id="container"
+            style="width: 100%; display: block;">
+          </highcharts-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+
+
+  
+  

@@ -1,0 +1,160 @@
+  <!------------Create Bank Reconciliation------------>
+  <div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['createbankreconciliation']}}</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card-box p-3">
+        <form #bankReconciliationForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="bankReconciliationValidation">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['datefromto']}}</label>
+              </div>
+              <div class="col-md-8">
+                <div class="row g-1">
+                  <div class="col-md-6">
+                    <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.bankReconciliationDTO.reconcilationDateFrom" name="reconcilationDateFrom"
+                      [readonlyInput]="true" 
+                      [showIcon]="true" 
+                      [maxDate]="modelSvc.bankReconciliationDTO.reconcilationDateTo"
+                      [style]="{ width: '100%' }" 
+                      inputValidator>
+                    </p-datepicker>
+                  </div>
+                  <div class="col-md-6">
+                    <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.bankReconciliationDTO.reconcilationDateTo" name="reconcilationDateTo"
+                        [readonlyInput]="true" 
+                        [showIcon]="true"  
+                        [minDate]="modelSvc.bankReconciliationDTO.reconcilationDateFrom"
+                        [maxDate]="modelSvc.maxDate"
+                        [style]="{ width: '100%' }" 
+                        inputValidator>
+                    </p-datepicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['company']}}</label>
+            <p-select *ngIf="!isPlaceholderDisableCompany" appendTo="body" placeholder="Select Company" [(ngModel)]="modelSvc.bankReconciliationDTO.companyID"
+                [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.bankReconciliationDTO" textProperty="companyName"
+                inputValidator [style]="{ width: '100%' }">
+            </p-select>
+
+            <p-select *ngIf="isPlaceholderDisableCompany" appendTo="body" [(ngModel)]="modelSvc.bankReconciliationDTO.companyID"
+                [filter]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.bankReconciliationDTO" textProperty="companyName"
+                inputValidator [style]="{ width: '100%' }">
+            </p-select>
+          </div>
+
+          <div class="form-group" *ngIf="modelSvc.isBranchModuleActive">
+            <label class="ni-sup">{{fieldTitle['office/branch/unit']}}</label>
+            <p-select *ngIf="modelSvc.isSingleBrnach" appendTo="body" 
+                (onChange)="onChangeOrgProject()"  name="orgID" id="orgID"
+                [(ngModel)]="modelSvc.bankReconciliationDTO.orgID" [filter]="true"
+                [options]="modelSvc.officeBranchUnitList" filterBy="name" optionLabel="name" optionValue="id"
+                inputValidator [style]="{ width: '100%' }">
+            </p-select>
+
+            <p-select *ngIf="!modelSvc.isSingleBrnach" appendTo="body" placeholder="Select Office/Branch/Unit"
+                (onChange)="onChangeOrgProject()" name="orgID" id="orgID"
+                [(ngModel)]="modelSvc.bankReconciliationDTO.orgID" [filter]="true" 
+                [options]="modelSvc.officeBranchUnitList" filterBy="name" optionLabel="name" optionValue="id"
+                [group]="true" [style]="{ width: '100%' }" inputValidator>
+                <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                    </div>
+                </ng-template>
+            </p-select>
+          </div>
+
+          <div class="form-group" *ngIf="modelSvc.isProjectModuleActive">
+            <label>{{fieldTitle['project']}}</label>
+            <p-select appendTo="body" *ngIf="!modelSvc.isSingleProject"
+                showClear="true"
+                (onChange)="onChangeOrgProject()"
+                placeholder="Select Project" [(ngModel)]="modelSvc.bankReconciliationDTO.projectID"
+                [filter]="true" filterBy="name" [options]="modelSvc.projectList" name="projectID" optionLabel="name"
+                optionValue="id" [style]="{ width: '100%' }" >
+            </p-select>
+
+            <p-select appendTo="body" *ngIf="modelSvc.isSingleProject"
+                showClear="true"
+                (onChange)="onChangeOrgProject()"
+                [(ngModel)]="modelSvc.bankReconciliationDTO.projectID"
+                [filter]="true" filterBy="name" [options]="modelSvc.projectList" name="projectID" optionLabel="name"
+                optionValue="id" [style]="{ width: '100%' }" >
+            </p-select>
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['bankaccount']}}</label>
+            <p-select appendTo="body" *ngIf="!modelSvc.isSingleBank"
+                placeholder="Select Bank" [(ngModel)]="modelSvc.bankReconciliationDTO.cOAStructID" inputValidator
+                [filter]="true" filterBy="cOAStructureName" [options]="modelSvc.bankReconciliationLedgerList" name="cOAStructID" optionLabel="cOAStructureName"
+                optionValue="cOAStructureID" [style]="{ width: '100%' }">
+            </p-select>
+            <p-select appendTo="body" *ngIf="modelSvc.isSingleBank"
+                [(ngModel)]="modelSvc.bankReconciliationDTO.cOAStructID" inputValidator
+                [filter]="true" filterBy="cOAStructureName" [options]="modelSvc.bankReconciliationLedgerList" name="cOAStructID" optionLabel="cOAStructureName"
+                optionValue="cOAStructureID" [style]="{ width: '100%' }">
+            </p-select>
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['statementbalance']}}</label>
+            <input type="number" [niDecimal]="modelSvc.decimalPlace" name="bankBalance" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.bankReconciliationDTO.bankBalance" placeholder="Enter Balance">
+          </div>
+
+          <div class="form-group">
+            <label>{{fieldTitle['uploadbankstatement']}}</label>
+            <div class="d-flex align-items-center justify-content-between">
+                <div
+                    class="align-items-center justify-content-start">
+                    <app-ni-file-single-view
+                        [uploadOption]="modelSvc.fileUploadOption"
+                        [targetObject]="modelSvc.bankReconciliationDTO.imageFile"
+                        [objectId]="modelSvc.bankReconciliationDTO.imageFile.id">
+                    </app-ni-file-single-view>
+                </div>
+                <div
+                    class="align-items-center justify-content-end col position-relative">
+                    <app-ni-file-single-upload 
+                        [targetObject]="modelSvc.bankReconciliationDTO.imageFile"
+                        [uploadOption]="modelSvc.fileUploadOption" 
+                        (change)="onImageChange(modelSvc.bankReconciliationDTO)"
+                        (removeEvent)="onRemoveImage(modelSvc.bankReconciliationDTO)" 
+                        class="file-parent">
+                    </app-ni-file-single-upload>
+                </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-end">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" disabled="" class="btn btn-sm btn-success"
+              [disabled]="!bankReconciliationForm.dirty"
+              (click)="saveBankReconciliation(bankReconciliationForm)"
+              >
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> Save
+              </button>
+              <button type="button" disabled="" class="btn btn-sm btn-warning"
+              [disabled]="!bankReconciliationForm.dirty" 
+              (click)="reset()"
+              >
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> Reset
+              </button>
+            </div>
+          </div> 
+        </form>
+      </div>
+    </div>
+  </div>

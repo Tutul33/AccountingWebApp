@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card-body">
+      <form #orgReportMappingForm="ngForm" [addValidators]="validationMsgObj" validationMessage="orgReportMappingValidation">
+        <h1 class="title">Search Organization</h1>
+        <p-tree [value]="treeDataList" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"
+          selectionMode="single" class="admin-menus">
+          <ng-template let-node pTemplate="default">
+            <a (click)="onNodeClick(node)">{{node.label}}</a>
+          </ng-template>
+        </p-tree>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card-body">
+      <form class="p-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Organization</label>
+              <input type="text" [(ngModel)]="organizationName" (ngModelChange)="change()" name="organizationName" class="form-control" placeholder="Organization" disabled/>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="ni-sup">Reporting To</label>
+              <p-treeSelect 
+                appendTo="body"
+                [options]="reportToOrgStructureList"
+                name="reportToOrgStructure"
+                [(ngModel)]="reportToOrgStructure"
+                optionLabel="name" optionValue="id"
+                inputValidator [style]="{ width: '100%' }"
+                placeholder="Select Item"
+                [filter]="true" [filterInputAutoFocus]="true">
+              </p-treeSelect>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 d-flex align-items-center justify-content-end">
+          <button class="btn btn-warning btn-sm d-flex align-items-center" type="button" (click)="reset()" [disabled]="!orgReportMappingForm.dirty || !isSubmited">
+            <img src="../../../assets/images/icons/repeat.svg" alt="icon"/>
+            Reset
+          </button>
+          <button class="btn btn-success btn-sm d-flex align-items-center" type="button" (click)="save(orgReportMappingForm)" [disabled]="!orgReportMappingForm.dirty || !isSubmited">
+            <img src="../../../assets/images/icons/save.svg" alt="icon"/>
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

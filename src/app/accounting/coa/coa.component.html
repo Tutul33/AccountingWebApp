@@ -1,0 +1,30 @@
+<div class="row align-items-center justify-content-center">
+  <div class="col-md-6">
+    <div class="card-box">
+      <form class="p-3">
+        <p-tree #tree
+          [value]="modelSvc.treeDataList" 
+          [filter]="true" 
+          filterMode="strict" 
+          filterPlaceholder="Strict Filter"
+          selectionMode="single" 
+          class="admin-menus">
+          <ng-template let-node pTemplate="default">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <span class="coa-label w-100">{{node.label}}</span>
+              <!-- <span (click)="onNodeClick(node)" class="w-100">{{node.label}}</span> -->
+              <div class="d-flex items-center justify-content-end">
+                <button *ngIf="node.cOALevelCode !=5" type="button" class="btn btn-sm p-button-success" icon="pi pi-plus" pRipple pButton
+                (click)="onAdd(node,false)"></button>
+                <button type="button" class="btn btn-sm p-button-primary" icon="pi pi-pencil" pRipple pButton
+                    (click)="onEdit(node,true)"></button><!--onEdit -->
+                  <button type="button" class="btn btn-sm p-button-danger" icon="pi pi-trash" pRipple pButton
+                  *ngIf="node.parentID !=null" (click)="onDelete(node)"></button>
+              </div>
+            </div>
+          </ng-template>
+        </p-tree>
+      </form>
+    </div>
+  </div>
+</div>

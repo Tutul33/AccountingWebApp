@@ -1,0 +1,292 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">Income Statement</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1 mb-3">
+        <form #searchFilterForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="incomestatementModelValidation">
+        <div class="row">            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label class="ni-sup">{{fieldTitle['company']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <p-select appendTo="body" [(ngModel)]="modelSvc.searchParam.companyID" [showClear]="true"
+                                [options]="modelSvc.companyList" name="companyID" (onChange)="onSelectToCompany()"
+                                placeholder="Select Company" optionLabel="name" optionValue="id" inputValidator
+                                [niSelectedText]="modelSvc.searchParam"
+                                textProperty="company"
+                                [style]="{ width: '100%' }">
+                            </p-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label>{{fieldTitle['unit/branch']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID" [(ngModel)]="modelSvc.searchParam.orgID" optionLabel="name"
+                                [options]="modelSvc.officeBrachUnitList" optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true" 
+                                [style]="{ width: '100%' }" 
+                                [niSelectedText]="modelSvc.searchParam"
+                                textProperty="orgName"
+                                (onChange)="onChangeOrg(modelSvc.searchParam)" >
+                                <ng-template let-group pTemplate="group">
+                                    <div class="flex align-items-center">
+                                        <span>{{ group.label }}</span>
+                                    </div>
+                                </ng-template>
+                            </p-select> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label>{{fieldTitle['project']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <p-select
+                                appendTo="body"
+                                [filter]="true"
+                                [showClear]="true"
+                                [options]="modelSvc.projectList"
+                                name="projectID"
+                                [(ngModel)]="modelSvc.searchParam.projectID"
+                                placeholder="Project"
+                                optionLabel="name"
+                                optionValue="id"
+                                [niSelectedText]="modelSvc.searchParam"
+                                textProperty="projectName"
+                                [style]="{ width: '100%' }"
+                                (onChange)="onChangeProject(modelSvc.searchParam)" >
+                            </p-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label class="ni-sup" title="{{ fieldTitle['reporttype'] }}">{{ fieldTitle['reporttype'] }}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-row d-inline-block align-items-center">
+                                <div class="form-radio my-1" >
+                                    <input id="dateFinYearRange" name="dateFinYearRange" type="checkbox" [(ngModel)]="modelSvc.searchParam.dateFinYearRange" (change)="onCheckDateAsOn()"  class="form-check-input" >
+                                    <label for="dateFinYearRange" class="form-check-label">{{fieldTitle['dateason']}}</label>
+                                </div>  
+                                <div class="form-radio my-1" >
+                                    <input id="dateCustomRange" name="dateCustomRange" type="checkbox" [(ngModel)]="modelSvc.searchParam.dateCustomRange"  (change)="onCheckDateRange()"   class="form-check-input" >
+                                    <label for="dateCustomRange" class="form-check-label">{{ fieldTitle['daterange'] }}</label>
+                                </div>               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label [ngClass]="{'ni-sup':modelSvc.searchParam.dateFinYearRange}">{{fieldTitle['financialyear']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <p-select appendTo="body" placeholder="Select Year"
+                                [(ngModel)]="modelSvc.searchParam.financialYearID" 
+                                [filter]="true"
+                                filterBy="name" 
+                                [options]="modelSvc.financialYearList" 
+                                name="financialYearID" 
+                                [niSelectedText]="modelSvc.searchParam"
+                                textProperty="financialYear"
+                                optionLabel="name"
+                                optionValue="id"
+                                (onChange)="onChangeFinancialYear()"
+                                [disabled]="modelSvc.searchParam.dateFinYearRange?false:true"
+                                [style]="{ width: '100%' }">
+                            </p-select>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label [ngClass]="{'ni-sup':true}">{{modelSvc.searchParam.dateFinYearRange?fieldTitle['dateason']:fieldTitle['daterange']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <p-datepicker appendTo="body" 
+                                dateFormat="dd-M-y" 
+                                [showTime]="false"
+                                name="dateRange" 
+                                [(ngModel)]="modelSvc.searchParam.financialMaxDate"                        
+                                [showIcon]="true" 
+                                *ngIf="modelSvc.searchParam.dateFinYearRange?true:false"
+                                [disabled]="modelSvc.searchParam.dateFinYearRange?true:false"
+                                inputId="range"
+                                [style]="{ width: '100%' }"    
+                                inputValidator                    
+                            ></p-datepicker>
+
+                            <div class="row g-1" *ngIf="modelSvc.searchParam.dateCustomRange?true:false">
+                                <div class="col-md-6">
+                                  <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.fromDate" name="fromDate"
+                                    [readonlyInput]="true" 
+                                    [showIcon]="true" 
+                                    (onSelect)="onChangeFromDate()" 
+                                    [maxDate]="modelSvc.searchParam.toDate"
+                                    [style]="{ width: '100%' }" 
+                                    inputValidator>
+                                  </p-datepicker>
+                                </div>
+                                <div class="col-md-6">
+                                  <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.searchParam.toDate" name="toDate"
+                                    [readonlyInput]="true" 
+                                    [showIcon]="true"  
+                                    [minDate]="modelSvc.searchParam.fromDate"
+                                    (onSelect)="onChangeToDate()" 
+                                    [maxDate]="modelSvc.maxDate"
+                                    [style]="{ width: '100%' }" 
+                                    inputValidator>
+                                  </p-datepicker>
+                                </div>
+                              </div>                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <label title="{{ fieldTitle['resulttype'] }}">{{fieldTitle['resulttype']}}</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-inline-block align-items-center">
+                                <div class="form-radio my-1">
+                                    <input id="Acrual" name="resultType" [(ngModel)]="modelSvc.searchParam.resultType" value="1" inputValidator type="radio" class="form-radio-input">
+                                    <label for="Acrual" class="form-radio-label">{{fieldTitle['tshape']}}</label>
+                                </div>
+                                <div class="form-radio my-1">
+                                    <input id="Cash" name="resultType" [(ngModel)]="modelSvc.searchParam.resultType" type="radio" inputValidator value="2" class="form-radio-input">
+                                    <label for="Cash" class="form-radio-label">{{fieldTitle['lshape']}} </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group d-inline-block align-items-center">
+                    <div class="form-radio my-1" *ngFor="let item of modelSvc.searchParam.checkBoxList">
+                        <input id="{{item.type}}" name="{{item.type}}" type="checkbox" [(ngModel)]="item.isShow" [disabled]="item.isSkip" class="form-check-input" (change)="onChangeLedger()" >
+                        <label for="{{item.type}}" class="form-check-label">{{item.name}}</label>
+                    </div>                   
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="form-row d-flex justify-content-end">
+                        <button type="button" class="btn btn-sm btn-warning" (click)="resetSearchParam(searchFilterForm)">
+                            <img src="../../../assets/images/icons/repeat.svg" alt="icon">Reset
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="searchData(searchFilterForm,null)">
+                            <img src="../../../assets/images/icons/search.svg" alt="icon">Search
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="searchData(searchFilterForm,true)">
+                            <img src="../../../assets/images/icons/download.svg"  alt="icon">Export
+                        </button>
+                        <button type="button" class="btn btn-sm btn-success" (click)="searchData(searchFilterForm,false)">
+                            <img src="../../../assets/images/icons/send.svg" alt="icon"> send Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        </form>
+    </div>
+    <div class="row">
+        <div class="mb-3" [ngClass]="{'col-md-6':  modelSvc.searchParam.resultType == '1'}">
+            <app-ni-table class="mt-3" [gridOption]="gridOptionIncome" [valueList]="modelSvc.incomeList">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>                     
+                    <th width="20%">{{fieldTitle['amount']}}({{modelSvc.searchParam.currency}})</th>           
+                </tr>           
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr *ngIf="item.ledgerName!='Total'">
+                    <td>                        
+                        <span [style]="{ 'white-space':'pre' }">{{item.ledgerName}}</span> <!--style="white-space: pre;"-->
+                    </td>
+                    <td class="text-end">
+                        {{item.amount}}
+                    </td>  
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td>                           
+                        {{fieldTitle['total']}}
+                    </td>
+                    <td class="text-end">
+                        {{modelSvc.totalIncome}}
+                    </td>  
+                </tr>
+            </ng-template>
+        </app-ni-table>  </div>
+        <div class="mb-3" [ngClass]="{'col-md-6':  modelSvc.searchParam.resultType == '1'}">
+            <app-ni-table class="mt-3" [gridOption]="gridOptionExpense" [valueList]="modelSvc.expenseList">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th width="80%">{{fieldTitle['particulars']}}</th>                     
+                        <th width="20%">{{fieldTitle['amount']}}({{modelSvc.searchParam.currency}})</th>                
+                    </tr>           
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr *ngIf="item.ledgerName!='Total'">
+                        <td>                           
+                            <span [style]="{ 'white-space':'pre' }">{{item.ledgerName}}</span> <!--style="white-space: pre;"-->
+                        </td>
+                        <td class="text-end">{{item.amount}}</td>  
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr>
+                        <td>                           
+                            {{fieldTitle['total']}}
+                        </td>
+                        <td class="text-end">
+                            {{modelSvc.totalExpense}}
+                        </td>  
+                    </tr>
+                </ng-template>
+            </app-ni-table>  
+        </div>
+        <div class="mb-3" class="col-md-12">
+            <app-ni-table class="mt-3" [gridOption]="gridOptionProfitLoss" [valueList]="modelSvc.profitLossList" >               
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr>
+                        <td [ngStyle]="{'width': modelSvc.searchParam.resultType == 1 ? '50%' : '80%'}">                             
+                            <b>{{ fieldTitle['netprofit&loss'] }}</b>
+                        </td>
+                        <td class="text-end" [ngStyle]="{'width': modelSvc.searchParam.resultType == 1 ? '50%' : '20%'}">
+                            <b>{{ item.totalProfitLoss }}</b>
+                        </td>  
+                    </tr>
+                </ng-template>
+            </app-ni-table> 
+        </div>
+    </div>   
+</div>

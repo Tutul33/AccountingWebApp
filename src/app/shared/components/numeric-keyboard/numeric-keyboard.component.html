@@ -1,0 +1,21 @@
+<div>
+  <button appNumKeyboardKey="1"></button>
+  <button appNumKeyboardKey="2"></button>
+  <button appNumKeyboardKey="3"></button>
+  <button appNumKeyboardKey="4"></button>
+</div>
+<div>
+  <button appNumKeyboardKey="5"></button>
+  <button appNumKeyboardKey="6"></button>
+  <button appNumKeyboardKey="7"></button>
+  <button appNumKeyboardKey="8"></button>
+</div>
+<div>
+  <button appNumKeyboardKey="9"></button>
+  <button appNumKeyboardKey="0"></button>
+  <button *ngIf="isDecimal" appNumKeyboardKey="."></button>
+</div>
+<div class="d-flex">
+  <button class="special wide del" (click)="onBackspace()"><img src="../../../../assets/images/icons/times-key.png" alt="times"></button>
+  <button class="special wide enter" (click)="onEnter()">Enter</button>
+</div>

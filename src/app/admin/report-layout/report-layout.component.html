@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+      <div class="card-body">
+        <form #reportLayoutForm="ngForm" [addValidators]="validationMsgObj" validationMessage="reportLayoutValidationModel">
+          <div class="form-row">
+            <div class="form-group col">
+              <label class="ni-sup" title="{{ fieldTitle['reportname'] }}">{{fieldTitle["reportname"]}}</label>
+              <p-select appendTo="body" [showClear]="true" [filter]="true" [options]="modelSvc.reportNameList" name="reportCode"
+                 [(ngModel)]="modelSvc.reportLayout.reportCode" (onChange)="onChangeReportName()"
+                [niSelectedText]="modelSvc.reportLayout" textProperty="reportName"
+                placeholder="{{fieldTitle['select']}} {{fieldTitle['reportname']}}" optionLabel="value" optionValue="code" inputValidator
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label class="ni-sup" title="{{ fieldTitle['layoutname'] }}">{{fieldTitle["layoutname"]}}</label>
+              <p-select appendTo="body" [showClear]="true" [filter]="true" [options]="modelSvc.layoutNameList" name="layoutTypeCode"
+                 [(ngModel)]="modelSvc.reportLayout.layoutTypeCode"
+                [niSelectedText]="modelSvc.reportLayout" textProperty="layoutTypeName"
+                placeholder="{{fieldTitle['select']}} {{fieldTitle['layoutname']}}" optionLabel="value" optionValue="code" inputValidator
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label class="ni-sup" title="{{ fieldTitle['description']}}">{{fieldTitle["description"]}}</label>
+              <textarea type="text" maxlength="150" name="description" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.reportLayout.description" placeholder="Enter Description"></textarea>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label class="ni-sup" title="{{ fieldTitle['uploadview']}}">{{fieldTitle["uploadview"]}}</label>
+              <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-upload" class="p-button"
+              (click)="imageUploadModal()"></button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <div class="form-check">
+                <input type="checkbox" [(ngModel)]="modelSvc.reportLayout.isDefault" id="isDefault"
+                  name="isDefault" class="form-check-input" />
+                <label for="isDefault" title="{{fieldTitle['isdefault']}}"
+                  class="form-check-label">{{fieldTitle['isdefault']}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="button" (click)="save(reportLayoutForm)" [disabled]="!reportLayoutForm.dirty || modelSvc.isSubmitted"
+                class="btn btn-sm btn-success mr-d-10">
+                <img src="../../../assets/images/icons/save.svg" alt="icon" /> {{fieldTitle['save']}}
+              </button>
+              <button type="button" (click)="reset()" [disabled]="!reportLayoutForm.dirty"
+                class="btn btn-sm btn-danger mr-d-10">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon" /> {{fieldTitle['reset']}}
+              </button>
+              <button type="button" *ngIf="modelSvc.reportLayout.id > 0" (click)="setNew()" class="btn btn-sm btn-danger">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon" /> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="card-body">
+            <div class="table-striped">
+              <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.reportLayoutList">
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex" class="">
+                  <tr>
+                    <td>{{ item.reportName }}</td>
+                    <td>{{ item.layoutTypeName }}</td>
+                    <td>{{ item.description }}</td>
+                    <td class="text-center">
+                      <button pButton pRipple icon="pi pi-eye" class="p-button p-mr-2"
+                      (click)="imageGalleryModal(item)"></button>
+                    </td>
+                    <td>{{ item.isDefault | niBoolean}}</td>
+                    <td class="text-center">
+                      <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-success" (click)="edit(item)"></button>
+                      <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="delete(item)"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </app-ni-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

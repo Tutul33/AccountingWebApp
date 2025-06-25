@@ -1,0 +1,18 @@
+<form class="p-3">
+  <h1 class="title">Search Organization</h1>
+  <div class="mb-3 d-flex collapse-expand">
+    <p-button icon="pi pi-plus" label="Expand all" (onClick)="expandAll()" class="mr-2" />
+    <p-button icon="pi pi-minus" label="Collapse all" (onClick)="collapseAll()" />
+  </div>
+  <p-tree [value]="treeDataList" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"
+    selectionMode="single" class="admin-menus">
+    <ng-template let-node pTemplate="default">
+      <div class="d-flex align-items-center justify-content-between">
+        <span class="m-0 d-table">{{node.label}}</span>
+        <div class="d-flex items-center justify-content-end">
+          <button type="button" class="btn btn-sm p-button-success" icon="pi pi-external-link" pRipple pButton (click)="onNodeClick(node)"></button>
+        </div>
+      </div>
+    </ng-template>
+  </p-tree>
+</form>

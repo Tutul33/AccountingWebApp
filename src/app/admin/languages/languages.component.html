@@ -1,0 +1,51 @@
+
+<!-- <h1 class="mt-4 page-number">Language Manager</h1> -->
+<div class="card-body">
+    <form class="ng-untouched ng-pristine ng-valid">
+        <div class="topAddMenu">
+            <button type="button" class="btn btn-sm btn-primary" (click)="addLanguage()">
+                <img src="../../../assets/images/icons/plus-circle.svg" alt="reset">{{fieldTitle['addlanguage']}}
+            </button>
+        </div>
+        <div class="table-striped">
+            <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.languageList" class=" smaller-elements">       
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{item.languageName}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.native}}</td>
+                        <td> 
+                            <app-ni-file-single-view [uploadOption]="flagViewOption" [targetObject]="item.flagFile" [objectId]="item.id"></app-ni-file-single-view>       
+                        </td>
+                        <td>{{item.isActive|niBoolean}}</td>
+                        <td>{{item.isDefault|niBoolean}}</td>
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <button
+                                    [disabled]="item.isDefault"
+                                    type="button"
+                                    niDbclickPrevent
+                                    class="p-button-primary"
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    (click)="editLanguage(item)">
+                                </button>
+                                <!-- <button
+                                [disabled]="item.isDefault"
+                                type="button"
+                                niDbclickPrevent
+                                class="p-button-danger"
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                (click)="deleteLanguage(item)">
+                                </button> -->
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </app-ni-table>
+        </div>
+    </form>
+</div>

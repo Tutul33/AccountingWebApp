@@ -1,0 +1,95 @@
+<form #openingBalanceForm="ngForm" [addValidators]="validationMsgObj"
+  validationMessage="openingBalanceBulkUploadValidationModel">
+  <div class="form-group">
+    <label class="ni-sup">{{fieldTitle['financialyear']}}</label>
+    <input type="text" name="name" [(ngModel)]="modelSvc.ledgerSummaryDTO.name" class="form-control" disabled>
+  </div>
+  <div class="form-group" >
+    <label class="ni-sup">{{fieldTitle['company']}}</label>
+    <p-select appendTo="body" [options]="modelSvc.companyList" name="companyID"
+      [(ngModel)]="modelSvc.ledgerSummaryDTO.companyID" (onChange)="onSelectToCompany()"
+      placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator
+      [style]="{ width: '100%' }">
+    </p-select>
+  </div>
+  <div class="form-group" *ngIf="isBranchModuleActive">
+    <label class="ni-sup">{{fieldTitle['office/branch']}}</label>
+    <p-select appendTo="body" [filter]="true" name="orgID"
+      [(ngModel)]="modelSvc.ledgerSummaryDTO.orgID" optionLabel="name" [options]="modelSvc.officeBranchList"
+      optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" [group]="true" inputValidator
+      (onChange)="onSelectOrg(modelSvc.ledgerSummaryDTO)" [style]="{ width: '100%' }">
+      <ng-template let-group pTemplate="group">
+        <div class="flex align-items-center">
+          <span>{{ group.label }}</span>
+        </div>
+      </ng-template>
+    </p-select>
+  </div>
+  <div class="form-group" *ngIf="isProjectModuleActive">
+    <label>{{fieldTitle['project']}}</label>
+    <p-select appendTo="body" [showClear]="true" [options]="modelSvc.projectList" name="projectID"
+      [(ngModel)]="modelSvc.ledgerSummaryDTO.projectID" placeholder="{{fieldTitle['selectproject']}}"
+      (onChange)="onSelectProject(modelSvc.ledgerSummaryDTO)" optionLabel="name" optionValue="id"
+      [style]="{ width: '100%' }">
+    </p-select>
+  </div>
+  <!-- <div class="box-head">
+      <h1 class="box-title">Bulk Upload</h1>
+    </div>
+    <div class="indication-box mb-2">
+      <p class="indication warning">
+        The first line in downloaded CSV file should remain as it is. Please do not change the order of columns
+      </p>
+      <p class="indication primary">
+        The correct column order is (Financial Year, Open Date, Account Code, Account Name, Debit, Credit)
+      </p>
+    </div> -->
+  <div class="form-group">
+    <div class="form-row d-flex justify-content-start">
+      <button type="button" class="btn btn-sm btn-primary" [disabled]="!modelSvc.ledgerSummaryDTO.companyID"
+        (click)="exportToExcel()">
+        <img src="../../../assets/images/icons/download.svg" alt="icon">
+        {{fieldTitle['downloadsamplefile']}}
+      </button>
+    </div>
+  </div>
+  <div class="form-group">
+    <!-- <label>upload file</label> -->
+    <!-- <button type="button" class="btn btn-sm btn-primary ms-0" niDbclickPrevent
+    (click)="fileUploadModal(modelSvc.ledgerSummaryDTO)"><img src="../../../assets/images/icons/upload.svg"
+      alt="icon" />
+    {{fieldTitle['upload']}} 
+  </button> -->
+    <!-- 
+  <app-ni-file-single-upload (change)="fileUploadModal()" [uploadOption]="fileUpload" [targetObject]="modelSvc.dataSourceAttachment.imageFile"
+    class="file-parent">{{fileName}}
+  </app-ni-file-single-upload> -->
+    <div class="d-flex align-items-center">
+      <!-- <div class="d-flex align-items-center justify-content-start">
+        <app-ni-file-single-view inputValidator [uploadOption]="modelSvc.fileUpload"
+          [targetObject]="modelSvc.dataSourceAttachment.imageFile"
+          [objectId]="modelSvc.dataSourceAttachment.imageFile.id">
+        </app-ni-file-single-view>
+      </div> -->
+      <div class="align-items-center justify-content-end col position-relative">
+        <app-ni-file-single-upload (change)="fileUploadModal()" [uploadOption]="modelSvc.fileUpload"
+          [targetObject]="modelSvc.dataSourceAttachment.imageFile" (removeEvent)="onRemoveImage()" class="file-parent">
+          {{fileName}}
+        </app-ni-file-single-upload>
+      </div>
+    </div>
+    <div class="form-group mt-3 mb-0">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-danger" (click)="closeModal()">
+          <img src="../../../assets/images/icons/x-circle.svg" alt="icon">
+          {{fieldTitle['close']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" alt="icon"
+          [disabled]="!modelSvc.dataSourceAttachment.imageFile.fileName" (click)="saveBulkUpload(openingBalanceForm)">
+          <img src="../../../assets/images/icons/upload.svg" alt="icon">
+          {{fieldTitle['upload']}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

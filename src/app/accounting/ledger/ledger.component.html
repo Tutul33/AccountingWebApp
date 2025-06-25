@@ -1,0 +1,176 @@
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card-box">
+        <form #ledgerForm="ngForm" [addValidators]="validationMsgObj" validationMessage="groupLedgerModelValidation">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="ni-sup">{{fieldTitle['ledger']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-autoComplete name="accountName" [(ngModel)]="modelSvc.coa.accountName"
+                      [datasource]="accountNatureList" field="accountName" [style]="{ width: '100%' }"
+                      placeholder="{{fieldTitle['entergroupledger']}}" inputValidator [maxlength]="75">
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="ni-sup">{{entity.isHideClrgr? fieldTitle['subgroupledger'] : fieldTitle['controlledger'] }}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [options]="controlLedgerList" name="parentID"
+                      [(ngModel)]="modelSvc.coa.parentID" placeholder="{{fieldTitle['selectcontrolledger']}}"
+                      (onChange)="onControlLedgerChange()" optionLabel="accountName" optionValue="id" inputValidator
+                      [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="isCodeActive && isEdit">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label>{{fieldTitle['accountcode']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" name="accountCode" class="form-control" [disabled]="true"
+                      [(ngModel)]="modelSvc.coa.accountCode">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['assettype']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [showClear]="true" [options]="assetTypeList" name="assetTypeCode"
+                      [(ngModel)]="modelSvc.coa.assetTypeCode" placeholder="{{fieldTitle['selectassettype']}}"
+                      [disabled]="true" optionLabel="value.value" optionValue="value.code" [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="!this.modelSvc.coa.assetTypeCode">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['transactionnature']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [showClear]="true" [options]="transactionNatureList"
+                      name="transactionNatureCode" [(ngModel)]="modelSvc.coa.transactionNatureCode"
+                      placeholder="{{fieldTitle['selecttransactionnature']}}" optionLabel="value.value"
+                      optionValue="value.code" [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['noteno']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" name="note" [(ngModel)]="modelSvc.coa.note" placeholder="{{fieldTitle['enternoteno']}}" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="isDepRateShow">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['dep.rate']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" name="depreciationRate" [(ngModel)]="modelSvc.coa.depreciationRate" placeholder="Rate" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="isParentAssetShow">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['parentasset']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [showClear]="true" [options]="parentAssetList" name="parentLedgerID"
+                      [(ngModel)]="modelSvc.coa.parentLedgerID" placeholder="{{fieldTitle['selectparentasset']}}"
+                      optionLabel="accountName" optionValue="id" [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="form-check my-1">
+                  <input class="form-check-input" id="isSubLedgerType" name="isSubLedgerType" type="checkbox"
+                    [(ngModel)]="modelSvc.coa.isSubLedgerType" />
+                  <label class="form-check-label" for="isSubLedgerType">{{fieldTitle['issubledger']}}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="modelSvc.coa.isSubLedgerType">
+              <div class="form-group">
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <label class="">{{fieldTitle['subledgertype']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <p-select appendTo="body" [showClear]="true" [options]="subLedgerList" name="subLedgerTypeID"
+                      [(ngModel)]="modelSvc.coa.subLedgerTypeID" placeholder="{{fieldTitle['selectsubledgertype']}}"
+                      optionLabel="name" optionValue="id" [style]="{ width: '100%' }">
+                    </p-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="form-check my-1">
+                  <input class="form-check-input" id="isActive" name="isActive" type="checkbox"
+                    [(ngModel)]="modelSvc.coa.isActive" />
+                  <label class="form-check-label" for="isActive03">{{fieldTitle['active']}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-4 mb-0">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-success" *ngIf="isEdit" (click)="addAnother()">
+                <img src="../../../assets/images/icons/plus-circle.svg" alt="icon"> {{fieldTitle['saveaddanother']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-success" *ngIf="!isEdit" (click)="onSubmit(ledgerForm,true)">
+                <img src="../../../assets/images/icons/plus-circle.svg" alt="icon"> {{fieldTitle['saveaddanother']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-success" (click)="onSubmit(ledgerForm,false)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon">
+                {{isEdit ? fieldTitle['update'] : fieldTitle['save']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

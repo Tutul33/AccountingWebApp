@@ -1,0 +1,30 @@
+
+
+<form #chequeBookForm="ngForm">
+  <div class="form-group">
+    <label >{{fieldTitle['date']}}</label>
+    <p-datepicker *ngIf="visibilityDate"
+  appendTo="body"
+  dateFormat="dd/mm/yy"
+  [(ngModel)]="chequeLog.statusDate"
+  name="statusDate_2"
+  id="statusDate_2"
+  [readonlyInput]="true"
+  [showIcon]="true"
+  [style]="{ width: '100%' }" 
+></p-datepicker>
+
+  </div>
+  <div class="form-group">
+    <label >{{fieldTitle['note']}}</label>
+    <input type="text" name="note" class="form-control" inputValidator [(ngModel)]="chequeLog.note"
+      placeholder="{{fieldTitle['note']}}" maxlength="255">
+  </div>
+  <div class="form-group d-flex justify-content-end">
+    <button type="button" class="btn btn-sm btn-success" [disabled]="!chequeBookForm.dirty"
+      (click)="updateStatus(chequeBookForm)">
+        <img src="../../../assets/images/icons/check-circle.svg" alt="icons"/>
+        {{fieldTitle['ok']}}
+    </button>
+  </div>
+</form>

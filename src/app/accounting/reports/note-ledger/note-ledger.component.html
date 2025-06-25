@@ -1,0 +1,191 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['noteledger']}}</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1 mb-3">
+        <form #searchFilterForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="noteLedgerModelValidation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['company']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Company"
+                                    [(ngModel)]="modelSvc.searchParam.companyID" 
+                                    [filter]="true" 
+                                    [options]="modelSvc.companyList" 
+                                    name="companyID" 
+                                    (onChange)="onChangeCompany()" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="company"
+                                    inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isBranchModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['office/branch/unit']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                                    [(ngModel)]="modelSvc.searchParam.orgID" 
+                                    [filter]="true" 
+                                    [showClear]="true"
+                                    [group]="true" 
+                                    [options]="modelSvc.officeBranchList" 
+                                    [niSelectedText]="modelSvc.searchParam" textProperty="unitBranch"
+                                    filterBy="name"
+                                    name="orgID"
+                                    optionLabel="name" optionValue="id" [group]="true"
+                                    [style]="{ width: '100%' }">
+                                </p-select> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isProjectModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['project']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Project"
+                                    [(ngModel)]="modelSvc.searchParam.projectID" 
+                                    [filter]="true"
+                                    [showClear]="true"
+                                    filterBy="name" 
+                                    [options]="modelSvc.projectList" 
+                                    [niSelectedText]="modelSvc.searchParam" textProperty="project"
+                                    name="projectID" 
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['financialyear']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Year"
+                                    [(ngModel)]="modelSvc.searchParam.financialYearID" 
+                                    [filter]="true"
+                                    filterBy="name" 
+                                    [options]="modelSvc.financialYearList"
+                                   
+                                    name="financialYearID" 
+                                    (onChange)="onChangeFinancialYear()" 
+                                    [niSelectedText]="modelSvc.searchParam"
+                                    textProperty="financialYear"
+                                    optionLabel="name"
+                                    optionValue="id"
+                                    inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup" title="{{ fieldTitle['dateason'] }}">{{fieldTitle['dateason']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-datepicker appendTo="body" name="date" 
+                                [(ngModel)]="modelSvc.searchParam.date"
+                                 dateFormat="dd-M-y"
+                                [maxDate]="maxDate"
+                                [minDate]="minDate"
+                                [disabled]="!modelSvc.searchParam.financialYearID" 
+                                inputValidator 
+                                [style]="{ width: '100%' }"></p-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-row d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-warning"  (click)="reset()">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success"  (click)="onSubmit(searchFilterForm)">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon">{{fieldTitle['search']}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.noteLedgerList">
+        <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+            <tr> 
+                <td>{{item.subGroupLedger}}</td>
+                <td>{{item.noteNo}}</td>
+                <td>
+                    <div class="form-row d-flex align-items-center justify-content-center">
+                        <button type="button" pButton pRipple icon="pi pi-send" title="Show Ledger Balance" class="p-button-success" (click)="showLedgerBalance(item)"></button>
+                        <button type="button" pButton pRipple icon="pi pi-download" title="Print" class="p-button-warning" (click)="showLedgerBalance(item, true)"></button>
+                        <button type="button" class="btn btn-sm btn-success" (click)="showLedgerBalance(item, false)">
+                            <i class="pi pi-send"></i>
+                            {{fieldTitle['sendemail']}}
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </app-ni-table>
+</div>
+
+
+<p-dialog header="{{fieldTitle['noteledger']}}" [(visible)]="isShowNoteLedgerBalance" [modal]="true" [style]
+  [baseZIndex]="1000" [draggable]="false" [resizable]="false" [closable]="true" selection="single">
+  <div class="card-section">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-12">
+            <div class="form-group mb-3">
+                <div class="form-row d-flex justify-content-end">
+                    <label>{{fieldTitle['noteno']}} : {{this.modelSvc.searchParam.noteNo}}</label> 
+                </div>
+                <div class="form-row d-flex justify-content-end">
+                    <label>{{fieldTitle['subgroupledger']}} : {{this.modelSvc.searchParam.subGroupLedger}}</label>
+                </div>
+            </div>
+        </div>
+        <app-ni-table [gridOption]="noteLedgerBalanceGridOption" [valueList]="modelSvc.noteLedgerBalanceList">
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                <tr> 
+                    <td>{{item.serialNo}}</td>
+                    <td>{{item.ledger}}</td>
+                    <td class="text-right">{{item.balance | number:'1.2-2' }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td colspan="2">{{fieldTitle['total']}}</td>
+                    <td class="text-right">{{modelSvc.totalBalance | number:'1.2-2' }}</td>
+                  </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+  </div>
+</p-dialog>

@@ -1,0 +1,161 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">Opening Balance Entry</h1>
+</div>
+<div class="card-section">
+  <form #openingBalanceForm="ngForm" [addValidators]="validationMsgObj"
+    validationMessage="openingBalanceValidationModel">
+    <div class="top-card-box p-3 pb-1 mb-3">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['financialyear']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" name="name" [(ngModel)]="modelSvc.ledgerSummaryDTO.name" class="form-control" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['date']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" name="financialDate" [(ngModel)]="modelSvc.ledgerSummaryDTO.financialDate" class="form-control" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['company']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID"
+                  [(ngModel)]="modelSvc.ledgerSummaryDTO.companyID" (onChange)="onSelectToCompany()"
+                  placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator
+                  [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="isBranchModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['office/branch']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" appTabNavigation [filter]="true" [showClear]="true" name="orgID" 
+                  [(ngModel)]="modelSvc.ledgerSummaryDTO.orgID" optionLabel="name" [options]="modelSvc.officeBranchList"
+                  optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true"
+                  (onChange)="onSelectOrg(modelSvc.ledgerSummaryDTO)"
+                  [style]="{ width: '100%' }">
+                  <ng-template let-group pTemplate="group">
+                    <div class="flex align-items-center">
+                      <span>{{ group.label }}</span>
+                    </div>
+                  </ng-template>
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" *ngIf="isProjectModuleActive">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['project']}}</label>
+              </div>
+              <div class="col-md-8">
+                <p-select appendTo="body" [showClear]="true" [options]="modelSvc.projectList" name="projectID"
+                  [(ngModel)]="modelSvc.ledgerSummaryDTO.projectID" placeholder="{{fieldTitle['selectproject']}}"
+                  (onChange)="onSelectProject(modelSvc.ledgerSummaryDTO)" optionLabel="name" optionValue="id"
+                  [style]="{ width: '100%' }">
+                </p-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.ledgerSummaryDTO.ledgerSummaryDetailList">
+      <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        <tr [ngModelGroup]="'child_' + item.id" [objWatcher]="item" [addValidators]="validationMsgObj"
+          validationMessage="openingBalanceValidationDetailModel" *ngIf="item.tag !== 2">
+          <td>
+            <p-select appendTo="body" [filter]="true" [showClear]="true" appTabNavigation
+              [options]="modelSvc.ledgerList | arrayFilter: {projectID:modelSvc.ledgerSummaryDTO.projectID, orgID :modelSvc.ledgerSummaryDTO.orgID}"
+              name="cOAStructureID" id="cOAStructureID_{{item.id}}" [(ngModel)]="item.cOAStructureID" (onChange)="onSelectLedger(item)"
+              placeholder="Ledger Name" optionLabel="ledger" optionValue="id" inputValidator
+              [style]="{ width: '100%' }">
+            </p-select>
+          </td>
+          <td>
+            <p-select appendTo="body" [filter]="true" [showClear]="true" appTabNavigation
+              [options]="modelSvc.subLedgerList | arrayFilter: {subLedgerTypeID:item.subLedgerTypeID}" name="subLedgerDetailID" id="subLedgerDetailID_{{item.id}}"
+              [(ngModel)]="item.subLedgerDetailID" placeholder="Sub Ledger" optionLabel="name" optionValue="id"
+              [style]="{ width: '100%' }">
+            </p-select>
+          </td>
+          <td>
+            <input niSelect type="text" name="debitVal" id="debitVal_{{item.id}}" class="form-control" (blur)="onDebitFieldChange(item)"
+              [niDecimal]="2"  [(ngModel)]="item.debitVal" inputValidator>
+          </td>
+          <td>
+            <input niSelect type="text" name="creditVal" id="creditVal_{{item.id}}" class="form-control" (blur)="onCreditFieldChange(item)"
+              [niDecimal]="2" [(ngModel)]="item.creditVal" inputValidator>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center">
+              <button pRipple pButton class="btn p-button-danger m-0" (click)="onRemoveLedgerSummaryDetail(item)"
+                icon="pi pi-trash"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="2" class="text-end">Total</td>
+          <td class="text-end">{{modelSvc.totalDebit | number : "1.2-2"}}</td>
+          <td class="text-end">{{modelSvc.totalCredit | number : "1.2-2"}}</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-end">Difference </td>
+          <td colspan="2" class="text-end">{{(modelSvc.totalDebit -modelSvc.totalCredit) | number : "1.2-2"}}</td>
+          <td></td>
+        </tr>
+        </ng-template>
+    </app-ni-table>
+    <div class="form-group mt-2 mb-0">
+      <div class="form-row d-flex justify-content-between">
+        <button type="button" class="btn btn-sm btn-primary" [disabled]="(!modelSvc.ledgerSummaryDTO.companyID)"
+          (click)="addNewItem()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="icon"> {{fieldTitle['addmore']}}
+        </button>
+        <div class="form-row d-flex align-items-center">
+          <button type="button" class="btn btn-sm btn-primary ms-0" niDbclickPrevent (click)="fileUploadModal(modelSvc.ledgerSummaryDTO)">
+            <img src="../../../assets/images/icons/upload.svg" alt="icon" />
+            {{fieldTitle['upload']}} 
+          </button>
+          <button type="button" class="btn btn-sm btn-warning" (click)="onReset()" [disabled]="!openingBalanceForm.dirty">
+            <img src="../../../assets/images/icons/repeat.svg" alt="icon">
+            {{fieldTitle['reset']}}
+          </button>
+          <button type="button" class="btn btn-sm btn-success" [disabled]="!openingBalanceForm.dirty || isSubmitted" (click)="onSubmit(openingBalanceForm)">
+            <img src="../../../assets/images/icons/save.svg" alt="icon"> 
+            {{fieldTitle['save']}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

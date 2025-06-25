@@ -1,0 +1,78 @@
+
+<form class="p-3" #orgStructureForm="ngForm" [addValidators]="validationMsgObj"
+  validationMessage="orgStructureModelValidation">
+  <div *ngIf="!modelSvc.hideParentName">
+    <div class="form-group" *ngIf="!modelSvc.isParent">
+      <label>{{fieldTitle['parent']}}</label>
+      <input type="text" name="parentName" [disabled]="true" [(ngModel)]="modelSvc.orgStructure.parentName"
+        class="form-control" placeholder="{{fieldTitle['typehere']}}" />
+    </div>
+  </div>
+ 
+  <div > 
+  <div class="form-group">
+    <label class="ni-sup">{{fieldTitle['organizationelement']}}</label>
+    <p-select appendTo="body" [options]="orgElementList" name="elementID"
+      [(ngModel)]="modelSvc.orgStructure.elementID" placeholder="{{fieldTitle['selecttype']}}" optionLabel="elementName"
+      optionValue="id" inputValidator [style]="{ width: '100%' }">
+    </p-select>
+    
+  </div>
+  <div class="form-group">
+    <label class="ni-sup">{{fieldTitle['name']}}</label>
+    <input type="text" name="name" inputValidator [(ngModel)]="modelSvc.orgStructure.name" class="form-control"
+      placeholder="{{fieldTitle['typename']}}" />
+  </div>
+  </div>
+  <div *ngIf="!isOffice"> <!--*ngIf="!isOffice" -->
+    <div class="form-group">
+      <label>{{fieldTitle['officeelement']}}</label>
+      <p-select appendTo="body" [options]="officeOrgElementList" name="orgElementID" [showClear]="true"
+       (onChange)="onSetOfficeInfo()" [(ngModel)]="modelSvc.orgStructure.orgElementID" placeholder="{{fieldTitle['selecttype']}}" optionLabel="elementName"
+        optionValue="id" [style]="{ width: '100%' }" inputValidator>
+      </p-select>
+    </div>
+    <div class="form-group">
+      <label>{{fieldTitle['office']}}</label>
+      <input type="text" name="office" [(ngModel)]="modelSvc.orgStructure.office" class="form-control"
+      (blur)="onSetOfficeInfo()" placeholder="{{fieldTitle['office']}}" inputValidator />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="">{{fieldTitle['textcolor']}}</label>
+        <div class="w-100">
+          <p-colorPicker [disabled] name="textColorCd" value={#000} [(ngModel)]="modelSvc.orgStructure.textColorCd"
+            ></p-colorPicker>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="">{{fieldTitle['fillcolor']}}</label>
+        <div class="w-100">
+          <p-colorPicker [disabled] name="fillColorCd" value={#000} [(ngModel)]="modelSvc.orgStructure.fillColorCd"
+            ></p-colorPicker>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-end">
+    <button class="btn btn-danger btn-sm d-flex align-items-center" type="button" (click)="reset()">
+      <img src="../../../assets/images/icons/repeat.svg" alt="icon" />
+      {{fieldTitle['reset']}}
+    </button>
+    <button  class="btn btn-success btn-sm d-flex align-items-center" type="button"
+      (click)="save(orgStructureForm,false)">
+      <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />
+      <span *ngIf="modelSvc.isEdit"> {{fieldTitle['update']}}</span>
+      <span *ngIf="!modelSvc.isEdit"> {{fieldTitle['add']}}</span>
+    </button>
+    <button  class="btn btn-primary btn-sm d-flex align-items-center" type="button"
+      (click)="save(orgStructureForm,true)" [disabled]="modelSvc.isEdit">
+      <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />
+      {{fieldTitle['addanother']}}
+    </button>
+  </div>
+</form>

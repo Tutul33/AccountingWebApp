@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card-head mb-2">
+      <h1 class="section-title">{{voucherID?'Debit/Payment Voucher Edit':'Debit/Payment Voucher Entry'}}</h1>
+    </div>
+    <div class="card-section">
+      <div class="card-box p-2 mb-4">
+        <div class="nav nav-tabs horizontal-tabs">
+          <button [ngClass]="!this.modelSvc.isMultiEntry && this.modelSvc.isCash ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isSingleCashEditMode && !signleCashVoucher) ? 'lightgray' : '',
+            'important': true
+          }"
+            data-bs-toggle="tab" data-bs-target="#navSingleCash" (click)="tabChange(false,true,1)" [disabled]="this.modelSvc.isSingleCashEditMode" >
+            {{fieldTitle['singleentry(cash)']}}
+          </button>
+          <button [ngClass]="this.modelSvc.isMultiEntry && this.modelSvc.isCash ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isMultiCashEditMode && !multiCashVoucher) ? 'lightgray' : '',
+            'important': true
+          }"   
+          data-bs-toggle="tab" data-bs-target="#navMultipleCash" (click)="tabChange(true,true,2)" [disabled]="this.modelSvc.isMultiCashEditMode">
+            {{fieldTitle['multipleentry(cash)']}}
+          </button>
+          <button [ngClass]="!this.modelSvc.isMultiEntry && !this.modelSvc.isCash ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isSingleBankEditMode && !signleBankVoucher) ? 'lightgray' : '',
+            'important': true
+          }" 
+          data-bs-toggle="tab" data-bs-target="#navSingleBank" (click)="tabChange(false,false,3)" [disabled]="this.modelSvc.isSingleBankEditMode">
+            {{fieldTitle['singleentry(bank)']}}
+          </button>
+          <button [ngClass]="this.modelSvc.isMultiEntry && !this.modelSvc.isCash ? 'nav-link active' : 'nav-link'"
+          [ngStyle]="{
+            'background-color': (modelSvc.isMultiBankEditMode && !multiBankVoucher) ? 'lightgray' : '',
+            'important': true
+          }"   
+          data-bs-toggle="tab" data-bs-target="#navMultipleBank" (click)="tabChange(true,false,4)" [disabled]="this.modelSvc.isMultiBankEditMode">
+            {{fieldTitle['multipleentry(bank)']}}
+          </button>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div
+          [ngClass]="!this.modelSvc.isMultiEntry && this.modelSvc.isCash ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navSingleCash">
+          <ng-container #viewContainerSingleCash></ng-container>
+        </div>
+
+        <div
+          [ngClass]="this.modelSvc.isMultiEntry && this.modelSvc.isCash ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navMultipleCash">
+           <ng-container #viewContainerMultiCash></ng-container>
+          </div>
+
+        <div
+          [ngClass]="!this.modelSvc.isMultiEntry && !this.modelSvc.isCash ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navSingleBank">
+         <ng-container #viewContainerSingleBank></ng-container>
+          </div>
+
+        <div
+          [ngClass]="this.modelSvc.isMultiEntry && !this.modelSvc.isCash ? 'tab-pane fade show active' : 'tab-pane fade'"
+          id="navMultipleBank">
+           <ng-container #viewContainerMultiBank></ng-container>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

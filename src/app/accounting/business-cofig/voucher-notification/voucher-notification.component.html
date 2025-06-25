@@ -1,0 +1,90 @@
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['vouchersmsconfig']}}</h1>
+</div>
+<div class="card-box voucher-type-box p-3">
+  <p class="title">Voucher Type</p>
+  <form #voucherNotificationForm="ngForm" [addValidators]="validationMsgObj">
+    <div class="panel-box">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="nav flex-column nav-pills card-in-box" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" data-bs-target="#dv" data-bs-toggle="pill" (click)="changeVoucher(this.voucherType.DebitVoucher.code)">Debit Voucher</button>
+            <button class="nav-link" data-bs-target="#cv" data-bs-toggle="pill" (click)="changeVoucher(this.voucherType.CreditVoucher.code)">Credit Voucher</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="tab-content" id="v-pills-tabContent">
+            <!----First-Tab---->
+            <div class="tab-pane fade show active" id="dv">
+              <div class="card-box">
+                <div class="form-group d-inline-block align-items-center">
+                  <div class="form-radio my-2">
+                     <input class="form-radio-input" 
+                      id="sendSMSAuto" 
+                      name="sMSTypeDR" 
+                      type="radio" 
+                      [value]="modelSvc.sMSType.SendSMSAuto" 
+                      [(ngModel)]="modelSvc.voucherNotificationDTO.sMSTypeDR"/>
+                    
+                     <label class="form-radio-label" for="sendSMSAuto">{{fieldTitle['sendsmsautomatically']}}</label>
+                  </div>
+                  <div class="form-radio my-2">
+                    <input class="form-radio-input" 
+                      id="sendSMSManual" 
+                      name="sMSTypeDR" 
+                      type="radio" 
+                      [value]="modelSvc.sMSType.SendSMSManual" 
+                      [(ngModel)]="modelSvc.voucherNotificationDTO.sMSTypeDR"/>
+    
+                    <label class="form-radio-label" for="sendSMSManual">{{fieldTitle['sendsmsmanually']}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!----Second-Tab---->
+            <div class="tab-pane fade" id="cv">
+              <div class="card-box">
+                <div class="form-group d-inline-block align-items-center">
+                  <div class="form-radio my-2">
+                     <input class="form-radio-input" 
+                      id="sendSMSAutoCR" 
+                      name="sMSTypeCR" 
+                      type="radio" 
+                      [value]="modelSvc.sMSType.SendSMSAuto" 
+                      [(ngModel)]="modelSvc.voucherNotificationDTO.sMSTypeCR"/>
+                    
+                     <label class="form-radio-label" for="sendSMSAutoCR">{{fieldTitle['sendsmsautomatically']}}</label>
+                  </div>
+                  <div class="form-radio my-2">
+                    <input class="form-radio-input" 
+                      id="sendSMSManualCR" 
+                      name="sMSTypeCR" 
+                      type="radio" 
+                      [value]="modelSvc.sMSType.SendSMSManual" 
+                      [(ngModel)]="modelSvc.voucherNotificationDTO.sMSTypeCR"/>
+    
+                    <label class="form-radio-label" for="sendSMSManualCR">{{fieldTitle['sendsmsmanually']}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 d-flex align-items-center justify-content-end">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" disabled="" class="btn btn-sm btn-success"
+          [disabled]="!voucherNotificationForm.dirty"
+          (click)="saveVoucherNotification(voucherNotificationForm)">
+          <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+        </button>
+        <button type="button" disabled="" class="btn btn-sm btn-warning"
+          [disabled]="!voucherNotificationForm.dirty"
+          (click)="reset()">
+          <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+        </button>
+      </div>
+    </div> 
+  </form>
+</div>

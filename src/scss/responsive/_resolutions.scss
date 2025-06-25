@@ -1,0 +1,130 @@
+
+
+//Responsive Updates after Version 19
+@media only screen and (max-width: 2040px) {
+    
+}
+@media only screen and (max-width: 1919px) {
+    .for-menu-page{
+        .offset-lg-2 {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+    }
+}
+@media only screen and (max-width: 1599px) {
+    // .page-title {
+    //     max-width: 180px;
+    //     text-overflow: ellipsis;
+    //     overflow: hidden;
+    //     white-space: nowrap;
+    // }
+    .page-head {
+        max-width: 605px;
+        flex-flow:wrap;
+    }
+    p-breadcrumb{
+        width: auto;
+        overflow: hidden;
+    }
+    .p-breadcrumb{
+        padding:0 !important;
+        overflow-x:hidden !important;
+    }
+    .row > .col-md-10{
+        width:100%;
+    }
+    .row > .col-md-4,
+    .row > .col-md-6{
+        width:50%;
+        .row > .col-md-4{
+            width:33.33333333%;
+        }
+        .row > .col-md-8{
+            width:66.66666666%;
+        }
+    }
+    .row > .col-md-8{
+        width:100%;
+    }
+    .panel-box{
+        .row > .col-md-4{
+            width:33.33333333%;
+        }
+        .row > .col-md-8{
+            width:66.66666666%;
+        }
+    }
+    .dp-multi-card{
+        .row > .col-md-9{
+            width:100%;
+        }
+        .row > .col-md-3{
+            width:50%;
+            .row > .col-md-4{
+                width:33.33333333%;
+            }
+            .row > .col-md-8{
+                width:66.66666666%;
+            }
+        }
+    }
+    .p-breadcrumb ol li:last-child{
+        .p-breadcrumb-item-link{
+            .p-breadcrumb-item-label{
+                white-space: wrap;
+                
+            }
+        }
+    }
+    // .p-breadcrumb ol li:last-child{
+    //     .p-breadcrumb-item-link{
+    //         .p-breadcrumb-item-label{
+    //             max-width: 85px;
+    //             white-space: nowrap;
+    //             text-overflow: ellipsis;
+    //             overflow: hidden;
+    //         }
+    //     }
+    // }
+    .p-breadcrumb ol li {
+        .p-breadcrumb-item-link {
+            .p-breadcrumb-item-label {
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--header-btn-icon);
+                letter-spacing: 0.6px;
+                white-space: nowrap;
+                line-height:14px;
+            }
+        }
+    }
+    
+}
+@media only screen and (max-width: 1399px) {
+    
+}
+@media only screen and (max-width: 1365px) {
+    
+}
+@media only screen and (max-width: 1199px) {
+    
+}
+@media only screen and (max-width: 1023px) {
+
+}
+@media only screen and (max-width: 991px) {
+    
+}
+@media only screen and (max-width: 899px) {
+    
+}
+@media only screen and (max-width: 767px) {
+
+}
+@media only screen and (max-width: 479px) {
+
+}
+
+

@@ -1,0 +1,260 @@
+<form #singleVoucherCashForm="ngForm" [addValidators]="singleCashValidationMsgObj"
+  validationMessage="voucherValidationModel">
+  <div class="card-box p-3 mb-3 pb-1">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">{{fieldTitle['company']}}</label>
+            </div>
+            <div class="col-md-8">
+              <!-- <input type="text" name="companyName" placeholder="Type Company"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.company" class="form-control" disabled /> -->
+                <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.companyID"  [disabled]="modelSvc.debitPaymentVoucherModel.id>0"
+                placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator (onChange)="onChangeCompany()"
+                [style]="{ width: '100%' }"></p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="modelSvc.isBranchModuleActive">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+            </div>
+            <div class="col-md-8">
+              <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.orgID" optionLabel="name" [options]="modelSvc.orgList"
+                optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true"
+                [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%','border-radius':'7px'} : {'width': '100%' }"
+                (onChange)="onSelectOrg(modelSvc.debitPaymentVoucherModel)"
+                [disabled]="modelSvc.debitPaymentVoucherModel.id>0">
+                <ng-template let-group pTemplate="group">
+                  <div class="flex align-items-center">
+                    <span>{{ group.label }}</span>
+                  </div>
+                </ng-template>
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="modelSvc.isProjectModuleActive">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label>{{fieldTitle['project']}}</label>
+            </div>
+            <div class="col-md-8">
+              <p-select appendTo="body" [filter]="true" [showClear]="true" [options]="modelSvc.projectList"
+                name="projectID" [(ngModel)]="modelSvc.debitPaymentVoucherModel.projectID"
+                (onChange)="onSelectProject(modelSvc.debitPaymentVoucherModel)" placeholder="Project" optionLabel="name"
+                optionValue="id" [style]="{ width: '100%' }" [disabled]="modelSvc.debitPaymentVoucherModel.id>0">
+              </p-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">{{fieldTitle['vouchernumber']}}</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="voucherNo" placeholder="Type Voucher Number"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.voucherNo" class="form-control" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">{{fieldTitle['date']}}</label>
+            </div>
+            <div class="col-md-8">
+              <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12" [showIcon]="true"
+                name="voucherDate" [(ngModel)]="modelSvc.debitPaymentVoucherModel.voucherDate"
+                [style]="{ width: '100%' }" inputValidator>
+              </p-datepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card-box p-3 pb-1">
+        <div class="row g-1">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="ni-sup">{{fieldTitle['fromaccountname']}}</label>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="modelSvc.debitPaymentVoucherModel.fromCoaStructureList" name="fromCOAStructID"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.fromCOAStructID"
+                (onChange)="onSelectFromAccount(modelSvc.debitPaymentVoucherModel)" placeholder="From Account Name"
+                optionLabel="ledger" optionValue="id" inputValidator [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{fieldTitle['balance']}}</label>
+              <input type="text" name="fromCoaStructBalance" placeholder="Balance"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.fromCoaStructBalance" class="form-control" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-box p-3 pb-1">
+        <div class="form-group">
+          <label class="ni-sup">{{fieldTitle['amount']}}</label>
+          <input niSelect type="text" name="debitVal" class="form-control" placeholder="{{fieldTitle['amount']}}"
+            (keyup)="onDebitFieldChange(modelSvc.debitPaymentVoucherModel)" [niDecimal]="modelSvc.decimalPlace"
+            [(ngModel)]="modelSvc.debitPaymentVoucherModel.debitVal" inputValidator />
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['budget']}}</label>
+          <input type="text" name="budget" placeholder="Budget" [(ngModel)]="modelSvc.debitPaymentVoucherModel.budget"
+            class="form-control" disabled />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-box p-3 pb-1">
+        <div class="row g-1">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="ni-sup">{{fieldTitle['toaccountname']}}</label>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="modelSvc.debitPaymentVoucherModel.toCoaStructureList" name="toCOAStructID"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.toCOAStructID"
+                (onChange)="onSelectToAccount(modelSvc.debitPaymentVoucherModel)"
+                placeholder="{{fieldTitle['toaccountname']}}" optionLabel="ledger" optionValue="id" inputValidator
+                [style]="{ width: '100%' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{fieldTitle['balance']}}</label>
+              <input type="text" name="toAccountBalance" placeholder="Balance"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.toAccountBalance" class="form-control" disabled />
+            </div>
+          </div>
+        </div>
+        <div class="row g-1">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{fieldTitle['subledger']}}</label>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="modelSvc.debitPaymentVoucherModel.toSubLedgerDetailList" name="toSubLedgerDetailID"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.toSubLedgerDetailID"
+                (onChange)="onSelectToAccountSubLedger(modelSvc.debitPaymentVoucherModel)" placeholder="Sub Ledger"
+                optionLabel="name" optionValue="id"
+                [style]="{ width: '100%' , border:!modelSvc.debitPaymentVoucherModel.toSubLedgerDetailID && modelSvc.debitPaymentVoucherModel.toCOAStructID && modelSvc.debitPaymentVoucherModel.toSubLedgerDetailList.length?'1px solid red !important':'' }">
+              </p-select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{fieldTitle['balance']}}</label>
+              <input type="text" name="toSubledgerBalance" placeholder="Balance"
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.toSubledgerBalance" class="form-control" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-box p-3 pb-1">
+        <div class="form-group">
+          <label>{{fieldTitle['description']}}</label>
+          <textarea class="form-control" name="description" [(ngModel)]="modelSvc.debitPaymentVoucherModel.description" placeholder="{{fieldTitle['description']}}"
+            inputValidator=""></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card-box p-3 pb-1">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label>{{fieldTitle['invoice/billrefno.']}}</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="invoiceBillRefNo" placeholder="Type Invoice/Bill Ref No."
+                [(ngModel)]="modelSvc.debitPaymentVoucherModel.invoiceBillRefNo" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label>{{fieldTitle['referencedocument']}}</label>
+            </div>
+            <div class="col-md-8">
+              <div class="d-flex align-items-center justify-content-between">
+                <button type="button" class="btn btn-sm btn-warning ms-0" niDbclickPrevent
+                  (click)="fileUploadSingleEntryModal()">
+                  <img src="../../../assets/images/icons/upload.svg" alt="icon" />
+                  {{fieldTitle['upload']}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-box p-3 pb-1">
+    <div class="form-group">
+      <div class="form-row d-flex justify-content-end align-items-center">
+        <div class="form-check my-2" [class.disabled]="true" *ngIf="modelSvc.isSendSMSautomatically">
+          <input [(ngModel)]="modelSvc.sendSMS" id="isSendSMSautomatically" name="isSendSMSautomatically"
+            class="form-check-input" type="checkbox" />
+          <label class="form-check-label" for="isSendSMSautomatically">{{fieldTitle['sendsms']}}</label>
+        </div>
+        <div class="form-check my-2" *ngIf="!modelSvc.isSendSMSautomatically">
+          <input [(ngModel)]="modelSvc.sendSMS" id="isSendSMSautomatically" name="isSendSMSautomatically"
+            class="form-check-input" type="checkbox" />
+          <label class="form-check-label" for="isSendSMSautomatically">{{fieldTitle['sendsms']}}</label>
+        </div>
+        <div class="form-check my-2"
+          *ngIf="modelSvc.isEdit?modelSvc.debitPaymentVoucherModel.createdByID==loginUserID:true">
+          <input class="form-check-input" id="draft" [(ngModel)]="modelSvc.debitPaymentVoucherModel.isDraft"
+            name="draft" type="checkbox" />
+          <label class="form-check-label" for="draft">{{fieldTitle['draft']}}</label>
+        </div>
+        <!-- <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+        <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download" title="Download"
+          [disabled]="!isSubmitted" (click)="printVoucher(modelSvc.debitPaymentVoucherModel.id)"></button>
+        <button type="button" class="btn btn-sm btn-primary"
+          [disabled]="this.modelSvc.isSingleCashEditMode?true:!isSubmitted && !modelSvc.isEdit" (click)="addNew()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />{{fieldTitle['addanother']}}
+        </button> -->
+        <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+          [disabled]="modelSvc.debitPaymentVoucherModel.id==0" (click)="printVoucher(modelSvc.debitPaymentVoucherModel.id)"></button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="addNew()">
+          <img src="../../../assets/images/icons/plus-circle.svg" alt="icon" />{{fieldTitle['addanother']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="onFormResetFormSingle()">
+          <img src="../../../assets/images/icons/repeat.svg" alt="icon" />{{fieldTitle['reset']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" (click)="singleSaveCash(singleVoucherCashForm)"
+          [disabled]="!singleVoucherCashForm.dirty">
+          <img src="../../../assets/images/icons/save.svg" alt="icon" />
+          {{fieldTitle['save']}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,60 @@
+<form #projectUploadForm="ngForm"  [addValidators]="validationMsgObj"
+validationMessage="projectUploadValidation">
+
+  <div class="form-group">
+    <label class="ni-sup">{{fieldTitle['company']}}</label>
+    <p-select appendTo="body" [options]="modelSvc.companyList" name="companyID" [(ngModel)]="modelSvc.projectDTO.companyID"
+      (onChange)="onSelectToCompany()" placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" [filter]="true"
+      inputValidator [style]="{ width: '100%' }">
+    </p-select>
+  </div>
+  <div class="form-group" *ngIf="isBrach">
+    <label  class="ni-sup">{{fieldTitle['office/branch']}}</label>
+    <p-select appendTo="body" [filter]="true" name="orgID" inputValidator
+      [(ngModel)]="modelSvc.projectDTO.orgID" optionLabel="name" [options]="modelSvc.officeBranchList"
+      optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" [group]="true"
+       [style]="{ width: '100%' }">
+      <ng-template let-group pTemplate="group">
+        <div class="flex align-items-center">
+          <span>{{ group.label }}</span>
+        </div>
+      </ng-template>
+    </p-select>
+  </div>
+
+  <div class="form-group">
+    <div class="form-row d-flex justify-content-start">
+      <button type="button" class="btn btn-sm btn-primary" [disabled]="!modelSvc.projectDTO.companyID"
+        (click)="exportToExcel()">
+        <img src="../../../assets/images/icons/download.svg" alt="icon">
+        {{fieldTitle['downloadsamplefile']}}
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="form-group d-flex align-items-center justify-content-between">
+
+      <div class="align-items-center justify-content-end col position-relative">
+        <app-ni-file-single-upload [uploadOption]="modelSvc.fileUpload" (change)="fileUploadModal()"
+          (removeEvent)="onRemoveImage()" [targetObject]="modelSvc.projectDTO.projectFile"
+          class="file-parent">{{fileName}}</app-ni-file-single-upload>
+
+      </div>
+    </div>
+    <div class="form-group mt-3 mb-0">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-danger" (click)="closeModal()">
+          <img src="../../../assets/images/icons/x-circle.svg" alt="icon">
+          {{fieldTitle['close']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" alt="icon"
+          [disabled]="(this.modelSvc.projectDTO.projectFile.fileName ==null)"
+          (click)="saveProjectUpload(projectUploadForm)">
+          <img src="../../../assets/images/icons/upload.svg" alt="icon">
+          {{fieldTitle['upload']}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

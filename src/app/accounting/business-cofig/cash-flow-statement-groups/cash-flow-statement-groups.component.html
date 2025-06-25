@@ -1,0 +1,64 @@
+<!-- <p-tree [value]="cashFlowStatementGroups">
+  <ng-template let-node pTemplate="default">
+      <div class="w-100 d-flex align-items-center justify-content-between">
+        <span class="coa-label w-100">{{node.label}}</span>
+        <div class="d-flex items-center justify-content-end">
+          <button *ngIf="node.isGroup" type="button" class="btn btn-sm p-button-success" icon="pi pi-plus" pRipple pButton
+            (click)="onAdd(node)"></button>
+          <button type="button" *ngIf="node.isParentEdit" class="btn btn-sm p-button-primary" icon="pi pi-pencil" pRipple
+            pButton (click)="onEdit(node)"></button>
+
+          <button type="button" *ngIf="node.isDeleted == true" class="btn btn-sm p-button-danger" icon="pi pi-trash"
+            pRipple pButton (click)="onDelete(node)"></button>
+        </div>
+      </div>
+  </ng-template>
+</p-tree> -->
+
+<div class="top-card-box p-3">
+  <div class="d-flex align-items-center justify-content-end">
+
+    <div class="search-container mb-2">
+      <input type="search" class="search-input" name="searchText" [(ngModel)]="searchText" (ngModelChange)="onSearch()" placeholder="Search Here..."/>
+      <button type="button" class="search-submit">
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+
+  </div>
+  <p-accordion class="d-flex flex-column gap-2" [multiple]="true">
+    <p-accordion-panel *ngFor="let panel of modelSvc.groupList" [value]="panel.activityID">
+      <div class="header-with-button d-flex justify-content-between align-items-center">
+        <p-accordion-header>
+          {{ panel.value }}
+        </p-accordion-header>
+        <div class="d-flex align-items-center gap-2">
+          <button type="button" class="btn btn-success px-2" (click)="onAdd(panel)">
+            <i class="pi pi-plus"></i>
+          </button>
+        </div>
+      </div>
+       <!-- [filter]="true" 
+          filterMode="strict" 
+          filterPlaceholder="Strict Filter" -->
+      <p-accordion-content>
+        <p-tree [value]="modelSvc.treeMapByActivityID[panel.activityID]"
+       >
+          <ng-template let-node pTemplate="default">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+              <span class="coa-label w-100">{{ node.label }}</span>
+              <div class="d-flex items-center justify-content-end">
+
+                <button type="button" *ngIf="node.isParentEdit" class="btn btn-sm p-button-primary" icon="pi pi-pencil"
+                  pRipple pButton (click)="onEdit(node,panel.value)"></button>
+
+                <button type="button" *ngIf="node.isDeleted == true" class="btn btn-sm p-button-danger"
+                  icon="pi pi-trash" pRipple pButton (click)="onDelete(node)"></button>
+              </div>
+            </div>
+          </ng-template>
+        </p-tree>
+      </p-accordion-content>
+    </p-accordion-panel>
+  </p-accordion>
+</div>

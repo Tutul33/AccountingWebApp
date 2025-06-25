@@ -1,0 +1,17 @@
+.attachedImage img {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+}
+
+  .attachedImage img:hover {
+    width: 18px;
+    height: 18px;
+    border: 1px solid red;
+  }
+
+.attachedImageHover {
+  width: 18px;
+  height: 18px;
+  border: 1px solid red;
+}

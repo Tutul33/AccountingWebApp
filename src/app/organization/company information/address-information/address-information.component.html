@@ -1,0 +1,149 @@
+<form class="p-0">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="d-flex align-items-center justify-content-start" *ngIf="addressTypeCd == 1">
+          <div class="d-inline-block">
+            <button class="btn btn-sm btn-primary mt-1 ms-0 me-1" type="button"
+              (click)="openOrganizationModal(addressTypeCd)"
+              [disabled]="modelSvc.disableOrgAddressButton || modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/map.svg" alt="img" />
+              {{fieldTitle['getorganizationaddress']}}
+            </button>
+            <button class="btn btn-sm btn-warning mt-1 ms-0 me-1" type="button"
+              (click)="getParentAddress(addressTypeCd)"
+              [disabled]="modelSvc.orgStructureIDParentID <= 0 || modelSvc.disableParentOrgAddressButton || modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/map.svg" alt="img" />
+              {{fieldTitle['sameasparentaddress']}}
+            </button>
+            <button class="btn btn-sm btn-success mt-1 ms-0 me-1" type="button"
+              (click)="openAddressModal(addressTypeCd)"
+              [disabled]="modelSvc.disableAddressButton || modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/plus-circle.svg" alt="img" />
+              {{fieldTitle['addaddress']}}
+            </button>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-start" *ngIf="addressTypeCd != 1">
+          <div class="d-inline-block">
+            <button class="btn btn-sm btn-primary ms-0 mt-1 me-1" type="button"
+              (click)="openOrganizationModal(addressTypeCd)" [disabled]="modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/external-link.svg" alt="img" />
+              {{fieldTitle['selectorganization']}}
+            </button>
+            <button class="btn btn-sm btn-warning ms-0 mt-1 me-1" type="button"
+              (click)="getParentAddress(addressTypeCd)"
+              [disabled]="modelSvc.orgStructureIDParentID <= 0 || modelSvc.disableParentOrgAddressButton || modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/map.svg" alt="img" />
+              {{fieldTitle['sameasparentaddress']}}
+            </button>
+            <button class="btn btn-sm btn-success ms-0 mt-1 me-1" type="button"
+              (click)="openAddressModal(addressTypeCd)"
+              [disabled]="modelSvc.disableAddressButton || modelSvc.orgStructureID == 0">
+              <img src="../../../assets/images/icons/plus-circle.svg" alt="img" />
+              {{fieldTitle['addaddress']}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-ni-table [gridOption]="gridOptionAddress" [valueList]="modelSvc.addressList" class="scrollable-table">
+    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+      <tr ngModelGroup="address{{ entity.id }}" [objWatcher]="entity"
+        *ngIf="entity.tag != modelSvc.objectState.deleted">
+        <td>{{ entity.organizationName }}</td>
+        <td>{{ entity.addressLine1 }}</td>
+        <td>{{ entity.addressLine2 }}</td>
+        <td>{{ entity.village }}</td>
+        <td>{{ entity.postOffice }}</td>
+        <td>{{ entity.pOBox }}</td>
+        <td>{{ entity.zip }}</td>
+        <td>{{ entity.thana }}</td>
+        <td>{{ entity.district }}</td>
+        <td>{{ entity.division }}</td>
+        <td>{{ entity.city }}</td>
+        <td>{{ entity.state }}</td>
+        <td>{{ entity.country }}</td>
+        <td class="text-center">
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="p-button p-button-primary p-button-icon-only" (click)="showShortAddress(entity)"
+              [disabled]="!entity.shortAddress">
+              <i class="pi pi-eye"></i>
+            </button>
+          </div>
+        </td>
+        <td class="text-center" *ngIf="addressTypeCd != 1">
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="p-button p-button-primary p-button-icon-only"
+              *ngIf="entity.orgContactDetailsList.length > 0 && entity.orgContactDetailsList.tag != modelSvc.objectState.deleted"
+              (click)="showAddressContactPerson(entity)">
+              <i class="pi pi-eye"></i>
+            </button>
+            <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-plus" class="p-button-success"
+              (click)="addAddressContactPerson(entity)">
+            </button>
+          </div>
+        </td>
+        <td class="w-auto">
+          <div class="d-flex align-items-center justify-content-center">
+            <button *ngIf="entity.hasChangePermission" type="button" pButton pRipple icon="pi pi-pencil"
+              class="p-button-success p-mr-2" (click)="editAddressInfo(entity)"></button>
+            <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger"
+              (click)="deleteAddressInfo(entity)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </app-ni-table>
+  <div class="mt-3 d-flex align-items-center justify-content-end">
+    <button class="btn btn-sm btn-warning" type="button" (click)="resetAddressInfo()"
+      [disabled]="modelSvc.disableAddressRestButton">
+      <img src="../../../assets/images/icons/repeat.svg" alt="img" />
+      {{fieldTitle['reset']}}
+    </button>
+    <button class="btn btn-sm btn-success" type="button" (click)="saveAddressInfo()"
+      [disabled]="modelSvc.disableAddressSaveButton">
+      <img src="../../../assets/images/icons/save.svg" alt="img" />
+      {{fieldTitle['save']}}
+    </button>
+  </div>
+</form>
+
+<!-- Short Adderss Modal Start -->
+<p-dialog header="{{fieldTitle['shortaddressmodal']}}" [(visible)]="isShortAddressModal" [modal]="true" [style]
+  [baseZIndex]="100" [draggable]="false" [resizable]="false" [closable]="true" selection="single"
+  (onHide)="closeShortAddressModal()">
+  <div class="row mb-15">
+    <div class="col-md-12">
+      <label [innerHtml]="shortAddress | niSafeHtml"></label>
+    </div>
+  </div>
+</p-dialog>
+<!-- Short Adderss Modal End -->
+
+<!-- Address Contact Person Modal Start -->
+<p-dialog header="{{fieldTitle['contactpersonlist']}}" [(visible)]="isAddressContactPersonModal" [modal]="true" [style]
+  [baseZIndex]="100" [draggable]="false" [resizable]="false" [closable]="true" selection="single"
+  (onHide)="closeAddressContactPerson()">
+  <div class="row">
+    <app-ni-table [gridOption]="gridOptionAddressContactPerson" [valueList]="modelSvc.addressContactPersonListDisplay"
+      class="smaller-elements">
+      <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+        <tr [objWatcher]="entity" *ngIf="entity.tag != modelSvc.objectState.deleted">
+          <td>{{ entity.hR_EmployeeID }}</td>
+          <td>{{ entity.employeeName }}</td>
+          <td>{{ entity.designation }}</td>
+          <td>{{ entity.organization }}</td>
+          <td>{{ entity.email }}</td>
+          <td>{{ entity.contactNo }}</td>
+          <td style="width:200px!important">
+            <button type="button" pButton pRipple icon="pi pi-trash" class="p-button-danger p-mr-2"
+              (click)="deleteAddressContactPerson(entity)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </app-ni-table>
+  </div>
+</p-dialog>
+<!-- Address Contact Person Modal End -->

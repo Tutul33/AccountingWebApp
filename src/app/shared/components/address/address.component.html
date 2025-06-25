@@ -1,0 +1,100 @@
+<form #addressForm="ngForm" [addValidators]="validationMsgObj" validationMessage="addressValidation" class="p-3">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="ni-sup">{{fieldTitle['address1']}}</label>
+          <textarea type="text" [(ngModel)]="modelSvc.adressDTO.addressLine1" id="addressLine1" name="addressLine1" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['address1']}}" inputValidator></textarea>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['address2']}}</label>
+          <textarea type="text" [(ngModel)]="modelSvc.adressDTO.addressLine2" id="addressLine2" name="addressLine2" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['address2']}}" inputValidator></textarea>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>{{fieldTitle['street/village']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.village" id="village" name="village" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['street/village']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['pobox']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.pOBox" id="pOBox" name="pOBox" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['pobox']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['postoffice']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.postOffice" id="postOffice" name="postOffice" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['postoffice']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['zip/postcodeshort']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.zip" id="zip" name="zip" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['zip/postcodeshort']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['policestation/thana']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.thana" id="thana" name="thana" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['policestation/thana']}}" inputValidator/>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>{{fieldTitle['district']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.district" id="district" name="district" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['district']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['division']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.division" id="division" name="division" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['division']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['city/town']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.city" id="city" name="city" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['city/town']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label>{{fieldTitle['state']}}</label>
+          <input type="text" [(ngModel)]="modelSvc.adressDTO.state" id="state" name="state" class="form-control" (ngModelChange)="change()" placeholder="{{fieldTitle['state']}}" inputValidator/>
+        </div>
+        <div class="form-group">
+          <label class="ni-sup">{{fieldTitle['country']}}</label>
+          <p-select appendTo="body"
+            [options]="modelSvc.countryList"
+            name="countryID"
+            [(ngModel)]="modelSvc.adressDTO.countryID"
+            optionLabel="countryName" optionValue="id" [filter]="true" filterBy="countryName" [showClear]="true"
+            [niSelectedText]="modelSvc.adressDTO" textProperty="country" placeholder="{{fieldTitle['selectcountry']}}"
+            inputValidator (onChange)="change()"
+            [style]="{ width: '100%' }">
+          </p-select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="ni-sup">{{fieldTitle['shortaddress']}}</label>
+          <textarea type="text" [(ngModel)]="modelSvc.adressDTO.shortAddress" id="shortAddress" name="shortAddress" (ngModelChange)="change()" class="form-control" placeholder="{{fieldTitle['shortaddress']}}" inputValidator></textarea>
+          <div class="mt-2 d-flex align-items-center justify-content-end">
+            <button class="btn btn-sm btn-primary d-flex align-items-center" (click)="openShortAddressModal()">
+              <img src="../../../assets/images/icons/map.svg" alt="map"/>
+              {{fieldTitle['setshortaddress']}}
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="">{{fieldTitle['mapaddress']}}</label>
+          <textarea type="text" [(ngModel)]="modelSvc.mapAddressDisplay" id="mapAddressDisplay" name="mapAddressDisplay" class="form-control" disabled></textarea>
+          <div class="mt-2 d-flex align-items-center justify-content-end">
+            <button class="btn btn-sm btn-primary d-flex align-items-center" (click)="mapAddressModal()">
+              <img src="../../../assets/images/icons/map.svg" alt="map"/>
+              {{fieldTitle['setlocationfrommap']}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-end">
+        <button type="button" (click)="reset()" [disabled]="!addressForm.dirty || !isSubmited" class="btn btn-sm btn-warning mr-d-10">
+          <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+          {{fieldTitle['reset']}}
+        </button>
+        <button type="button" (click)="closeModal(addressForm)" [disabled]="!addressForm.dirty || !isSubmited"
+          class="btn btn-sm btn-success mr-d-10">
+          <img src="../../../assets/images/icons/save.svg" alt="icon" />
+          {{fieldTitle['ok']}}
+        </button>
+      </div>
+    </div>
+  </form>

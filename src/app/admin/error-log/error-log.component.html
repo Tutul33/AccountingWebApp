@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="title-box">
+            <h1 class="card-title">Error Log</h1>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+            <form #errorLogForm="ngForm" [addValidators]="validationMsgObj" validationMessage="errorLogValidateModel">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12 tab-col">
+                        <div class="form-group col">
+                            <label class="ni-sup">User Id</label>
+                            <p-select appendTo="body" [showClear]="true" [filter]="true"
+                                [options]="errorLOgModelSVC.errorlogModel.userList" name="userId"
+                                [(ngModel)]="errorLOgModelSVC.errorlogModel.userId" placeholder="Select User"
+                                optionLabel="userName" optionValue="userName" inputValidator (onBlur)="onErrorlogBlurUser()"
+                                [style]="{ width: '100%' }">
+                            </p-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 tab-col">
+                        <div class="form-group col">
+                            <label class="ni-sup" title="">Page Name</label>
+                            <p-select appendTo="body" [showClear]="true" [filter]="true"
+                                [options]="errorLOgModelSVC.errorlogModel.pageList" name="pageId"
+                                [(ngModel)]="errorLOgModelSVC.errorlogModel.pageId" placeholder="Select Page"
+                                optionLabel="moduleName" optionValue="moduleName" inputValidator (onBlur)="onErrorlogBlurPage()"
+                                [style]="{ width: '100%' }">
+                            </p-select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12 tab-col">
+                                <div class="form-group col">
+                                    <label class="ni-sup" title="">Date From</label>
+                                    <p-datepicker appendTo="body" dateFormat="dd-M-y" name="dateFrom" [style]="{ width: '100%' }"
+                                        [readonlyInput]="true" inputValidator
+                                        [(ngModel)]="errorLOgModelSVC.errorlogModel.dateFrom"> 
+                                    </p-datepicker>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 tab-col">
+                                <div class="form-group col">
+                                    <label class="ni-sup" title="">Date To</label>
+                                    <p-datepicker appendTo="body" dateFormat="dd-M-y" name="dateTo" [style]="{ width: '100%' }"
+                                        [readonlyInput]="true" inputValidator
+                                        [(ngModel)]="errorLOgModelSVC.errorlogModel.dateTo">
+                                    </p-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="top-mt form-group d-flex justify-content-between">
+                            <div class="d-flex justify-content-start">
+                                <div class="d-flex justify-content-start">
+                                    <button type="button" class="btn btn-sm btn-success mr-d-10"
+                                        [disabled]="!errorLogForm.dirty" (click)="onSearch(errorLogForm)">
+                                        <img src="../../../assets/images/icons/search.svg" alt="reset">Search
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger mr-d-10"
+                                        [disabled]="!errorLogForm.dirty" (click)="reset(errorLogForm)">
+                                        <img src="../../../assets/images/icons/repeat.svg" alt="reset"> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-ni-table [gridOption]="gridOption" [valueList]="errorLOgModelSVC.errorlogModel.errorList">
+                    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex+1 }}</td>
+                            <td>{{ entity.userName }}</td>
+                            <td>{{ entity.moduleName }}</td>
+                            <td>{{ entity.actionName }}</td>
+                            <td>{{ entity.cause }}</td>
+                            <td width="18%">{{ entity.errorMessage }}</td>
+                            <td width="48%">{{ entity.stackTrace }}</td>
+                            <td class="not-last-child">{{ entity.dateTime }}</td>
+                        </tr>
+                    </ng-template>
+                </app-ni-table>
+            </form>
+        </div>
+    </div>
+</div>

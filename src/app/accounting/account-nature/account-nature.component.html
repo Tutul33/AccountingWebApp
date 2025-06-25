@@ -1,0 +1,46 @@
+
+<div class="card-box p-2">
+  <form #accountNatureForm="ngForm" [addValidators]="validationMsgObj"
+    validationMessage="accountNatureModelValidation">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <label class="ni-sup">{{fieldTitle['accountnature']}}</label>
+            </div>
+            <div class="col-md-8">
+              <p-autoComplete name="accountName" [(ngModel)]="modelSvc.coa.accountName"
+                [datasource]="accountNatureList" field="accountName" [style]="{ width: '100%' }"
+                placeholder="{{fieldTitle['enteraccountnature']}}" inputValidator [maxlength]="75">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="isCodeActive">
+      <div class="form-group">
+        <div class="row align-items-center">
+          <div class="col-md-4">
+            <label>{{fieldTitle['accountcode']}}</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" name="accountCode" class="form-control"  [disabled]="true"
+            [(ngModel)]="modelSvc.coa.accountCode">
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="form-group mt-4 mb-0">
+      <div class="form-row d-flex justify-content-end">
+        <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+          <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+        </button>
+        <button type="button" class="btn btn-sm btn-success" (click)="saveCOA(accountNatureForm)">
+          <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['update']}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

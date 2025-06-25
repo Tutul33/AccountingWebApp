@@ -1,0 +1,54 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{ fieldTitle['closefinancialyear'] }}</h1>
+</div>
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.financialYearList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.name }}</td>
+              <td>{{ entity.fromDate }}</td>
+              <td>{{ entity.toDate }}</td>
+              <td>{{ entity.statusValue }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button *ngIf="entity.id == modelSvc.reopenFinancialYearId" type="button" class="btn btn-sm btn-primary" (click)="reopenYear(entity)">
+                    <img src="../../../assets/images/icons/edit.svg" alt="icon"/>
+                    Reopen
+                  </button>
+                  <button *ngIf="entity.id == modelSvc.closeFinancialYearId" type="button" niDbclickPrevent class="btn btn-sm btn-danger" (click)="closeYear(entity)">
+                    <img src="../../../assets/images/icons/x-circle.svg" alt="icon"/>
+                    Close
+                  </button>
+                </div>
+              </td>     
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Financial year Reset message modal -->
+<p-dialog header="{{fieldTitle['closingfiscalyearresetmessage']}}" [(visible)]="modelSvc.isResetModalShow" [modal]="true" [style] [baseZIndex]="100" [draggable]="false"
+[resizable]="false" [closable]="true" selection="single" (onHide)="oncloseResetModal()">
+<div class="row mb-15">
+  <div class="col-md-12">
+      <p>The fiscal year has been reset. All previous closures have been reversed, and the system is now open for edits and entries.</p>
+  </div>
+</div>
+</p-dialog>
+
+
+<!-- Financial year Close message modal -->
+<p-dialog header="{{fieldTitle['fiscalyearclosingmessage']}}" [(visible)]="modelSvc.isCloseModalShow" [modal]="true" [style] [baseZIndex]="100" [draggable]="false"
+[resizable]="false" [closable]="true" selection="single" (onHide)="oncloseCloseModal()">
+<div class="row mb-15">
+  <div class="col-md-12">
+      <p>The fiscal year has been successfully closed. Further edits or entries are not allowed.</p>
+  </div>
+</div>
+</p-dialog>

@@ -1,0 +1,32 @@
+<form  #chequeStatusNotifyForm="ngForm" [addValidators]="validationMsgObj">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOptionChequeNotify" [valueList]="modelSvc.chequeStatusNotifyList">
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+              <tr [ngModelGroup]="'child_' + entity.id" [objWatcher]="entity" [addValidators]="validationMsgObj"
+              validationMessage="chequeStatusNotifyValidation">
+                <td>{{ entity.name }}</td>
+                <td>
+                  <input type="text" id="{{entity.keyCode}}" name="value" class="form-control" niNumber
+                  [(ngModel)]="entity.value" (blur)="changeData(entity, chequeStatusNotifyForm)" inputValidator/>
+                </td>
+                <td> 
+                  <div class="d-flex justify-content-center align-items-center gap-2">
+                    {{ entity.isActive | niBoolean }}
+                    <div class="toggleWrapper">
+                      <input id="{{'chequeNotify' + rowIndex}}" name="{{'chequeNotify' + rowIndex}}"
+                        [(ngModel)]="entity.isActive" type="checkbox" (ngModelChange)="changeData(entity, chequeStatusNotifyForm)" />
+                      <label class="toggle" for="{{'chequeNotify' + rowIndex}}">
+                        <span class="toggle__handler"></span>
+                      </label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </app-ni-table>
+      </div>
+    </div>
+  </div>
+</form>

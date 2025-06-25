@@ -1,0 +1,6 @@
+[submodule "src/app/core"]
+	path = src/app/core
+	url = E:\\NextIT BitBucket Projects\\Accounting\\Projects\\AccountingManagementWebApp\\src\\app\\core
+[submodule "src/app/shared"]
+	path = src/app/shared
+	url = E:\\NextIT BitBucket Projects\\Accounting\\Projects\\AccountingManagementWebApp\\src\\app\\shared

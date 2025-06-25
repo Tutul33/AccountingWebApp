@@ -1,0 +1,144 @@
+<!------------B.Reconciliation Transactions------------>
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['transactions']}} - {{ modelSvc.closingBalanceData.bankAccount }}</h1>
+  </div>
+  <div class="card-section">
+    <p class="text-danger">
+      * For the <b>{{ modelSvc.closingBalanceData.bankAccount }}</b> on <b>{{ modelSvc.closingBalanceData.toDate }}</b> you
+      entered the following closing balance. Check the balance to make sure you entered it correctly.
+    </p>
+    <div class="top-card-box p-3 pb-1 mb-3">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['company']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input class="form-control" [(ngModel)]="modelSvc.closingBalanceData.companyName" name="modelSvc.closingBalanceData.companyName" id="name" type="text" placeholder="Company Name" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="modelSvc.isBranchModuleActive" class="col-md-4">
+          <div class="form-group">
+            <div  class="row align-items-center">
+              <div class="col-md-4">
+                <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input class="form-control" [(ngModel)]="modelSvc.closingBalanceData.orgName" name="modelSvc.closingBalanceData.orgName" id="name" type="text" placeholder="Unit/Branch" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="modelSvc.isProjectModuleActive" class="col-md-4">
+          <div class="form-group">
+            <div  class="row align-items-center">
+              <div class="col-md-4">
+                <label>{{fieldTitle['project']}}</label>
+              </div>
+              <div class="col-md-8">
+                <input class="form-control" [(ngModel)]="modelSvc.closingBalanceData.projectName" name="modelSvc.closingBalanceData.projectName" id="name" type="text" placeholder="Project" disabled/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="normal-table mb-3">
+        <thead>
+          <tr>
+            <th>{{fieldTitle['fromdate']}}</th>
+            <th>{{fieldTitle['todate']}}</th>
+            <th>{{fieldTitle['bankstatementbalance']}}</th>
+            <th>{{fieldTitle['auditeddiscrepancy']}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ modelSvc.closingBalanceData.fromDate }}</td>
+            <td>{{ modelSvc.closingBalanceData.toDate }}</td>
+            <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeBankClosingBalance">{{ modelSvc.closingBalanceData.bankClosingBalance }}</td>
+            <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeBankClosingBalance">{{ modelSvc.closingBalanceData.bankClosingBalance }}</td>
+            <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeAuditedDiscrepancy">{{ modelSvc.closingBalanceData.auditedDiscrepancy }}</td>
+            <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeAuditedDiscrepancy">{{ modelSvc.closingBalanceData.auditedDiscrepancy }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-box p-3">
+      <div class="topAddMenu">
+        <div class="btns-group d-flex align-items-center justify-content-end mb-3">
+          <p class="p-0 m-0 me-2">{{ modelSvc.closingBalanceData.bankAccount }}</p>
+          <button (click)="newPayment()" type="button" class="btn btn-warning">
+              {{fieldTitle['newpayment']}} 
+          </button>
+          <button (click)="newReceived()" type="button" class="btn btn-success">
+            {{fieldTitle['newreceived']}} 
+          </button>
+        </div>
+      </div>
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.bankReconciliationTransactionsList">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ entity.date }}</td>
+            <td>{{ entity.voucherNo }}</td>
+            <td>{{ entity.description }}</td>     
+            <td>{{ entity.account }}</td>
+            <td *ngIf="!entity.isNegative" class="text-end">{{ entity.amount }}</td>
+            <td *ngIf="entity.isNegative" class="text-end text-danger">{{ entity.formattedAmount }}</td>
+            <td class="text-center">{{ entity.status }}</td>     
+            <td>
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="form-check" *ngIf="entity.approvalStatus == approvalStatus.Approved && entity.isMatched">
+                    <input type="checkbox" [(ngModel)]="entity.isMatched" class="form-check-input" id="{{entity.id}} + isMatched" name="{{ entity.isMatched }}" (ngModelChange)="saveBankReconciliation(entity)">
+                </div>
+                <div *ngIf="entity.approvalStatus == approvalStatus.Approved && !entity.isMatched">
+                  <p class="m-0">{{fieldTitle['matched']}}</p>
+                </div>
+                <button *ngIf="entity.approvalStatus == approvalStatus.Pending"  type="button" pButton pRipple
+                  class="p-button-primary" (click)="onClickGoToApproval()">{{fieldTitle['gotoapproval']}}</button>
+              </div>
+            </td>    
+          </tr>
+        </ng-template>
+      </app-ni-table>
+      <div class="row justify-content-end">
+        <div class="col-md-4">
+          <table class="normal-table my-3">
+            <tr>
+              <td>{{fieldTitle['notapprovedledgerbalance']}}</td>
+              <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeNonApprovedLedgerBalance">{{ this.modelSvc.closingBalanceData.nonApprovedLedgerBalance }}</td>
+              <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeNonApprovedLedgerBalance">{{ this.modelSvc.closingBalanceData.formattedNonApprovedLedgerBalance }}</td>
+            </tr>
+            <tr>
+              <td>{{fieldTitle['approvedledgerbalance']}}</td>
+              <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeApprovedLedgerBalance">{{ this.modelSvc.closingBalanceData.approvedLedgerBalance }}</td>
+              <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeApprovedLedgerBalance">{{ this.modelSvc.closingBalanceData.formattedApprovedLedgerBalance }}</td>
+            </tr>
+            <tr>
+              <td>{{fieldTitle['totalledgerbalance']}}</td>
+              <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeTotalLedgerBalance">{{ this.modelSvc.closingBalanceData.totalLedgerBalance }}</td>
+              <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeTotalLedgerBalance">{{ this.modelSvc.closingBalanceData.formattedTotalLedgerBalance }}</td>
+            </tr>
+            <tr>
+              <td>{{fieldTitle['currentdiscrepancy']}}</td>
+              <td class="text-end" *ngIf="!this.modelSvc.closingBalanceData.isNegativeCurrentDiscrepancy">{{ this.modelSvc.closingBalanceData.formattedCurrentDiscrepancy }}</td>
+              <td class="text-end text-danger" *ngIf="this.modelSvc.closingBalanceData.isNegativeCurrentDiscrepancy">{{ this.modelSvc.closingBalanceData.formattedCurrentDiscrepancy }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-end">
+        <div class="form-row d-flex justify-content-end">
+          <button type="button" class="btn btn-sm btn-danger" (click)="onClickPrint()">
+            <img src="../../../assets/images/icons/print.svg" alt="icon">{{fieldTitle['print']}}
+          </button>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  
+  

@@ -1,0 +1,133 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['cashflowstatment']}}</h1>
+</div>
+<div class="card-section">
+    <div class="top-card-box p-3 pb-1">
+        <form #searchFilterForm="ngForm" [addValidators]="validationMsgObj"
+            validationMessage="cashFlowStatementValidationModelValidation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['company']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Company"
+                                    [(ngModel)]="searchParam.companyID" [filter]="true" [options]="modelSvc.companyList"
+                                    name="companyID" (onChange)="onChangeCompany()" optionLabel="name" optionValue="id"
+                                    [niSelectedText]="searchParam" textProperty="company" inputValidator
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isBranchModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['office/branch/unit']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+                                    [(ngModel)]="searchParam.orgID" [filter]="true" [group]="true" [showClear]="true"
+                                    [options]="modelSvc.officeBranchList" [niSelectedText]="searchParam"
+                                    textProperty="unitBranch" filterBy="name" name="orgID" optionLabel="name"
+                                    optionValue="id" [group]="true" [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" *ngIf="isProjectModuleActive">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label>{{fieldTitle['project']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <p-select appendTo="body" placeholder="Select Project"
+                                    [(ngModel)]="searchParam.projectID" [filter]="true" filterBy="name"
+                                    [showClear]="true" [options]="modelSvc.projectList" [niSelectedText]="searchParam"
+                                    textProperty="project" name="projectID" optionLabel="name" optionValue="id"
+                                    [style]="{ width: '100%' }">
+                                </p-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <label class="ni-sup">{{fieldTitle['datefrom-to']}}</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row g-1">
+                                    <div class="col-md-6">
+                                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy"
+                                            [(ngModel)]="searchParam.fromDate" name="fromDate" [readonlyInput]="true"
+                                            [showIcon]="true" [maxDate]="searchParam.toDate" [style]="{ width: '100%' }"
+                                            inputValidator>
+                                        </p-datepicker>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy"
+                                            [(ngModel)]="searchParam.toDate" name="toDate" [readonlyInput]="true"
+                                            [showIcon]="true" [minDate]="searchParam.fromDate"
+                                            [style]="{ width: '100%' }" inputValidator>
+                                        </p-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-row d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-warning" (click)="reset()">
+                                <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary" (click)="search(searchFilterForm)">
+                                <img src="../../../assets/images/icons/search.svg" alt="icon"> {{fieldTitle['search']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger"
+                                (click)="onSubmit(searchFilterForm, true)">
+                                <img src="../../../assets/images/icons/download.svg" alt="icon">{{fieldTitle['export']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-success"
+                                (click)="onSubmit(searchFilterForm, false)">
+                                <img src="../../../assets/images/icons/send.svg" alt="icon">{{fieldTitle['sendemail']}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="cashFlowDataList.length > 0" class="mt-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="cashFlowDataList">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th width="80%">{{fieldTitle['particulars']}}</th>
+                    <th width="20%">{{fieldTitle['balance(bdt)']}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td>
+                        <span
+                            [ngStyle]="{'white-space': 'pre', 'font-weight': entity.ledger == null ? 'bold' : 'normal'}">{{entity.particular}}</span>
+                    </td>
+                    <td class="text-end">
+                        <span [ngStyle]="{'font-weight': entity.ledger == 'Total' ? 'bold' : 'normal'}">{{entity.amount
+                            | number:'1.2-2'}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="row justify-content-center">
+  <div class="col-md-12">
+    <p>
+      <b>{{fieldTitle['checkno']}}:</b> {{entity.leafNo}}<br/>
+      <b>{{fieldTitle['checkamount']}}:</b> {{entity.amount}}
+    </p>
+  </div>
+  <div class="col-md-12">
+    <app-ni-table [gridOption]="gridOption" [valueList]="chequeLogDetailList" class="scrollable-table">
+      <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ entity.status }}</td>
+          <td>{{ entity.date }}</td>
+          <td>{{ entity.userName }}</td>
+          <td>{{ entity.note }}</td>
+          <td>{{ entity.actionDateTime }}</td>
+        </tr>
+      </ng-template>
+    </app-ni-table>
+  </div>
+</div>

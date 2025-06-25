@@ -1,0 +1,222 @@
+<div class="row justify-content-center">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="card-head mb-2">
+      <h1 class="section-title">{{titleNameEdit?'Contra Voucher Edit':'Contra Voucher Entry'}}</h1>
+    </div>
+    <div class="card-section">
+      <form #multiContraVoucherForm="ngForm" [addValidators]="validationMsgObj"
+        validationMessage="voucherValidationModel">
+        <div class="top-card-box p-3 pb-1 mb-3">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['company']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                          <p-select appendTo="body" appTabNavigation [options]="modelSvc.companyList" name="companyID" [disabled]="modelSvc.contraVoucherModel.id>0"
+                            [(ngModel)]="modelSvc.contraVoucherModel.companyID" 
+                            placeholder="{{fieldTitle['selectcompany']}}" optionLabel="name" optionValue="id" inputValidator  (onChange)="onChangeCompany()"
+                            [style]="{ width: '100%' }">
+                          </p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" *ngIf="modelSvc.isBranchModuleActive">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['unit/branch']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-select appendTo="body" [filter]="true" [showClear]="true" name="orgID"
+                          [(ngModel)]="modelSvc.contraVoucherModel.orgID" optionLabel="name" [options]="modelSvc.orgList"
+                          optionValue="id" placeholder="{{fieldTitle['selectbusinessunit']}}" inputValidator [group]="true"
+                          [ngStyle]="isInValidBranch ? {'border': '1px solid red', 'width': '100%', 'border-radius':'7px'} : {'width': '100%' }" 
+                          [disabled]="modelSvc.contraVoucherModel.id>0" (onChange)="onSelectOrg(modelSvc.contraVoucherModel)">
+                          <ng-template let-group pTemplate="group">
+                            <div class="flex align-items-center">
+                              <span>{{ group.label }}</span>
+                            </div>
+                          </ng-template>
+                        </p-select>
+                     
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label>{{fieldTitle['vouchernumber']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="VoucherNo" name="voucherNo" disabled
+                          [(ngModel)]="modelSvc.contraVoucherModel.voucherNo" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <label class="ni-sup">{{fieldTitle['date']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12" [showIcon]="true" name="voucherDate"
+                          [(ngModel)]="modelSvc.contraVoucherModel.voucherDate" [style]="{ width: '100%' }" inputValidator>
+                        </p-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6" *ngIf="modelSvc.isProjectModuleActive">
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>{{fieldTitle['project']}}</label>
+                      </div>
+                      <div class="col-md-8">
+                        <p-select appendTo="body" [filter]="true" [showClear]="true" [options]="modelSvc.projectList"
+                    name="projectID" [(ngModel)]="modelSvc.contraVoucherModel.projectID" (onChange)="onSelectToProjectMulti(modelSvc.contraVoucherModel)" [disabled]="modelSvc.contraVoucherModel.id>0"
+                    placeholder="Project" optionLabel="name" optionValue="id" [style]="{ width: '100%' }">
+                  </p-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-4">
+                    <label>{{fieldTitle['remarks']}}</label>
+                  </div>
+                  <div class="col-md-8">
+                    <textarea class="form-control" name="remarks" [(ngModel)]="modelSvc.contraVoucherModel.remarks" inputValidator placeholder="{{fieldTitle['remarks']}}" ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.contraVoucherModel.voucherItemList" class="scrollable-table">
+          <ng-template pTemplate="header">
+              <tr>
+                <th><span class="ni-sup">{{fieldTitle["toaccountname"]}}</span></th>
+                <th>{{fieldTitle["balance"]}}</th>
+                <th>{{fieldTitle["description"]}}</th>
+                <th><span class="ni-sup">{{fieldTitle["amount"]}}</span></th>
+                <th><span class="ni-sup">{{fieldTitle["fromaccountname"]}}</span></th>
+                <th>{{fieldTitle["balance"]}}</th>
+                <th>{{fieldTitle["transactionmode"]}}</th>
+                <th>{{fieldTitle["chequeno"]}}</th>
+                <th>{{fieldTitle["chequedate"]}}</th>
+                <th>
+                  <span class="ni-sup" *ngIf="isFromAccountBank">{{fieldTitle["ref.doc"]}}</span>
+                  <span *ngIf="!isFromAccountBank">{{fieldTitle["ref.doc"]}}</span>
+                </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+           <tr [ngModelGroup]="item.id" [objWatcher]="item" [addValidators]="validationMsgObj"
+            validationMessage="voucherValidationItemModel" *ngIf="item.tag !== 2">          
+            <td>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="item.toCoaStructureList"
+                name="toCOAStructID" [(ngModel)]="item.toCOAStructID" (onChange)="onSelectToAccountMulti(item)"
+                placeholder="To Account Name" optionLabel="ledger" optionValue="id" inputValidator
+                [style]="{ width: '100%' }">
+              </p-select>
+            </td>
+            <td class="text-end">{{item.toAccountBalance}}</td>
+            <td>
+              <textarea class="form-control" name="description" [(ngModel)]="item.description" placeholder="{{fieldTitle['description']}}"
+                inputValidator></textarea>
+            </td>
+            <td>
+              <input niSelect type="text" name="debitVal" class="form-control" (keyup)="onDebitFieldChange(item)" placeholder="{{fieldTitle['amount']}}"
+                [niDecimal]="modelSvc.decimalPlace" [(ngModel)]="item.debitVal" inputValidator>
+            </td>
+
+            <td>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="item.fromCoaStructureList"
+                name="fromCOAStructID" [(ngModel)]="item.fromCOAStructID"
+                (onChange)="onSelectFromAccountMulti(item)" placeholder="From Account Name" optionLabel="ledger"
+                optionValue="id" inputValidator [style]="{ width: '100%' }">
+              </p-select>
+            </td>
+
+            <td class="text-end">
+              {{item.fromCoaStructBalance}}
+            </td>
+            <td>
+              <p-select appendTo="body" [filter]="true" [showClear]="true"
+                [options]="modelSvc.transactionModeList" name="tranModeCd" [(ngModel)]="item.tranModeCd"
+                placeholder="Transaction Mode" optionLabel="value" optionValue="code" [style]="{ width: '100%' }"
+                (onChange)="onChangeTransactionMode(item)" 
+                >
+              </p-select>
+            </td>
+            <td>
+              <p-select appendTo="body" [filter]="true" [showClear]="true" 
+                [options]="item.chequeLeafNoList"
+                name="chequeLeafID" [(ngModel)]="item.chequeLeafID"
+                placeholder="{{fieldTitle['chequeno']}}" optionLabel="name" optionValue="id" 
+                [disabled]="item.tranModeCd!=chequeCd"
+                [style]="{ width: '100%' }">
+              </p-select>
+            </td>
+            <td>
+              <p-datepicker appendTo="body" dateFormat="dd-M-y" [showTime]="false" hourFormat="12" [showIcon]="true"
+                name="chequeDate" [(ngModel)]="item.chequeDate" [disabled]="item.tranModeCd!=chequeCd"
+                [style]="{ width: '100%' }"></p-datepicker>
+            </td>
+
+            <td>
+              <div class="d-flex justify-content-center">
+                <button pRipple pButton class="btn p-button-warning me-0" niDbclickPrevent title="{{fieldTitle['ref.doc']}}" type="button"
+                  (click)="fileUploadMultiEntryModal(item)" icon="pi pi-upload"></button>
+              </div>
+            </td>          
+          </tr>
+          </ng-template>
+        </app-ni-table>
+        <div class="form-group mt-2 mb-0">
+          <div class="form-row d-flex justify-content-end align-items-center">
+            <div class="form-check my-2" *ngIf="isEdit?modelSvc.contraVoucherModel.createdByID==loginUserID:true">
+              <input class="form-check-input" id="draft" [(ngModel)]="modelSvc.contraVoucherModel.isDraft"
+                name="draft" type="checkbox" />
+              <label class="form-check-label" for="draft">Draft</label>
+            </div>
+            <!--<button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download" title="{{fieldTitle['download']}}"
+              [disabled]="!isSubmitted" (click)="printVoucher(modelSvc.contraVoucherModel.id)"></button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="addNew()"
+              [disabled]="isEdit || !isSubmitted">
+              <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}} -->
+            <button pRipple pButton class="btn p-button p-button-success" type="button" icon="pi pi-download"
+              [disabled]="modelSvc.contraVoucherModel.id==0" (click)="printVoucher(modelSvc.contraVoucherModel.id)"></button>
+            <button type="button" class="btn btn-sm btn-primary" (click)="addNew()">
+              <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">{{fieldTitle['addanother']}}
+            </button>
+            <button type="button" class="btn btn-sm btn-warning" (click)="onFormResetFormMultiple()">
+              <img src="../../../assets/images/icons/repeat.svg" alt="icon">{{fieldTitle['reset']}}
+            </button>
+            <button type="button" class="btn btn-sm btn-success"
+              [disabled]="modelSvc.contraVoucherModel.id?false:!multiContraVoucherForm.dirty || isSubmitted" (click)="multiSave(multiContraVoucherForm)">
+              <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

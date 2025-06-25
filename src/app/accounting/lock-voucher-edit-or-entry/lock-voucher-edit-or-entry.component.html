@@ -1,0 +1,114 @@
+<div class="card-head mb-2">
+    <h1 class="section-title">{{fieldTitle['lockvouchereditorentry']}}</h1>
+</div>
+<div class="card-section">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="card-box p-3">
+                <form #lockVoucherForm="ngForm" [addValidators]="validationMsgObj"
+                    validationMessage="lockVoucherValidation">
+                    <div class="form-group">
+                        <label class="ni-sup">{{fieldTitle['company']}}</label>
+                        <p-select appendTo="body" placeholder="Select Company" *ngIf="!isPlaceholderDisable"
+                            [(ngModel)]="modelSvc.lockVoucherDTO.companyID" [filter]="true" filterBy="value"
+                            [showClear]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                            optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.lockVoucherDTO"
+                            textProperty="companyName" [style]="{ width: '100%' }" [disabled]="modelSvc.isCompanyDisabled" inputValidator>
+                        </p-select>
+
+                        <p-select appendTo="body" *ngIf="isPlaceholderDisable"
+                            [(ngModel)]="modelSvc.lockVoucherDTO.companyID" [filter]="true" filterBy="value"
+                            [showClear]="true" [options]="modelSvc.companyList" name="companyID" (onChange)="onChangeCompany()"
+                            optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.lockVoucherDTO"
+                            textProperty="companyName" [style]="{ width: '100%' }" [disabled]="modelSvc.isCompanyDisabled" inputValidator>
+                        </p-select>
+                    </div>
+                    <div class="form-group" *ngIf="modelSvc.isBranchModuleActive">
+                        <label>{{fieldTitle['office/branch']}}</label>
+                        <p-select appendTo="body" placeholder="Select Office/Branch"
+                            [(ngModel)]="modelSvc.lockVoucherDTO.orgID" [filter]="true" filterBy="value"
+                            [showClear]="true" [options]="modelSvc.orgList" name="orgID" (onChange)="onChangeOffice()"
+                            optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.lockVoucherDTO" [group]="true" 
+                            textProperty="orgName" [style]="{ width: '100%' }" [disabled]="modelSvc.isOfficeDisabled" inputValidator>
+                            <ng-template let-group pTemplate="group">
+                                <div class="flex align-items-center">
+                                    <span>{{ group.label }}</span>
+                                </div>
+                            </ng-template>
+                        </p-select> 
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>{{fieldTitle['project']}}</label>
+                        <p-select appendTo="body" placeholder="Select Project"
+                            [(ngModel)]="modelSvc.lockVoucherDTO.projectID" [filter]="true" filterBy="value"
+                            [showClear]="true" [options]="modelSvc.projectList" name="projectID"
+                            optionLabel="name" optionValue="id" [niSelectedText]="modelSvc.lockVoucherDTO"
+                            textProperty="projectName" [style]="{ width: '100%' }" [disabled]="modelSvc.isProjectDisabled" inputValidator>
+                        </p-select>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="ni-sup">{{fieldTitle['lockpreviousentryfrom']}}</label>
+                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.lockVoucherDTO.lockEntryTillDate" name="lockEntryTillDate"
+                            [readonlyInput]="true" [showIcon]="true"  (onSelect)="onChangeDate()" [style]="{ width: '100%' }" inputValidator>
+                        </p-datepicker>
+                    </div>
+                    <div class="form-group">
+                        <label class="ni-sup">{{fieldTitle['lockpreviouseditfrom']}}</label>
+                        <p-datepicker appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="modelSvc.lockVoucherDTO.lockEditTillDate" name="lockEditTillDate"
+                            [readonlyInput]="true" [showIcon]="true" (onSelect)="onChangeDate()" [style]="{ width: '100%' }" inputValidator>
+                        </p-datepicker>
+                    </div>
+                    <div class="form-check mt-1 mb-2">
+                        <input class="form-check-input" id="isActive" name="isActive" type="checkbox"
+                            [(ngModel)]="modelSvc.lockVoucherDTO.isActive" />
+                        <label class="form-check-label" for="isActive">{{fieldTitle['active']}}</label>
+                    </div>
+                    <div class="form-group mt-2 mb-0">
+                        <div class="form-row d-flex justify-content-end">
+                            <button type="button" class="btn btn-sm btn-success" [disabled]="!lockVoucherForm.dirty"
+                                (click)="saveLockVoucher(lockVoucherForm)">
+                                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-warning" [disabled]="!lockVoucherForm.dirty"
+                                (click)="reset()">
+                                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+                            </button>
+                            <button *ngIf="modelSvc.lockVoucherDTO.id > 0" type="button" class="btn btn-sm btn-danger" (click)="setNew()">
+                                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card-box p-3">
+                <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.lockVoucherList">
+                    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ entity.companyName }}</td>
+                            <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.orgName }}</td>
+                            <!-- <td>{{ entity.projectName }}</td> -->
+                            <td>{{ entity.fromDate }}</td>
+                            <td>{{ entity.toDate }}</td>
+                            <td class="text-center">{{ entity.status }}</td>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button type="button" pButton pRipple icon="pi pi-pencil"
+                                        class="p-button-primary p-mr-2" (click)="edit(entity)"
+                                        [disabled]="entity.refID != null"></button>
+                                    <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash"
+                                        class="p-button-danger" (click)="delete(entity)"
+                                        [disabled]="entity.refID != null"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </app-ni-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <button (click)="sendSMS()" >sms</button> -->

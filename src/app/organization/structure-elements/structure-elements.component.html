@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card-body">
+      <form>
+        <div class="topAddMenu">
+          <button class="btn btn-success btn-sm d-flex align-items-center" type="button"  (click)="Add()">
+            <img src="../../../assets/images/icons/plus-circle.svg" alt="plus"/>Add
+          </button>
+        </div>
+        <div class="table-striped">
+          <app-ni-table [gridOption]="gridOption"  [valueList]="modelSvc.orgElementsList">
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ entity.elementName }}</td>
+                <td class="text-center">
+                  <div class="form-check">
+                    <input type="checkbox" placeholder="Switch" [(ngModel)]="entity.isSelected" id="{{ 'isSelectedSwitch' + rowIndex }}" name="{{ 'isSelectedSwitch' + rowIndex }}" (ngModelChange)="changeActiveStatus(entity)" class="form-check-input">
+                  </div>
+                </td>
+                <td>{{ entity.behaviorName }}</td>
+                <td>{{ entity.typeName }}</td>
+                <td>
+                  <div class="d-flex justify-content-center">
+                    <button type="button" title="Edit" pButton pRipple icon="pi pi-pencil" class="p-button-success p-mr-2" (click)="edit(entity)"></button>
+                    <button type="button" title="Delete" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="delete(entity)"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </app-ni-table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<p-dialog header="{{fieldTitle['commonelemententry']}}" [(visible)]="isOpenModal" [modal]="true" [style] [baseZIndex]="100" [draggable]="false" [resizable]="false" [closable]="true" (onHide)="closeModal()">
+  <form #commonElementForm="ngForm" [addValidators]="validationMsgObj" validationMessage="struetureElementValidation" class="p-3">
+    <div class="form-group">
+      <label class="ni-sup">Organizational Element Name</label>
+      <input type="text" [(ngModel)]="modelSvc.struetureElementDTO.elementName" name="elementName" class="form-control" placeholder="Type here" (ngModelChange)="change()" inputValidator/>
+    </div>
+    <div class="form-group">
+      <label class="ni-sup">Behavior</label>
+      <p-multiSelect appendTo="body" placeholder="{{fieldTitle['selectbehavior']}}"
+        [(ngModel)]="modelSvc.struetureElementMapDTO.behaviorCd" [options]="modelSvc.orgBehaviorList" name="behaviorCd"
+        optionLabel="value" optionValue="code" textProperty="value" [style]="{ width: '100%' }" (onChange)="change()" inputValidator>
+      </p-multiSelect>
+    </div>
+    <div class="form-group">
+      <label class="ni-sup">Type</label>
+      <p-select appendTo="body"
+        [options]="modelSvc.orgTypeList"
+        name="typeCd"
+        [(ngModel)]="modelSvc.struetureElementDTO.typeCd"
+        optionLabel="value" optionValue="code" [niSelectedText]="modelSvc.struetureElementDTO" textProperty="typeName" 
+        placeholder="{{fieldTitle['selecttype']}}" inputValidator (onChange)="change()"
+        [style]="{ width: '100%' }">
+    </p-select>
+      </div>
+    <div class="form-check">
+      <input type="checkbox" [(ngModel)]="modelSvc.struetureElementDTO.isSelected" (ngModelChange)="change()" id="isSelected" name="isSelected" class="form-check-input">
+      <label for="isSelected" class="form-check-label ml-5">Active</label>
+    </div>
+    <div class="d-flex align-items-center justify-content-end">
+      <button type="button" (click)="reset()" [disabled]="!commonElementForm.dirty || !isSubmited" class="btn btn-sm btn-warning mr-d-10">
+        <img src="../../../assets/images/icons/repeat.png" alt="icon" />
+        {{fieldTitle['reset']}}
+      </button>
+      <button type="button" (click)="saveElement(commonElementForm)" [disabled]="!commonElementForm.dirty || !isSubmited"
+        class="btn btn-sm btn-success mr-d-10">
+        <img src="../../../assets/images/icons/save.svg" alt="icon" />
+        {{fieldTitle['save']}}
+      </button>
+    </div>
+  </form>
+
+</p-dialog>

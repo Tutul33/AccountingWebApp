@@ -1,0 +1,30 @@
+
+
+<div class="card-body">
+    <div class="topAddMenu">
+        <button type="button" class="btn btn-sm btn-primary ms-0" (click)="addNewUserWiseRole()">
+            <img src="../../../assets/images/icons/plus-circle.svg" alt="icon">
+            {{fieldTitle['setuserwiserole']}}
+        </button>
+    </div>
+    <div class="table-striped">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.roleWiseUserList" >
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ entity.role }}</td>
+                    <td>{{ entity.userID }}</td>
+                    <td>{{ entity.employeeID }}</td>
+                    <td>{{ entity.employeeName }}</td>
+                    <td>{{ entity.organization }}</td>
+                    <td>{{ entity.designation }}</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="delete(entity)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </app-ni-table>
+    </div>
+</div>
+

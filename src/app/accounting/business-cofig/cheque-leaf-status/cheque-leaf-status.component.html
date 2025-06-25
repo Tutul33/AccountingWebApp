@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-box p-3">
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.chequeLeafStatusList">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.value }}</td>
+              <td>{{ entity.description }}</td>
+              <td> 
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  {{ entity.isActive | niBoolean }}
+                  <div class="toggleWrapper">
+                    <input id="{{'chequeLeaf' + rowIndex}}" name="{{'chequeLeaf' + rowIndex}}"
+                      [(ngModel)]="entity.isActive" type="checkbox" (ngModelChange)="changeActiveStatus(entity)" />
+                    <label class="toggle" for="{{'chequeLeaf' + rowIndex}}">
+                      <span class="toggle__handler"></span>
+                    </label>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </app-ni-table>
+    </div>
+  </div>
+</div>
+ 
+

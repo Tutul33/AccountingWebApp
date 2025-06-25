@@ -1,0 +1,43 @@
+
+/*================Base-Codes================*/
+@use "./scss/base/theme";
+@use "./scss/base/base";
+
+/*===============Layout-Codes=================*/
+@use "./scss/layout/structure.scss";
+@use "./scss/layout/expandmenu.scss";
+@use "./scss/layout/breadcrumb.scss";
+@use "./scss/layout/component";
+@use "./scss/layout/header";
+@use "./scss/layout/side-bar";
+
+/*===============Organs-Codes================*/ 
+@use "./scss/organs/foundation";
+@use "./scss/organs/auth";
+@use "./scss/organs/forms";
+@use "./scss/organs/tables";
+@use "./scss/organs/consist";
+@use "./scss/organs/shapes";
+@use "./scss/organs/dialogs";
+@use "./scss/organs/engage";
+@use "./scss/organs/switch";
+@use "./scss/organs/multiselect";
+@use "./scss/organs/highcharts";
+@use "./scss/organs/toastr";
+
+
+/*===============POS-Codes================*/ 
+@use "./scss/pos/area";
+@use "./scss/pos/order";
+@use "./scss/pos/pos-responsive";
+@use "./scss/pos/anarea";
+
+/*==========  Responsive-Codes===============*/
+@use "./scss/responsive/tablet";
+@use "./scss/responsive/layout";
+@use "./scss/responsive/organs";
+@use "./scss/responsive/table";
+@use "./scss/responsive/modal";
+@use "./scss/responsive/fonts";
+@use "./scss/responsive/resolutions";
+

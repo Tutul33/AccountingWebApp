@@ -1,0 +1,19 @@
+
+
+  <div class="table-title w-100 mb-2">{{fieldTitle['listmenu']}}</div>
+  <p-tree
+    [value]="modelSvc.allTreeData"
+    selectionMode="single"
+    [(selection)]="selectedMenu"
+    (onNodeSelect)="onNodeSelect($event.node)"
+    [filter]="true" class="admin-menus d-table w-100">     
+    <ng-template let-node pTemplate="default">  
+      <div (click)="onNodeClick(node)" class="d-flex align-items-center gap-2">
+        <div class="p-checkbox p-component" >
+          <div [ngClass]="{'p-checkbox-box': true, 'p-highlight': selectedNode===node}"></div>
+        </div>
+        <label style="cursor:pointer" [style.color]="node.selectedNode ? 'green' : ''">{{ node.label }}</label>
+      </div>
+    </ng-template>
+  </p-tree>
+

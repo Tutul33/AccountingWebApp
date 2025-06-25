@@ -1,0 +1,62 @@
+
+<div class="row justify-content-center">
+  <div class="col-md-12 mb-2">
+    <div class="card-box p-3">
+      <div class="d-inline-flex align-items-center">
+        <div class="form-check" *ngFor="let item of chequeLeafStatusList;let i = index">
+          <input id="{{item.code}}" class="form-check-input" type="checkbox" name="{{item.code}}"
+            [(ngModel)]="item.isActive" (ngModelChange)="onChequeLeafStatus(item)">
+          <label for="{{item.code}}" class="form-check-label" title="{{item.value}}">{{item.value}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-12">
+    <div class="card-box p-3">
+      <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.chequeBookLeafManagementList"
+        class="scrollable-table">
+        <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ entity.company }}</td>
+            <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.org }}</td>
+            <td *ngIf="this.modelSvc.isProjectModuleActive">{{ entity.project }}</td>
+            <td>{{ entity.bankAccount }}</td>
+            <td>{{ entity.accountName }}</td>
+            <td>{{ entity.chequeType }}</td>
+            <td>{{ entity.chequeBookNo }}</td>
+            <td>{{ entity.leafNo }}</td>
+            <td>{{ entity.used }}</td>
+            <td>
+              <div class="d-flex justify-content-center align-items-center gap-2">
+                <div class="toggleWrapper">
+                  <input id="{{'typeSwitch' + rowIndex}}" name="{{'typeSwitch' + rowIndex}}"
+                    [disabled]="entity.used=='Yes'" [(ngModel)]="entity.isBlocked" type="checkbox"
+                    (ngModelChange)="onUpdateIsUsed(entity)" />
+                  <label class="toggle" for="{{'typeSwitch' + rowIndex}}">
+                    <span class="toggle__handler"></span>
+                  </label>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div *ngIf="entity.voucherItemID">
+                <p-select appendTo="body" [(ngModel)]="entity.code" [options]="dllChequeLeafStatusList" name="code"
+                  optionLabel="value" optionValue="code" [style]="{ width: '100%' }"
+                  (onChange)="onSelectStatus(entity)">
+                </p-select>
+              </div>
+            </td>
+            <td>{{ entity.chequeDate }}</td>
+            <td>{{ entity.clearedOnDate }}</td>
+            <td>{{ entity.voucherNo }}</td>
+            <td>{{ entity.voucherDate }}</td>
+            <td>{{ entity.toAccount }}</td>
+            <td>{{ entity.subLedgerName }}</td>
+          </tr>
+        </ng-template>
+      </app-ni-table>
+    </div>
+  </div>
+</div>

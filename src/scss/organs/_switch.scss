@@ -1,0 +1,90 @@
+
+
+.toggleWrapper {
+	position: relative;
+	input {
+		position: absolute;
+		left: -999em;
+		&:checked {
+			+ {
+				.toggle {
+					background: #10b310;
+					&:before {
+						color: #ffffff;
+						// content: "YES";
+						content: "";
+					}
+					&:after {
+						color: #66B317;
+						content: "";
+					}
+					.toggle__handler {
+						width: 20px;
+						transform: translateX(16px);
+						border-color: #ffffff;
+					}
+				}
+			}
+		}
+	}
+
+
+	
+	.toggle {
+		cursor: pointer;
+		display: inline-block;
+		position: relative;
+		width: 40px;
+		height: 24px;
+		background: var(--secondary-bg);
+		border-radius:40px;
+		transition: all 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		&::before {
+			position: absolute;
+			line-height: 38px;
+			font-size: 16px;
+			z-index: 1;
+			transition: all 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+		&::after {
+			position: absolute;
+			line-height: 38px;
+			font-size: 16px;
+			z-index: 1;
+			transition: all 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+		&:before {
+			content: "";
+			left: 9px;
+			color: #D21626;
+		}
+		&:after {
+			// content: "NO";
+			content: "";
+			right: 10px;
+			color: #ffffff;
+		}
+	}
+	.toggle__handler {
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		background: #fff;
+		width: 20px;
+		height: 20px;
+		border-radius: 20px;
+		top: 2px;
+		left: 2px;
+		transition: all 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		transform: translateX(0px);
+		box-shadow: 0 1px 2px 0 rgba(0,0,0,.08);
+	}
+	input[type="checkbox" i] {
+        &:disabled {
+            background-color: #555555;
+			&+label{
+				opacity:0.5;
+			}
+        }
+    }
+}

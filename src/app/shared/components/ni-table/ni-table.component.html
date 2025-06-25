@@ -1,0 +1,159 @@
+<div class="col-md-12">
+  <ni-table
+    #dt
+    [value]="grid.value"
+    [paginator]="grid.paginator"
+    [pageLinks]="grid.pageLinks"
+    [styleClass]="grid.styleClass"
+    [rows]="grid.rows"
+    [globalFilterFields]="grid.globalFilterFields"
+    [columns]="grid.columns"
+    [sortMode]="grid.sortMode"
+    [rowsPerPageOptions]="grid.rowsPerPageOptions"
+    [totalRecords]="grid.totalRecords"
+    [showCurrentPageReport]="true"
+    [lazy]="grid.lazy ? true : null"
+    (onLazyLoad)="grid.lazy ? onLazyFunction($event) : null"
+    [(first)]="grid.first"
+    currentPageReportTemplate="Record: {first} to {last} of {totalRecords}"
+    (onPage)="pageFunction($event)"
+    (onFilter)="filterFunction($event)"
+    [multiSortMeta]="grid.multipleSortingMetaData.length > 0 ? grid.multipleSortingMetaData : null"
+    [dataKey]="grid.dataKey ? grid.dataKey : null"
+    [hasFrozenColumn]="grid.hasFrozenColumn"
+  >
+    <ng-template *ngIf="grid.isGlobalSearch" pTemplate="caption">
+      <h1 class="table-title">{{grid.title}}</h1>
+      <div class="table-header">
+        <span class="p-input-icon-left">
+          <i><img src="../../../../assets/images/icons/search.svg" alt="csv"/></i>
+          <input pInputText type="text" (input)="globalSearch(dt, $event)" placeholder="{{fieldTitle['search']}}"/>
+          <!-- <input pInputText type="text" (input)="globalSearchCustom($any($event.target).value)" placeholder="Search"/> -->
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header" let-columns>
+      <ng-container
+        *ngIf="!grid.isDynamicHeader"
+        [ngTemplateOutlet]="templatesByKey.header"
+        [ngTemplateOutletContext]="columns">
+      </ng-container>
+
+      <ng-container *ngIf="grid.isDynamicHeader">
+        <tr>
+          <th *ngFor="let col of columns" [style]="col.style" pFrozenColumn 
+          [ngClass]="
+          {
+            'ni-sup': col.isRequired, 
+            'p-element ':  col.pFrozenColumnFromLeft || col.pFrozenColumnFromRight,
+            'p-datatable-frozen-column':  col.pFrozenColumnFromLeft || col.pFrozenColumnFromRight,
+            'p-datatable-frozen-column-left':  col.pFrozenColumnFromLeft,
+            'p-frozen-column':  col.pFrozenColumnFromLeft || col.pFrozenColumnFromRight,
+            }">
+            <div class="p-d-flex p-jc-between p-ai-center" [ngClass]="col.styleClass ? col.styleClass : ''">
+              {{ col.header }}
+              <ni-columnFilter *ngIf="col.isSearchFilter" type="text" [field]="col.field" display="menu" [hideOnClear]="true"></ni-columnFilter>
+
+              <ni-columnFilter *ngIf="col.isDDFilter" [field]="col.field" matchMode="equals" display="menu" [hideOnClear]="true" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-select appendTo="body" [ngModel]="value" name="{{col.field}}" [options]="col.dataList" [optionLabel]="col.labelField" [filter]="true"
+                    [optionValue]="col.labelField" (onChange)="filter($event.value)" [showClear]="true" placeholder="Select Any">
+                        <ng-template let-option pTemplate="item">
+                            <span>{{option[col.labelField]}}</span>
+                        </ng-template>
+                    </p-select>
+                </ng-template>
+              </ni-columnFilter>
+
+              <ni-columnFilter *ngIf="col.isDateFilter" type="date" [field]="col.field" display="menu" [hideOnClear]="true" [showOperator]="false"></ni-columnFilter>
+
+              <ni-columnFilter *ngIf="col.isNumberFilter" type="numeric" [field]="col.field" display="menu" [hideOnClear]="true" [showOperator]="false"></ni-columnFilter>
+              
+              <ni-columnFilter *ngIf="col.isStatusFilter" type="boolean" [field]="col.field" display="menu" [hideOnClear]="true" [showOperator]="false"></ni-columnFilter>
+
+              <ni-columnFilter *ngIf="col.isMultiselectFilter" [field]="col.field" matchMode="in" display="menu" [hideOnClear]="true" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-multiSelect [ngModel]="value" name="{{col.field}}" [options]="col.dataList" placeholder="Select Any" (onChange)="filter($event.value)" [optionValue]="col.labelField" [optionLabel]="col.labelField">
+                        <ng-template let-option pTemplate="item">
+                          <span>{{option[col.labelField]}}</span>
+                        </ng-template>
+                    </p-multiSelect>
+                </ng-template>
+              </ni-columnFilter>
+            </div>
+          </th>
+        </tr>
+      </ng-container>
+    </ng-template>
+
+    <!-- [ngClass]="skeletonVariable ? 'skeleton' : ''" -->
+    <!-- <div [ngClass]="skeletonVariable ? 'skeleton' : null"></div> -->
+    <ng-template pTemplate="body" let-data let-rowIndex="rowIndex" let-expanded="expanded">
+      <ng-container
+        [ngTemplateOutlet]="templatesByKey.body"
+        [ngTemplateOutletContext]="generateContextNew(data,rowIndex, expanded)"
+      >
+      </ng-container>
+    </ng-template>
+
+    <ng-template pTemplate="rowexpansion" let-item let-rowIndex="rowIndex">
+      <ng-container
+        [ngTemplateOutlet]="templatesByKey.rowexpansion"
+        [ngTemplateOutletContext]="generateContext(item, rowIndex)"
+      >
+      </ng-container>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <ng-container
+        [ngTemplateOutlet]="templatesByKey.footer"
+      >
+     
+      </ng-container>
+      <div class="float-right">
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="summary" *ngIf="templatesByKey.summary">
+      <ng-container
+        [ngTemplateOutlet]="templatesByKey.summary"
+      >
+      </ng-container>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr class="no-data">
+        <td>{{fieldTitle['norecordsfound']}}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorleft" let-state>
+      <div class="p-d-flex">
+        <button type="button" class="table-exports p-0 border-0" pTooltip="Export Excel" tooltipPosition="top" (click)="exportExcelReport()" *ngIf="grid.exportOption.exportInXL">
+          <img src="../../../../assets/images/icons/table-excel.svg" alt="icon"/>
+        </button>
+        <button type="button" class="table-exports p-0 border-0" pTooltip="Export PDF" tooltipPosition="top" (click)="exportPdf(dt.el.nativeElement)" *ngIf="grid.exportOption.exportInPDF">
+          <img src="../../../../assets/images/icons/table-pdf.svg" alt="icon"/>
+        </button>
+        <button type="button" class="table-exports p-0 border-0" pTooltip="Export CSV" tooltipPosition="top" (click)="dt.exportCSV({ selectionOnly: true })" *ngIf="grid.exportOption.exportInSelectedXL" >
+          <img src="../../../../assets/images/icons/table-csv.svg" alt="icon"/>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="paginatorright">
+      <ng-template pTemplate="isClear">
+        <button type="button" class="table-exports p-0 border-0" pTooltip="Clear Filter" tooltipPosition="top" (click)="clear(dt)" *ngIf="grid.isClear && !grid.paginator">
+          <img src="../../../../assets/images/icons/table-filter-out.svg" alt="icon"/>
+        </button>
+      </ng-template>
+      <button type="button" class="table-exports p-0 border-0" pTooltip="Reset All" tooltipPosition="top" (click)="clear(dt)" *ngIf="grid.isClear">
+        <img src="../../../../assets/images/icons/table-reset.svg" alt="icon"/>
+      </button>
+      <button type="button" class="table-exports p-0 border-0" pTooltip="Refresh Table" tooltipPosition="top" (click)="grid.refreshEvent !== null ? refreshEvent() : null">
+        <img src="../../../../assets/images/icons/table-refresh.svg" alt="icon"/>
+      </button>
+    </ng-template>
+  </ni-table>
+</div>

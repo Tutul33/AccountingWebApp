@@ -1,0 +1,148 @@
+<div class="card-head mb-2">
+  <h1 class="section-title">{{fieldTitle['createchequebook']}}</h1>
+</div>
+<div class="card-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <div class="card-box p-3">
+        <form #chequeBookForm="ngForm" [addValidators]="validationMsgObj" validationMessage="chequeBookModelValidation">
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['company']}}</label>
+            <p-select appendTo="body" [(ngModel)]="modelSvc.chequeBookDTO.companyID" [options]="modelSvc.companyList"
+               name="companyID" optionLabel="name" optionValue="id" 
+               [style]="{ width: '100%' }" (onChange)="onChangeCompany()"
+              inputValidator>
+            </p-select>
+
+          </div>
+
+          <div class="form-group" *ngIf="modelSvc.isBranchModuleActive">
+            <label class="ni-sup"
+              title="{{fieldTitle['office/branch/unit']}}">{{fieldTitle['office/branch/unit']}}</label>
+            <p-select appendTo="body" placeholder="Select Office/Branch/Unit"
+              [(ngModel)]="modelSvc.chequeBookDTO.orgID" [filter]="true" [options]="modelSvc.officeBranchUnitList"
+              inputValidator filterBy="name" name="orgID" optionLabel="name" optionValue="id" [group]="true"
+              [style]="{ width: '100%' }" (onChange)="onSelectOrg()">
+              <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                  <span>{{ group.label }}</span>
+                </div>
+              </ng-template>
+            </p-select>
+
+          </div>
+
+          <div class="form-group" *ngIf="modelSvc.isProjectModuleActive">
+            <label>{{fieldTitle['project']}}</label>
+            <p-select appendTo="body" [showClear]="true" [options]="modelSvc.projectList" name="projectID"
+                  [(ngModel)]="modelSvc.chequeBookDTO.projectID" placeholder="{{fieldTitle['selectproject']}}"
+                   optionLabel="name" optionValue="id" (onChange)="onSelectProject()"
+                  [style]="{ width: '100%' }">
+                </p-select>
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['bankaccount']}}</label>
+            <p-select appendTo="body" [(ngModel)]="modelSvc.chequeBookDTO.cOAStructureID"
+              [options]="modelSvc.bankAccountList" name="cOAStructureID" optionLabel="name" optionValue="id"
+              [style]="{ width: '100%' }" placeholder="{{fieldTitle['selectbankaccount']}}" inputValidator>
+            </p-select>
+
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['accountholdername']}}</label>
+            <input type="text" name="name" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.chequeBookDTO.accountName" name="accountName"
+              placeholder="{{fieldTitle['enteraccountholdername']}}">
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['chequetype']}}</label>
+            <p-select appendTo="body" [(ngModel)]="modelSvc.chequeBookDTO.chequeTypeCd"
+              [options]="modelSvc.chequeTypeList" name="chequeTypeCd" placeholder="{{fieldTitle['selectchequetype']}}"
+              optionLabel="value.value" optionValue="value.code" [style]="{ width: '100%' }" inputValidator>
+            </p-select>
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['chequebooknumber']}}</label>
+            <input type="text" name="chequeBookNo" class="form-control" inputValidator
+              [(ngModel)]="modelSvc.chequeBookDTO.chequeBookNo" placeholder="{{fieldTitle['enterchequebooknumber']}}">
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['noofleaf']}}</label>
+            <input type="text" name="noOfLeaf" class="form-control" niNumber inputValidator
+              (keyup)="onChequeEndNumber()" [(ngModel)]="modelSvc.chequeBookDTO.noOfLeaf"
+              placeholder="{{fieldTitle['enternoofleaf']}}">
+          </div>
+
+          <div class="form-group">
+            <label class="ni-sup">{{fieldTitle['chequeleafnostart']}}</label>
+            <input type="text" name="leafStartNo" class="form-control" inputValidator (keyup)="onChequeEndNumber()"
+              [(ngModel)]="modelSvc.chequeBookDTO.leafStartNo" niNumber
+              placeholder="{{fieldTitle['enterchequeleafnostart']}}">
+          </div>
+
+          <div class="form-group">
+            <label>{{fieldTitle['chequeleafnoend']}}</label>
+            <input type="text" name="leafEndNo" class="form-control" [(ngModel)]="modelSvc.chequeBookDTO.leafEndNo" placeholder="{{fieldTitle['chequeleafnoend']}}"
+              [disabled]="true">
+          </div>
+
+          <div class="form-check my-2">
+            <input class="form-check-input" id="isActive" name="isActive" type="checkbox"
+              [(ngModel)]="modelSvc.chequeBookDTO.isActive" />
+            <label class="form-check-label" for="isActive">{{fieldTitle['active']}}</label>
+          </div>
+
+          <div class="form-group mt-2 mb-0">
+            <div class="form-row d-flex justify-content-end">
+              <button type="button" class="btn btn-sm btn-success" [disabled]="!chequeBookForm.dirty"
+                (click)="saveChequeBook(chequeBookForm)">
+                <img src="../../../assets/images/icons/save.svg" alt="icon"> {{fieldTitle['save']}}
+              </button>
+              <button type="button" class="btn btn-sm btn-warning" [disabled]="!chequeBookForm.dirty" (click)="reset()">
+                <img src="../../../assets/images/icons/repeat.png" alt="icon"> {{fieldTitle['reset']}}
+              </button>
+              <button *ngIf="modelSvc.chequeBookDTO.id > 0" type="button" class="btn btn-sm btn-danger"
+                (click)="setNew()">
+                <img src="../../../assets/images/icons/x-circle.svg" alt="icon"> {{fieldTitle['cancel']}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-box p-3">
+        <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.chequeBookList" class="scrollable-table">
+          <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ entity.company }}</td>
+              <td *ngIf="this.modelSvc.isBranchModuleActive">{{ entity.org }}</td>
+              <td *ngIf="this.modelSvc.isProjectModuleActive">{{ entity.project }}</td>
+              <td>{{ entity.bankAccount }}</td>
+              <td>{{ entity.accountName }}</td>
+              <td>{{ entity.chequeType }}</td>
+              <td>{{ entity.chequeBookNo }}</td>
+              <td>{{ entity.noOfLeaf }}</td>
+              <td>{{ entity.leafStartNo }}</td>
+              <td>{{ entity.leafEndNo }}</td>
+              <td class="text-center">{{ entity.isActive | niBoolean }}</td>
+              <td>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" pButton pRipple icon="pi pi-pencil" class="p-button-primary p-mr-2" title="{{fieldTitle['edit']}}"
+                    (click)="edit(entity)"></button>
+                  <button type="button" niDbclickPrevent pButton pRipple icon="pi pi-trash" class="p-button-danger" title="{{fieldTitle['delete']}}"
+                    (click)="delete(entity)"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </app-ni-table>
+      </div>
+    </div>
+  </div>
+</div>

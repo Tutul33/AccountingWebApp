@@ -1,0 +1,117 @@
+
+.highcharts-area{
+    overflow-y:auto;
+    width:100%;
+}
+highcharts-chart{
+	border-radius:10px;
+    min-width:900px;
+    width:100%;
+}
+.highcharts-background{
+	fill:#fff !important;
+	border-radius:10px !important;
+}
+.highcharts-label{
+	span{
+		h4{
+			font-size: 14px !important;
+		}
+	}
+}
+.highcharts-series-hover{
+	z-index:1;
+	.highcharts-tracker{
+		z-index:0 !important;
+	}
+}
+.highcharts-tooltip-container{
+	z-index:99999999 !important;
+}
+
+
+
+
+@media  screen and (max-width:1549px){
+	app-org-structure,
+	app-org-structure-list{
+		.row{
+			.col-md-3 {
+				width: 32%;
+			}
+			.col-md-9 {
+				width: 68%;
+			}
+		}
+	}
+}
+	
+@media  screen and (max-width:1365px){
+	app-org-structure,
+	app-org-structure-list,
+	app-reporting-org-by-desig,
+	app-organization-reporting-person,
+	app-reporting-organization-structure{
+		.row{
+			.col-md-3 {
+				width: 40%;
+			}
+			.col-md-9 {
+				width: 60%;
+			}
+		}
+	}
+	.p-treenode-content {
+		.p-treenode-label {
+			span {
+				height: 38px;
+				display: flex;
+				align-items: center;
+				line-height: 18px;
+				font-size: 15px;
+			}
+		}
+	}
+}
+	
+@media  screen and (max-width:1099px){
+	app-org-structure,
+	app-org-structure-list,
+	app-reporting-org-by-desig,
+	app-organization-reporting-person,
+	app-reporting-organization-structure{
+		.card-body{
+			margin-bottom:0;
+			div.p-3{
+				padding:0 !important;
+			}
+		}
+	}
+}
+	
+@media  screen and (max-width:499px){
+	app-org-structure{
+		p-treenode {
+			width: 100%;
+			display: table;
+		}
+	}
+	app-org-structure{
+		.p-treenode-content {
+			.p-treenode-label {
+				span {
+					min-width: 150px;
+				}
+			}
+		}
+	}
+	app-org-structure{
+		.p-treenode-content {
+			.p-treenode-label {
+				span.p-button-icon {
+					min-width: auto;
+				}
+			}
+		}
+	}
+}

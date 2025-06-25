@@ -1,0 +1,47 @@
+
+<div class="card-section">
+  <div class="card-box p-3">
+    <p-table [value]="fileList">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{fieldTitle['serial']}}</th>
+          <th>{{fieldTitle['file']}}</th>
+          <th>{{fieldTitle['date']}}</th>
+          <th>{{fieldTitle['time']}}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-file let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ rowIndex + 1 }}</td>
+          <td>
+            <div class="attachedImage">
+              <span *ngIf="file.fileSrc == ''"
+                ><i class="fa fa fa-spinner fa-spin"></i
+              ></span>
+              <img
+                *ngIf="file.fileSrc != ''"
+                [niLoadImage]="file"
+                [imageOption]="fileOption"
+                src="{{ file.thubnailSrc ? file.thubnailSrc : file.fileSrc }}"
+                alt=""
+                class="img-responsive"
+              />
+              <div
+                *ngIf="file.thubnailSrc && file.filePath"
+                [niFileDownload]="file.filePath"
+                class="attachedImageHover"
+              ></div>
+              <div
+                *ngIf="!file.thubnailSrc"
+                (click)="imageGalleryModal(fileList, file)"
+                class="attachedImageHover"
+              ></div>
+            </div>
+          </td>
+          <td>{{ file.creationDate }}</td>
+          <td>{{ file.creationTime }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

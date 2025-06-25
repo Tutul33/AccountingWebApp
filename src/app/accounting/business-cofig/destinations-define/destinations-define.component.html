@@ -1,0 +1,23 @@
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['destinationsdefine']}}</h1>
+</div>
+<div class="card-box p-3">
+  <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.accountDestinationList">
+    <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ entity.destinationCode }}</td>
+        <td>{{ entity.destinations }}</td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <div class="form-check">
+              <input type="checkbox" [(ngModel)]="entity.isDefault" id="{{ 'isDefault' + rowIndex }}" name="{{ 'isDefault' + rowIndex }}" 
+              (ngModelChange)="changeActiveStatus(entity)" class="form-check-input"
+              [disabled]="entity.destinationCode == this.accountDestination.BalanceSheet || 
+              entity.destinationCode == this.accountDestination.IncomeStatement">
+            </div>
+          </div>
+        </td>    
+      </tr>
+    </ng-template>
+  </app-ni-table>
+</div>

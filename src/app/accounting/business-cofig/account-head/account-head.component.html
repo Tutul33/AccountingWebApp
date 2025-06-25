@@ -1,0 +1,14 @@
+<div class="card-head mb-2">
+  <h1 class="sub-section-title">{{fieldTitle['chartofaccountleveldepth']}}</h1>
+</div>
+<div class="card-box p-3">
+  <div class="form-check">
+    <input class="form-check-input" [(ngModel)]="modelSvc.isSkipped" id="isSkipped" name="isSkipped" (ngModelChange)="changeIsSkipped()" type="checkbox"/>
+    <label class="form-check-label" for="isSkipped">{{fieldTitle['isskipcontrolledger']}}</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" [(ngModel)]="modelSvc.isCOA" id="isCOA" name="isCOA" (ngModelChange)="onChangeCOA()" type="checkbox"/>
+    <label class="form-check-label" for="isCOA">{{fieldTitle['coacodeisactive']}}</label>
+  </div>
+</div>

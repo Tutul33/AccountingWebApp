@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-lg-4 col-sm-4 col-xs-12">
+    <div class="card-body">
+      <app-module-tree-view (outputEvent)="handleOutputEvent($event)"></app-module-tree-view>
+    </div>
+  </div>
+  <div class="col-lg-8 col-sm-8 col-xs-12">
+    <div class="card-body">
+      <form class="ng-untouched ng-pristine ng-valid" *ngIf="showPage">
+        <div class="position-relative">
+          <button type="button" class="btn btn-sm btn-primary btn-absolute ms-0" (click)="addPage()">
+            <img src="../../../assets/images/icons/plus-circle.svg" alt="reset">{{fieldTitle['addpage']}}
+          </button>
+          <app-ni-table [gridOption]="gridOption" [valueList]="modelSvc.pageList" class=" smaller-elements">            
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+              <tr>
+                <td>{{item.moduleName}}</td>
+                <td>{{item.pageTitle}}</td>
+                <td>{{item.serialNo}}</td>
+                <td>{{item.action}}</td>
+                <td class="not-last-child text-center">
+                  <div class="d-flex align-items-center justify-content-center">                          
+                    <button type="button" niDbclickPrevent class="p-button-primary" pButton pRipple icon="pi pi-pencil" (click)="editPage(item)"></button>
+                    <button type="button" niDbclickPrevent class="p-button-danger" pButton pRipple icon="pi pi-trash" (click)="deletePage(item)"></button>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </app-ni-table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
